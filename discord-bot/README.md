@@ -2,6 +2,8 @@
 
 A Discord bot for interacting with your Dojo world via Torii.
 
+Cloned from [dojo.js/examples/node/torii-bot](https://github.com/dojoengine/dojo.js/tree/main/examples/node/torii-bot)
+
 Features:
 
 -   Poll a Torii for information.
