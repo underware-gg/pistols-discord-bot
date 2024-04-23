@@ -1,0 +1,408 @@
+
+$font-family: 'EB Garamond', serif;
+$font-family-mono: 'Courier Prime', monospace;
+
+// Figma colors
+// https://www.figma.com/file/eseZA1jRIoX6IYNtoHgz30/Pistols-at-Ten-Blocks
+$color-bg: #141217;
+$color-darkest: #0a090b;
+$color-dark: #784f40;
+$color-medium: #FFBEA6;
+$color-bright: #c8b6a8;
+$color-brightest: #F3E9C3;
+
+$color-white: $color-brightest;
+$color-shadow: $color-dark;
+$color-text: $color-bright;
+$color-link: $color-medium;
+$color-important: $color-medium;
+$color-active: $color-medium;
+$color-inactive: rgba($color-brightest, 0.35);
+$color-attention: $color-medium;
+$text-shadow: 0.04em 0.04em 2px $color-dark;
+$title-shadow: 0.1em 0.1em 1px $color-darkest;
+$ui-border: 6px ridge $color-active;
+
+$border-hr: solid 0.5px rgba($color-bright, 0.5);
+$border-button: 1px solid $color-bright;
+$border-button-active: 1px solid $color-brightest;
+$border-button-inactive: 1px solid rgba($color-bright, 0.5);
+
+$color-positive: #4dcb51; // from $color-medium
+$color-negative: #e73e3e; // from $color-medium
+$color-warning: $color-medium;
+$color-blue: #4dcbc9; // from $color-medium
+
+$game-width: 960px;
+$game-height: 540px;
+$ui-height: 180px;
+$ui-compass-width: 360px;
+$ui-column: 60px;
+$ui-row: 40px;
+
+html {
+	overflow: scroll;
+	// scroll-behavior: smooth;
+}
+
+html, body {
+  font-family: $font-family;
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 400;
+  box-sizing: border-box;
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  background-color: $color-bg;
+  color: $color-text;
+  // text-shadow: $text-shadow;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  transition: border-color 0.25s;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+a {
+  color: $color-link;
+  text-decoration: inherit;
+  font-weight: 600;
+}
+
+a:hover {
+  color: $color-link;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+h1 { font-size: 2.6em; }
+h2 { font-size: 2.2em; }
+h3 { font-size: 1.8em; }
+h4 { font-size: 1.5em; }
+h5 { font-size: 1.2em; }
+
+h1, h2, h3, h4, h5 {
+  font-family: $font-family;
+  // text-shadow: $text-shadow;
+  line-height: 1.2em;
+  margin: 0.2em 0;
+  color: $color-brightest;
+}
+
+hr {
+  border: $border-hr;
+}
+
+button {
+  background-color: $color-active;
+  color: $color-bg;
+  text-shadow: $text-shadow;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  padding: 0.5em 1.0em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+canvas {
+  display: block;
+}
+
+
+//-----------------------------------
+// scss mixins
+// https: //sass-lang.com/documentation/at-rules/mixin
+@mixin make-box-shadow($values_) {
+	-webkit-box-shadow: $values_;
+	-moz-box-shadow: $values_;
+	box-shadow: $values_;
+}
+@mixin make-animation($duration_, $ease_, $count_, $name_) {
+	animation-duration: $duration_;
+	animation-timing-function: $ease_;
+	animation-iteration-count: $count_;
+	animation-fill-mode: forwards;
+	animation-name: $name_;
+	-webkit-animation-duration: $duration_;
+	-webkit-animation-timing-function: $ease_;
+	-webkit-animation-iteration-count: $count_;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-name: $name_;
+}
+
+
+//------------------------
+// GENERIC
+//
+
+.AlignLeft { text-align: left!important; justify-content: left!important; }
+.AlignCenter { text-align: center!important; justify-content: center!important; }
+.AlignRight { text-align: right!important; justify-content: right!important; }
+.AlignTop { vertical-align: top; }
+.AlignMiddle { vertical-align: middle; }
+.AlignBottom { vertical-align: bottom; }
+
+.NoPadding { padding: 0!important; }
+.NoMargin { margin: 0!important }
+.NoBorder { border: 0!important }
+.AutoMargin { margin: auto!important }
+
+.Padded { padding: 0.5em!important; }
+.PaddedLeft { padding-left: 0.5em!important; }
+.PaddedRight { padding-right: 0.5em!important; }
+.PaddedTop { padding-top: 0.5em!important; }
+.PaddedBottom { padding-bottom: 0.5em!important; }
+
+.Margin6 { margin: 6px!important }
+
+.Block { display: inline-block; }
+.Flex { display: flex; }
+
+.NoMouse { pointer-events: none; }
+.YesMouse { pointer-events: auto; }
+
+.Important {
+  color: $color-important;
+}
+.Black {
+  color: $color-darkest;
+}
+.Bold {
+  color: $color-brightest;
+  font-weight: 600;
+}
+
+.Positive {
+  // background-color: inherit!important;
+  color: $color-positive!important;
+  // color: inherit!important;
+}
+.Negative {
+  // background-color: inherit!important;
+  color: $color-negative!important;
+}
+.Warning {
+  // background-color: inherit!important;
+  color: $color-warning!important;
+}
+.Canceled {
+  // background-color: inherit!important;
+  color: $color-inactive!important;
+}
+
+.Code {
+  font-family: $font-family-mono;
+  font-size: 12px;
+}
+
+.Quote {
+  font-style: italic;
+}
+
+.Smaller {
+  font-size: 10px;
+}
+.Larger {
+  font-size: 1.5em!important;
+}
+
+.Faded {
+  background-color: #0002;
+}
+
+.AboveAll {
+  z-index: 1000;
+}
+
+.Anchor {
+  cursor: pointer;
+  pointer-events: all!important;
+}
+
+.Spacer5 {
+  width: '100%';
+  min-height: 5px;
+}
+.Spacer10 {
+  width: '100%';
+  min-height: 10px;
+}
+.Spacer20 {
+  width: '100%';
+  min-height: 20px;
+}
+.Spacer50 {
+  width: '100%';
+  min-height: 50px;
+}
+
+.Hidden {
+  display: none!important;
+}
+
+.Relative {
+  position: relative;
+}
+.AbsoluteLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.AbsoluteRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.Grayscale {
+  filter: grayscale(100%); /* Current draft standard */
+  -webkit-filter: grayscale(100%); /* New WebKit */
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%); 
+  -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */ 
+  filter: gray; /* IE */
+  -webkit-filter: grayscale(1); /* Old WebKit */
+}
+
+.Sepia {
+  filter: sepia(100%); /* Current draft standard */
+  -webkit-filter: sepia(100%); /* New WebKit */
+  -moz-filter: sepia(100%);
+  -ms-filter: sepia(100%); 
+  -o-filter: sepia(100%); /* Not yet supported in Gecko, Opera or IE */ 
+  filter: rgb(185, 176, 117); /* IE */
+  -webkit-filter: sepia(1); /* Old WebKit */
+}
+
+.FillWidth {
+  width: 100%!important;
+  min-width: 100%;
+  align-items: center;
+}
+.FillHeight {
+  height: 100%!important;
+  min-height: 100%;
+  vertical-align: middle;
+}
+.FillParent {
+  @extend .FillWidth, .FillHeight;
+}
+
+.CenteredContainer {
+	height: 100%;
+  min-height: 100%;
+	width: 100%;
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
+	// text-align: center;
+}
+
+TextArea {
+  font-family: $font-family-mono;
+  background-color: $color-dark;
+  color: $color-text;
+  width: 100%;
+  height: 400px;
+}
+TextArea::selection {
+  background-color: $color-brightest;
+  color: $color-dark;
+}
+
+
+
+//------------------------
+// CUSTOM
+//
+
+.App {
+	// font-family: $font-family;
+	min-width: 100vw;
+    width: 100vw;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    position: relative;
+}
+.App::-webkit-scrollbar{
+    display: none;
+}
+
+.Logo {
+  width: 256px;
+  height: 256px;
+}
+
+.TitleCase {
+  font-variant-caps: small-caps;
+}
+
+.button{
+    background-color:#5865F2;
+    height: 4rem;
+    width: 12rem;
+    font-size: 1rem;
+    color: white;
+    border-radius: 12px;
+}
+.Profilepicture{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin-left: 0rem;
+}
+.Profileimage{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+.form-control{
+    height: 3rem;
+    width: 18rem;
+    border-radius: 12px;
+    color: black;
+    padding-inline: 1rem;
+}
+.walletbutton, .logoutbutton{
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
