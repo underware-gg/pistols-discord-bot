@@ -23,15 +23,31 @@ Copy `.env.example` to `.env` and edit it:
 
 ```
 DISCORD_TOKEN=<DISCORD TOKEN>
-TORII=http://0.0.0.0:8080
 DISCORD_CHANNEL_ID=<DISCORD CHANNEL>
-GAME_URL=https://pistols.lootunder.world
+TORII_URL=http://0.0.0.0:8080
+CLIENT_URL=https://pistols.lootunder.world
 ```
 
-### Developing
+### Install dependencies
 
 ```bash
 bun install
+```
+
+#### Codegen
+
+Add your GraphQL schema to `src/graphql/schema.graphql`, then run
+
+```bash
+bun run codegen
+```
+
+Now you can access the sdk in your app like:
+
+```js
+import { sdk } from "../config";
+
+const { data } = await sdk.getMoves({ player });
 ```
 
 ### Terminal 1 - Serve the Bot
@@ -53,22 +69,6 @@ Now, try running it on your server. Remember to restart your bot after making ch
 Torii exposes dynamically generated models based on your world's models. We can use this to generate a GraphQL SDK for easy querying of the world.
 
 You can access the GraphQL dashboard by navigating to [http://0.0.0.0:8080/graphql](http://0.0.0.0:8080/graphql) if your Torii is running locally.
-
-#### Codegen
-
-Add your GraphQL schema to `src/graphql/schema.graphql`, then run
-
-```bash
-bun run codegen
-```
-
-Now you can access the sdk in your app like:
-
-```js
-import { sdk } from "../config.js";
-
-const { data } = await sdk.getMoves({ player });
-```
 
 ### Create discord bot step by step
 
