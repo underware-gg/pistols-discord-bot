@@ -17,6 +17,17 @@ Features:
 
 > Follow the steps [below](#create-discord-bot-step-by-step) to obtain your Discord Token. You will also need to acquire your Discord channel ID where you want to send messages. You can obtain this by right-clicking on a channel in your Discord and selecting 'Copy Channel ID'.
 
+### Environemnt variables
+
+Copy `.env.example` to `.env` and edit it:
+
+```
+DISCORD_TOKEN=<DISCORD TOKEN>
+TORII=http://0.0.0.0:8080
+DISCORD_CHANNEL_ID=<DISCORD CHANNEL>
+GAME_URL=https://pistols.lootunder.world
+```
+
 ### Developing
 
 ```bash
