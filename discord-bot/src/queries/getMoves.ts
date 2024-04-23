@@ -1,5 +1,5 @@
-import { sdk } from "../config.js";
-import { client } from "../index.js";
+import { sdk } from "../config";
+import { client } from "..";
 
 export const getTransations = async () => {
     try {
