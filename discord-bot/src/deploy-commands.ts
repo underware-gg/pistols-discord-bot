@@ -29,7 +29,7 @@ for (const folder of commandFolders) {
 
 // Construct and prepare an instance of the REST module
 const rest = new REST().setToken(
-  "MTIzMjQ3OTA0ODQyOTYwMDc2OA.G0mt5r.uhmRjc76hh51AtuwTimyjoG6RJ42qmphcEdlt4"
+  //discord token here
 );
 
 // and deploy your commands!
@@ -48,7 +48,7 @@ const rest = new REST().setToken(
     //   { body: commands }
     // );
     const data = await rest.put(
-      //   Routes.applicationCommands("1232479048429600768"),
+        Routes.applicationCommands(//application id here),
       {
         body: commands,
       }
