@@ -1,5 +1,6 @@
 import { sdk } from "../config";
 import { client } from "..";
+// import { client } from "./discordClient";
 
 export const getTransations = async () => {
     try {
@@ -7,7 +8,7 @@ export const getTransations = async () => {
             console.log(data);
             client.channels
                 .fetch(process.env.DISCORD_CHANNEL_ID || "")
-                .then((channel) => {
+                .then((channel: any) => {
                     if (channel?.isTextBased()) {
                         channel.send({
                             embeds: [
@@ -28,9 +29,10 @@ export const getTransations = async () => {
     }
 };
 
-export const getMoves = async (player: string) => {
+export const getChallenges = async (state: string) => {
     try {
-        const { data } = await sdk.getMoves({ player });
+        // const playerId = "your-player-id";
+        const { data } = await sdk.getChallenges({ state });
 
         return data;
     } catch (error) {
