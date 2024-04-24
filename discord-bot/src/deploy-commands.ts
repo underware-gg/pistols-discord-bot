@@ -48,7 +48,7 @@ const rest = new REST().setToken(
     //   { body: commands }
     // );
     const data = await rest.put(
-      Routes.applicationCommands("1232479048429600768"),
+      //   Routes.applicationCommands("1232479048429600768"),
       {
         body: commands,
       }

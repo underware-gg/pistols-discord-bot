@@ -23,7 +23,7 @@ export const client = new SapphireClient({
 console.log("Logging in.....");
 
 await client.login(
-  "MTIzMjQ3OTA0ODQyOTYwMDc2OA.G0mt5r.uhmRjc76hh51AtuwTimyjoG6RJ42qmphcEdlt4"
+//   "MTIzMjQ3OTA0ODQyOTYwMDc2OA.G0mt5r.uhmRjc76hh51AtuwTimyjoG6RJ42qmphcEdlt4"
 );
 
 // setInterval(getTransations, POLL_INTERVAL * 3);
