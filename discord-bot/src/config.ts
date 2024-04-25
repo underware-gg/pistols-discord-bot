@@ -1,5 +1,5 @@
-import { Sdk, getSdk } from "./generated/graphql.js";
 import { GraphQLClient } from "graphql-request";
+import { Sdk, getSdk } from "./generated/graphql.js";
 import { dojoConfig } from "./dojoConfig.js";
 
 export const sdk: Sdk = getSdk(

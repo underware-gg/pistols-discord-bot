@@ -1,0 +1,10 @@
+query getChallenges($state: u8!) {
+  challengeModels(where: { state: $state }) {
+    edges {
+      node {
+        duel_id
+        state
+      }
+    }
+  }
+}

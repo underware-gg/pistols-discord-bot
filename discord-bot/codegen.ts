@@ -1,7 +1,9 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
-// const { TORII_Url } = require("dotenv").config();
+import * as dotenv from "dotenv";
+dotenv.config();
+
 const config: CodegenConfig = {
-  schema: "https://api.cartridge.gg/x/pistols/torii/graphql",
+  schema: process.env.TORII_URL + "/graphql",
   documents: "src/**/*.graphql",
   generates: {
     "src/generated/graphql.ts": {

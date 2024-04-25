@@ -2165,11 +2165,6 @@ export type GetChallengesQueryVariables = Exact<{
 
 export type GetChallengesQuery = { __typename?: 'World__Query', challengeModels?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, state?: any | null } | null } | null> | null } | null };
 
-export type GetTransationsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetTransationsQuery = { __typename?: 'World__Query', transactions?: { __typename?: 'World__TransactionConnection', totalCount: number, edges?: Array<{ __typename?: 'World__TransactionEdge', node?: { __typename?: 'World__Transaction', id?: string | null, transactionHash?: any | null, senderAddress?: any | null, calldata?: Array<any | null> | null } | null } | null> | null } | null };
-
 
 export const GetChallengesDocument = gql`
     query getChallenges($state: u8!) {
@@ -2183,35 +2178,16 @@ export const GetChallengesDocument = gql`
   }
 }
     `;
-export const GetTransationsDocument = gql`
-    query getTransations {
-  transactions {
-    edges {
-      node {
-        id
-        transactionHash
-        senderAddress
-        calldata
-      }
-    }
-    totalCount
-  }
-}
-    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
 
 const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
 const GetChallengesDocumentString = print(GetChallengesDocument);
-const GetTransationsDocumentString = print(GetTransationsDocument);
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
     getChallenges(variables: GetChallengesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesQuery>(GetChallengesDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallenges', 'query', variables);
-    },
-    getTransations(variables?: GetTransationsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetTransationsQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
-        return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetTransationsQuery>(GetTransationsDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getTransations', 'query', variables);
     }
   };
 }

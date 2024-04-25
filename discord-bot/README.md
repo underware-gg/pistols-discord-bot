@@ -11,13 +11,19 @@ Torii exposes dynamically generated models based on your world's models. We can 
 You can access the GraphQL dashboard by navigating to [https://api.cartridge.gg/x/pistols/torii/graphql](https://api.cartridge.gg/x/pistols/torii/graphql) or [http://0.0.0.0:8080/graphql](http://0.0.0.0:8080/graphql) if your Torii is running locally.
 
 
-## Setup
+## Development Setup
+
+It is recommended that each developer create their own bot on Discord for testing.
+
+Give it wour name so we can identify each one, like: `pistols-bot-joe`
+
+Contact us to get the test server invite and roles.
 
 > Follow the steps [below](#create-discord-bot-step-by-step) to obtain your Discord Token and Application ID. You will also need to acquire your Discord channel ID where you want to send messages. You can obtain this by right-clicking on a channel in your Discord and selecting 'Copy Channel ID'.
 
 ### Environemnt variables
 
-Copy `.env.example` to `.env` and edit it. Get 
+Copy `.env.example` to `.env` and edit it. Replace the tokens for your own on `.env`.
 
 ```
 DISCORD_TOKEN=<DISCORD_TOKEN>
@@ -37,7 +43,7 @@ npm install
 
 ### Codegen
 
-Add GraphQL queries to `src/graphql/schema.graphql`, then run
+For every new or updated query in `src/graphql/`, you need to run...
 
 ```bash
 npm run codegen
@@ -46,7 +52,7 @@ npm run codegen
 Now you can access the sdk in your app like:
 
 ```js
-import { sdk } from "../config";
+import { sdk } from "../config.js";
 
 const { data } = await sdk.getChallenges({ state });
 ```
