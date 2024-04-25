@@ -52,7 +52,7 @@ const rest = new REST().setToken(
       {
         body: commands,
       }
-    );
+    ));
 
     console.log(
       `Successfully reloaded ${data.length} application (/) commands.`
