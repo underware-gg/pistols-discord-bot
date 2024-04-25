@@ -16,7 +16,7 @@
         "rootDir": "./",
         "allowJs": true,
         "outDir": "dist",
-        "types": ["bun-types"]
+        "types": []
     },
     "include": [
         "./src/**/*",

@@ -1,7 +1,7 @@
 import { SapphireClient } from "@sapphire/framework";
 import { GatewayIntentBits } from "discord.js";
-import { POLL_INTERVAL } from "./config.js";
-import { getTransations } from "./queries/getMoves.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 export const client = new SapphireClient({
     intents: [
@@ -12,8 +12,9 @@ export const client = new SapphireClient({
     loadMessageCommandListeners: true,
 });
 
+console.log(`Torii url:`, process.env.TORII_URL)
+console.log(`Client url:`, process.env.CLIENT_URL)
+console.log(`Token:`, process.env.DISCORD_TOKEN ? 'Ok' : undefined)
+
 console.log("Logging in.....");
-
 await client.login(process.env.DISCORD_TOKEN);
-
-setInterval(getTransations, POLL_INTERVAL * 3);
