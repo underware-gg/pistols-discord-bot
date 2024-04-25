@@ -1,7 +1,7 @@
 import { Command } from "@sapphire/framework";
-import { getChallenges } from "../queries/getChallenges.js";
+import { getChallengesByState } from "../queries/getChallenges.js";
 import { ChallengeState } from "../utils/constants.js";
-import { formatChallengesAsEmbeds, formatChallengesAsText } from "../utils/challenges.js";
+import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 import { Challenge } from "../generated/graphql.js";
 
 //
@@ -44,7 +44,7 @@ export class LiveDuelsCommand extends Command {
 
         await interaction.deferReply();
 
-        const challenges: Challenge[] = await getChallenges(state);
+        const challenges: Challenge[] = await getChallengesByState(state);
 
         if (challenges) {
             return interaction.editReply({

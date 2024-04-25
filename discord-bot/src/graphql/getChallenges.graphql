@@ -1,9 +1,34 @@
-query getChallenges($state: u8!) {
+query getChallengesByState($state: u8!) {
   challengeModels(where: { state: $state }) {
     edges {
       node {
         duel_id
+        duelist_a
+        duelist_b
+        message
+        round_number
         state
+        timestamp_end
+        timestamp_start
+        winner
+      }
+    }
+  }
+}
+
+query getChallengesById($duel_id: u128!) {
+  challengeModels(where: { duel_id: $duel_id }) {
+    edges {
+      node {
+        duel_id
+        duelist_a
+        duelist_b
+        message
+        round_number
+        state
+        timestamp_end
+        timestamp_start
+        winner
       }
     }
   }
