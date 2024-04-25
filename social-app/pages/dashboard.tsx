@@ -1,9 +1,11 @@
 import { parseCookies, destroyCookie } from "nookies";
-import { verify } from "jsonwebtoken";
+import { JwtPayload, verify } from "jsonwebtoken";
 import { useState } from "react";
 import Image from "next/image";
 import App from "@/components/App";
 import Router from "next/router";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = ({ user }) => {
   const [walletAddresses, setWalletAddresses] = useState({
@@ -16,14 +18,75 @@ const Dashboard = ({ user }) => {
   };
 
   const handleLogout = () => {
-    destroyCookie(null, "token"); // Clear authentication token
-    Router.push("/api/logout"); // Redirect to logout endpoint
+    destroyCookie(null, "token");
+    Router.push("/api/logout");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here, e.g., send updated walletAddresses to the backend
-    console.log("Updated Wallet Addresses:", walletAddresses);
+    try {
+      const token = parseCookies().token;
+      const response = await fetch("/api/databaseops", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          discord_id: user.id,
+          duelist: walletAddresses.duelist,
+        }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(data.message);
+      } else {
+        if (response.status === 401) {
+          toast.error("Unauthorized access. Please log in again.");
+        } else if (response.status === 404) {
+          toast.error("Resource not found.");
+        } else {
+          toast.error("Failed to save wallet.");
+        }
+      }
+    } catch (error) {
+      console.error("Error saving data:", error);
+      toast.error("Failed to save data.");
+    }
+  };
+
+  const retrieveAccountDetails = async () => {
+    try {
+      const id = user.id;
+      if (!id) {
+        console.error("User id is undefined");
+        return;
+      }
+      const token = parseCookies().token;
+      const response = await fetch("/api/fetchAccount", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id: id }),
+      });
+      const data = await response.json();
+
+      if (Array.isArray(data) && data.length > 0) {
+        const accountDetails = data[0];
+        const duelistAddress = accountDetails.duelist_address;
+
+        setWalletAddresses({ ...walletAddresses, duelist: duelistAddress });
+        toast.success("Wallet retrieved successfully.");
+      } else {
+        console.error("Invalid data format");
+        toast.error("Failed to retrieve wallet.");
+      }
+    } catch (error) {
+      console.error("Error retrieving account details:", error);
+      toast.error("Failed to retrieve wallet.");
+    }
   };
 
   const avatarUrl =
@@ -58,16 +121,21 @@ const Dashboard = ({ user }) => {
                   id="duelist"
                   name="duelist"
                   value={walletAddresses.duelist}
-                  onChange={handleChange} // Add onChange handler here
+                  onChange={handleChange}
                 />
               </div>
               <button type="submit" className="walletbutton">
-                Save Changes
+                Save Wallet
               </button>
             </form>
-            <button onClick={handleLogout} className="logoutbutton">
-              Logout
-            </button>
+            <span className="wallet-container">
+              <button onClick={retrieveAccountDetails} className="walletbutton">
+                Retrieve Wallet
+              </button>
+              <button onClick={handleLogout} className="logoutbutton">
+                Logout
+              </button>
+            </span>
           </>
         ) : (
           <p>You are not logged in.</p>
@@ -82,7 +150,7 @@ export async function getServerSideProps(context) {
   const token = cookies.token;
 
   try {
-    const decoded = verify(token, "thisisasecret");
+    const decoded = verify(token, "thisisasecret") as JwtPayload;
     return { props: { user: decoded.user } };
   } catch (err) {
     return {
@@ -93,5 +161,4 @@ export async function getServerSideProps(context) {
     };
   }
 }
-
 export default Dashboard;

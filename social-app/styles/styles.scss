@@ -405,4 +405,9 @@ TextArea::selection {
     border-radius: 8px;
     margin-bottom: 1rem;
 }
-
+.wallet-container{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    gap: 1rem;
+}
