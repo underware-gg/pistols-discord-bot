@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@discord/embedded-app-sdk": "^1.1.2",
+    "@supabase/supabase-js": "^2.42.7",
     "@types/node-fetch": "^2.6.11",
     "axios": "^1.6.8",
     "clsx": "^2.1.1",
