@@ -1,8 +1,8 @@
 import React from "react";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { Button } from "semantic-ui-react";
 import App from "@/components/App";
 import Logo from "@/components/Logo";
-import { useRouter } from "next/router";
 
 export default function IndexPage() {
   const router = useRouter();
@@ -11,15 +11,23 @@ export default function IndexPage() {
     router.push("/api/oauth");
   };
 
+  const _login = () => {
+    const app_id = process.env.NEXT_PUBLIC_CLIENT_ID
+    const redirect_uri = encodeURIComponent(process.env.NEXT_PUBLIC_REDIRECT_URI)
+    const url = `https://discord.com/oauth2/authorize?client_id=${app_id}&response_type=code&redirect_uri=${redirect_uri}&scope=identify+email`
+    window.location.href = url
+  }
+
   return (
     <App>
       <div className="AlignCenter">
         <Logo />
-        <h1 className="TitleCase">Pistols</h1>
+        <h1 className="TitleCase">Pistols at 10 Blocks</h1>
+        <h3 className="TitleCase">Social Link</h3>
         <div className="Spacer10" />
-        <a href="https://discord.com/oauth2/authorize?client_id=1232095996423704677&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Foauth&scope=identify+email">
-          <button className="button">Discord Login</button>
-        </a>
+        <Button onClick={() => _login()}>
+          Discord Login
+        </Button>
         <div style={{ height: "5vh" }}>&nbsp;</div>
       </div>
     </App>

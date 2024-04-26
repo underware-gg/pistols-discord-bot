@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# PISTOLS SOCIAL APP
 
-First, run the development server:
+Simple to link your Discord user to your [Pistols at 10 Blocks](https://pistols.lootunder.world/) duelist
+
+
+## Development Setup
+
+It is recommended that each developer create their own bot on Discord for testing.
+
+Give it wour name so we can identify each one, like: `pistols-bot-joe`
+
+Contact us to get the test server invite and roles.
+
+> Follow the steps [below](#setup-discord-app) to setup your Discord app...
+
+
+### Environment variables
+
+Copy `.env.example` to `.env` and edit it. Replace the tokens for your own on `.env`.
+
+```
+# Discord
+CLIENT_SECRET=<SECRET>
+NEXT_PUBLIC_CLIENT_ID=<OAUTH2_CLIENT_ID>
+NEXT_PUBLIC_REDIRECT_URI=http://localhost:3000/api/oauth
+# Supabase
+SUPABASE_SERVICE_KEY=<SECRET>
+NEXT_PUBLIC_SUPABASE_URL=<SUPABASE_URL>
+# Pistols
+NEXT_PUBLIC_TORII_URL=https://api.cartridge.gg/x/pistols/torii
+NEXT_PUBLIC_CLIENT_URL=https://pistols.lootunder.world
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run development server
 
 ```bash
 bun run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-npm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Setup Discord App
 
-To learn more about Next.js, take a look at the following resources:
+This app does not need the bot to be operational
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> Follow the steps on [discord-bot](/discord-bot/README.md#create-discord-bot-step-by-step) to create and setup your bot app.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+* Step 8: Go to your ap `OAuth2` page and get your `CLIENT_ID` and `CLIENT_SECRET`.
+![Step 8 ](./images/Step%208.png)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
