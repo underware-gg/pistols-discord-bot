@@ -2158,16 +2158,74 @@ export type World__TransactionEdge = {
   node?: Maybe<World__Transaction>;
 };
 
+export type GetChallengesByStateQueryVariables = Exact<{
+  state: Scalars['u8']['input'];
+}>;
 
+
+export type GetChallengesByStateQuery = { __typename?: 'World__Query', challengeModels?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+
+export type GetChallengesByIdQueryVariables = Exact<{
+  duel_id: Scalars['u128']['input'];
+}>;
+
+
+export type GetChallengesByIdQuery = { __typename?: 'World__Query', challengeModels?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+
+
+export const GetChallengesByStateDocument = gql`
+    query getChallengesByState($state: u8!) {
+  challengeModels(where: {state: $state}) {
+    edges {
+      node {
+        duel_id
+        duelist_a
+        duelist_b
+        message
+        round_number
+        state
+        timestamp_end
+        timestamp_start
+        winner
+      }
+    }
+  }
+}
+    `;
+export const GetChallengesByIdDocument = gql`
+    query getChallengesById($duel_id: u128!) {
+  challengeModels(where: {duel_id: $duel_id}) {
+    edges {
+      node {
+        duel_id
+        duelist_a
+        duelist_b
+        message
+        round_number
+        state
+        timestamp_end
+        timestamp_start
+        winner
+      }
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
 
 const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
-
+const GetChallengesByStateDocumentString = print(GetChallengesByStateDocument);
+const GetChallengesByIdDocumentString = print(GetChallengesByIdDocument);
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-
+    getChallengesByState(variables: GetChallengesByStateQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByStateQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesByStateQuery>(GetChallengesByStateDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengesByState', 'query', variables);
+    },
+    getChallengesById(variables: GetChallengesByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByIdQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesByIdQuery>(GetChallengesByIdDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengesById', 'query', variables);
+    }
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;
