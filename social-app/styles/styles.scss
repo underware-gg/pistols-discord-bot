@@ -364,7 +364,14 @@ TextArea::selection {
 }
 
 .TitleCase {
+  // text-transform: uppercase;
   font-variant-caps: small-caps;
+}
+
+.Title {
+  @extend .TitleCase;
+  text-shadow: $title-shadow;
+  font-size: 2em !important;
 }
 
 .button{
@@ -410,4 +417,481 @@ TextArea::selection {
     align-self: center;
     justify-content: center;
     gap: 1rem;
+}
+
+
+
+//-----------------------------
+// semantic-ui
+//
+._round_border {
+  border: $border-button !important;
+  border-radius: 0.5em !important;
+}
+
+._round_border_active {
+  border: $border-button-active !important;
+  border-radius: 0.5em !important;
+}
+
+._round_border_inactive {
+  border: $border-button-inactive !important;
+  border-radius: 0.5em !important;
+}
+
+// 
+// <Input>
+input::placeholder {
+  @extend .TitleCase;
+  font-family: $font-family;
+  color: $color-inactive !important;
+  font-style: normal;
+}
+
+.ui.input>input,
+.ui.form input:not([type]),
+.ui.selection.dropdown {
+  @extend ._button_shape, ._round_border;
+  background-color: $color-dark !important;
+  // color: rgba($color-text, 0.75)!important;
+  color: $color-text !important;
+}
+
+.ui.selection.dropdown {
+  color: $color-brightest !important;
+}
+
+.ui.form input[type=text],
+.ui.form input[type=text]:focus {
+  font-family: $font-family;
+  color: $color-brightest;
+  padding: 0.5em 1em;
+}
+
+.ui.input>input:active,
+.ui.input>input:focus,
+.ui.form input:not([type]):focus {
+  @extend ._round_border_active;
+  background-color: $color-dark;
+  color: $color-brightest !important;
+}
+
+.ui.label {
+  @extend ._round_border;
+  font-family: $font-family;
+  background-color: $color-bright;
+  color: $color-dark;
+  text-shadow: none;
+}
+
+.ui.dropdown .menu,
+.ui.selection.visible.dropdown>.text:not(.default),
+.ui.active.search.dropdown input.search:focus+.text,
+.ui.dropdown .menu .selected.item {
+  @extend ._round_border;
+  background-color: $color-darkest !important;
+  color: $color-brightest !important;
+  font-weight: 600;
+}
+
+.ui.selection.dropdown .menu>.item {
+  background-color: $color-dark !important;
+  color: $color-text !important;
+  border-top: $border-hr;
+}
+
+.ui.floating.dropdown>.menu {
+  @extend ._round_border;
+  margin-top: 0 !important;
+}
+
+.ui.dropdown .menu>.item {
+  color: $color-brightest !important;
+}
+
+// forms
+.FormLabel {
+  @extend .TitleCase;
+  color: $color-text;
+  font-size: 1.1em;
+  line-height: 1.2em;
+}
+
+.ui.form .field>label {
+  font-family: $font-family;
+  color: $color-bright;
+}
+
+//
+// <Grid>
+.ui.grid {
+  margin: auto;
+}
+
+.ui.grid>.row {
+  padding: 0.25rem 0; // original: 1.0rem 0
+}
+
+.ui.grid>.row>.column {
+  padding: 0 0.25rem; // original: 1.0rem 0
+}
+
+//
+// <Button>
+._button_shape {
+  font-size: 1.2rem; // semantic: 1rem;
+  padding: 0.5em 1em; // semantic: 0.78571429em 1.5em 0.78571429em;
+  margin: 0.15em 0;
+  line-height: 1em;
+  min-height: 30px;
+  margin: 0.15em 0;
+}
+
+._button {
+  @extend ._button_shape, ._round_border, .TitleCase;
+  font-family: $font-family;
+  background-color: rgba($color-dark, 0.6);
+  color: $color-text;
+}
+
+._button_hover {
+  background-color: $color-bright;
+  color: $color-dark;
+  text-shadow: $text-shadow;
+}
+
+._button_focus {
+  @extend ._round_border_active;
+  background-color: $color-dark;
+  color: $color-text;
+  text-shadow: $text-shadow;
+}
+
+._button_active {
+  background-color: $color-brightest;
+  color: $color-dark;
+  text-shadow: $text-shadow;
+}
+
+._button_disabled {
+  @extend ._round_border_inactive;
+  color: $color-inactive;
+  opacity: 1 !important;
+}
+
+.ui.button {
+  @extend ._button;
+}
+
+.ui.button:hover {
+  @extend ._button_hover;
+}
+
+.ui.button:focus {
+  @extend ._button_focus;
+}
+
+.ui.button:active {
+  @extend ._button_active;
+}
+
+.ui.button:disabled {
+  @extend ._button_disabled;
+}
+
+.ui.button.toggle.active,
+.ui.buttons .button.toggle.active,
+.ui.toggle.buttons .active.button {
+  background-color: $color-important !important;
+}
+
+.ui.button.toggle.active:hover {
+  background-color: $color-important !important; // default is green
+}
+
+//
+// <Menu> buttons
+.ui.menu {
+  background-color: transparent;
+}
+
+.ui.menu .item,
+.ui.secondary.menu .item {
+  @extend ._button;
+  margin: 0 0.15em;
+}
+
+.ui.primary.button,
+.ui.secondary.menu .active.item,
+.ui.secondary.menu .active.item:hover {
+  @extend ._button_active;
+}
+
+.ui.primary.button:hover,
+.ui.secondary.menu .dropdown.item:hover,
+.ui.secondary.menu .link.item:hover,
+.ui.secondary.menu a.item:hover {
+  @extend ._button_hover;
+}
+
+.ui.primary.button:active,
+.ui.secondary.menu .dropdown.item:active,
+.ui.secondary.menu .link.item:active,
+.ui.secondary.menu a.item:active {
+  @extend ._button_active;
+}
+
+//
+// floating label
+.ui.menu .item>.floating.label {
+  // background-color: $color-important!important;
+  // color: $color-brightest!important;
+  background-color: transparent !important;
+  color: $color-brightest !important;
+  text-shadow: $text-shadow !important;
+  font-family: $font-family-mono;
+  font-weight: 600;
+  padding: 0.3em 0.5em 0.1em 0.5em;
+  border: 0.5px solid $color-important !important;
+}
+
+.ui.floating.label {
+  // top: -1em; // semantic
+  // left: 100%; // semantic
+  // margin: 0 0 0 -1.5em!important; // semantic
+  top: 0.5em;
+  left: unset;
+  right: 1em;
+  margin: 0 0 0 -1.5em !important;
+}
+
+//
+// <Tab> <TabPane>
+.ui.attached.menu:not(.tabular) {
+  border: 0;
+  padding-left: 5px;
+}
+
+.ui.secondary.pointing.menu .item {
+  padding: 0.5em 3em 0.5em 1em; // semantic: 0.85714286em 1.14285714em;
+  background-color: transparent;
+  color: $color-bright;
+  text-shadow: $title-shadow;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+.ui.secondary.pointing.menu .active.item,
+.ui.secondary.pointing.menu .active.item:hover,
+.ui.secondary.pointing.menu a.item:hover,
+.ui.secondary.pointing.menu a.item:active {
+  border-bottom: 2px solid $color-brightest !important;
+  ;
+  color: $color-brightest;
+}
+
+// Tab contents
+.ui.tab.active {
+  background-color: transparent;
+  border: 0;
+  border-top: 0.5px solid $color-brightest !important;
+  margin: 1px 0 0 0;
+  padding: 1em 0;
+}
+
+//
+// <Table>
+$table-bg-color: rgba($color-darkest, 0.6);
+
+.ui.table {
+  background-color: $table-bg-color;
+  color: $color-text;
+  // font-size: 0.8em;
+  border: 0;
+}
+
+.ui.table.selectable {
+  cursor: pointer;
+}
+
+.ui.table thead th {
+  @extend .TitleCase;
+  background-color: rgba($color-darkest, 1);
+  color: $color-brightest !important;
+  font-size: 0.9em !important;
+}
+
+.ui.sortable.table thead th.sorted,
+.ui.sortable.table thead th:hover {
+  background-color: rgba($color-medium, 1);
+}
+
+.ui.attached.table {
+  border: 0.5px solid $color-shadow;
+}
+
+td {
+  // border: 1px 0 0 0 solid $color-brightest!important;
+  // border: 0!important;
+  border: $border-hr;
+  border-style: none none solid none;
+}
+
+.ui.table td.positive,
+.ui.table tr.positive {
+  @extend .Positive;
+}
+
+.ui.table td.negative,
+.ui.table tr.negative {
+  @extend .Negative;
+}
+
+.ui.table td.warning,
+.ui.table tr.warning {
+  @extend .Warning;
+}
+
+.ui.selectable.table tbody tr:hover {
+  color: $color-text !important;
+}
+
+// row hover
+.ui.selectable.table tbody tr:hover {
+  background: $color-dark !important;
+}
+
+// sort arrow below text
+.ui.sortable.table thead th.sorted:after {
+  display: block;
+}
+
+//
+// <Pagination>
+.ui.pagination.menu .item,
+.ui.pagination.menu .active.item {
+  font-size: 1.5em;
+  min-width: 2em;
+  padding: 0 0 0.2em 0.6em;
+}
+
+.ui.pagination.menu .active.item {
+  background-color: $color-important;
+  color: $color-white;
+}
+
+.ui.menu a.item:hover {
+  background-color: $color-bright;
+}
+
+//
+// <Modal>
+.ui.modal {
+  @extend ._round_border_inactive;
+}
+
+.ui.modal>.header {
+  @extend .Title;
+  font-family: $font-family;
+  font-size: 2.5rem !important;
+  color: $color-text;
+  border-bottom: $border-hr;
+  padding: 0.2em;
+}
+
+.ui.modal>.header:not(.ui) {
+  padding: 0.25em 0.5em;
+  height: 2em;
+}
+
+.ui.modal>.actions {
+  border-top: $border-hr;
+}
+
+.ui.modal,
+.ui.modal>.header,
+.ui.modal>.content,
+.ui.modal>.actions {
+  background-color: $color-darkest;
+}
+
+.ui.header {
+  @extend .TitleCase;
+  font-family: $font-family;
+  color: $color-text;
+}
+
+//
+// <Step>
+.ui.steps:not(.NoBorder) {
+  @extend ._round_border;
+}
+
+.ui.steps .step,
+.ui.steps .disabled.step {
+  background-color: $table-bg-color;
+  color: $color-text;
+}
+
+.ui.steps .disabled.step .icon,
+.ui.steps .disabled.step .title {
+  color: $color-inactive;
+}
+
+.ui.vertical.steps .step {
+  border-bottom: $border-hr;
+  padding: 1em 2em;
+}
+
+.ui.steps .step.active {
+  background-color: $color-important;
+  // background-color: $table-bg-color;
+  color: $color-text;
+}
+
+.ui.steps .active.step .icon,
+.ui.steps .step.active .title {
+  color: $color-brightest;
+}
+
+a.active.step:hover,
+.ui.steps .link.active.step:hover {
+  background-color: $color-dark;
+  // background-color: $table-bg-color;
+  // color: $color-brightest!important;
+  text-decoration: none;
+}
+
+.ui.vertical.steps .active.step:after,
+.ui.vertical.steps .active.step:last-child:after {
+  display: none;
+}
+
+//
+// <Segment>
+.ui.segment {
+  @extend ._round_border;
+  background-color: $color-dark;
+}
+
+//
+// <ProgressBar>
+.ui.progress .bar {
+  background-color: $color-important;
+  min-width: 3em;
+}
+
+// .ui.disaled.progress .bar {
+//   background-color: $color-inactive;
+// }
+.ui.progress .bar>.progress {
+  @extend .TitleCase;
+  font-family: $font-family;
+  font-weight: 600;
+  font-size: 1.5em;
+  color: $color-brightest;
+  text-shadow: $text-shadow;
+  margin-top: -0.65em;
+  margin-right: -0.2em;
+  z-index: 100;
 }

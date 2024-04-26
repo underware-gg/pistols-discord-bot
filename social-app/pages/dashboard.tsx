@@ -1,16 +1,21 @@
+import { useState, useEffect } from "react";
+import { Button } from "semantic-ui-react";
+import Router from "next/router";
 import { parseCookies, destroyCookie } from "nookies";
 import { JwtPayload, verify } from "jsonwebtoken";
-import { useState } from "react";
-import Image from "next/image";
-import App from "@/components/App";
-import Router from "next/router";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
+import App from "@/components/App";
 
 const Dashboard = ({ user }) => {
   const [walletAddresses, setWalletAddresses] = useState({
     duelist: user?.duelist || "",
   });
+
+  useEffect(() => {
+    retrieveAccountDetails()
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -124,17 +129,17 @@ const Dashboard = ({ user }) => {
                   onChange={handleChange}
                 />
               </div>
-              <button type="submit" className="walletbutton">
+              <Button type="submit" className="walletbutton">
                 Save Wallet
-              </button>
+              </Button>
             </form>
             <span className="wallet-container">
-              <button onClick={retrieveAccountDetails} className="walletbutton">
+              <Button onClick={() => retrieveAccountDetails()} className="walletbutton">
                 Retrieve Wallet
-              </button>
-              <button onClick={handleLogout} className="logoutbutton">
+              </Button>
+              <Button onClick={() => handleLogout()} className="logoutbutton">
                 Logout
-              </button>
+              </Button>
             </span>
           </>
         ) : (
