@@ -2,6 +2,7 @@
     "files.exclude": {
         "**/node_modules": true,
         "**/build": true,
+        "**/dist": true,
         "**/target": true,
         "**/.github": true,
         "**/.git": true
@@ -9,7 +10,6 @@
     "search.exclude": {
         "**/*-lock.json": true,
         "**/*.lock": true,
-        "**/dist": true,
         "**/.gitignore": true,
         "**/.gitmodules": true
     },
@@ -17,6 +17,6 @@
     "editor.detectIndentation": false,
     "editor.formatOnPaste": true,
     "editor.insertSpaces": true,
-    "editor.wordWrap": "on",
+    "editor.wordWrap": "off",
     "editor.tabSize": 4,
 }
