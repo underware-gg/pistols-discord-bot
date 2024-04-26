@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
         // Input validation (optional): You can add checks here to ensure data meets your requirements
 
-        const { data, error } = await supabase.from("pistols_accounts").insert([
+        const { data, error } = await supabase.from("pistols_accounts").upsert([
             {
                 discord_id: discord_id,
                 duelist_address: duelist,
