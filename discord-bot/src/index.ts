@@ -18,9 +18,9 @@ export const client = new SapphireClient({
   loadMessageCommandListeners: true,
 });
 
-console.log(`--- Torii url:`, process.env.TORII_URL)
-console.log(`--- Client url:`, process.env.CLIENT_URL)
-console.log(`--- Token:`, process.env.DISCORD_TOKEN ? 'Ok' : undefined)
+console.log(`--- TORII_URL:`, process.env.TORII_URL)
+console.log(`--- CLIENT_URL:`, process.env.CLIENT_URL)
+console.log(`--- DISCORD_TOKEN:`, process.env.DISCORD_TOKEN ? 'Ok' : undefined)
 
 console.log("--- Logging in.....");
 await client.login(process.env.DISCORD_TOKEN);

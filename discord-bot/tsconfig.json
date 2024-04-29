@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "lib": ["ESNext"],
+        "lib": ["esnext", "esnext.asynciterable"],
         "module": "esnext",
         "target": "esnext",
         "moduleResolution": "bundler",
