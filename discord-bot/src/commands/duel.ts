@@ -1,9 +1,8 @@
 import { Command } from "@sapphire/framework";
-import { getChallengesById, getChallengesByState } from "../queries/getChallenges.js";
-import { ChallengeState } from "../utils/constants.js";
+import { getChallengesById } from "../queries/getChallenges.js";
+import { getDuelistByAddress } from '../queries/getDuelists.js';
 import { formatDuelsAsEmbeds } from "../utils/challenges.js";
 import { Challenge } from "../generated/graphql.js";
-import { getDuelistByAddress } from '../queries/getChallenges.js';
 
 
 export class Duels_By_DuelistCommand extends Command {
