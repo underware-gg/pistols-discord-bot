@@ -33,3 +33,22 @@ query getChallengesById($duel_id: u128!) {
     }
   }
 }
+
+query getDuelistsByAddress($address: ContractAddress) {
+  duelistModels(where: { address: $address }) {
+    edges {
+      node {
+        address
+        name
+        profile_pic
+        total_duels
+        total_wins
+        total_losses
+        total_draws
+        total_honour
+        honour
+        timestamp
+      }
+    }
+  }
+}
