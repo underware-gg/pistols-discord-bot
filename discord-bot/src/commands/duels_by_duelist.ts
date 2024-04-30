@@ -1,9 +1,9 @@
 import { Command } from "@sapphire/framework";
 import { getChallengesByState } from "../queries/getChallenges.js";
-import { ChallengeState } from "../utils/constants.js";
+import { getDuelistByAddress } from '../queries/getDuelists.js';
 import { formatChallengesAsEmbeds } from "../utils/challenges.js";
+import { ChallengeState } from "../utils/constants.js";
 import { Challenge } from "../generated/graphql.js";
-import { getDuelistByAddress } from '../queries/getChallenges.js';
 
 
 export class Duels_By_DuelistCommand extends Command {
@@ -17,7 +17,7 @@ export class Duels_By_DuelistCommand extends Command {
     public override registerApplicationCommands(registry: Command.Registry) {
         registry.registerChatInputCommand(builder =>
             builder
-                .setName("duels_by_duelist")
+                .setName(this.name)
                 .setDescription(this.description)
                 .addStringOption((opt) => opt
                     .setName("address")
