@@ -2158,6 +2158,13 @@ export type World__TransactionEdge = {
   node?: Maybe<World__Transaction>;
 };
 
+export type CustomEventSubSubscriptionVariables = Exact<{
+  eventId: Scalars['String']['input'];
+}>;
+
+
+export type CustomEventSubSubscription = { __typename?: 'World__Subscription', eventEmitted: { __typename?: 'World__Event', id?: string | null, keys?: Array<string | null> | null, data?: Array<string | null> | null, createdAt?: any | null } };
+
 export type GetChallengesByStateQueryVariables = Exact<{
   state: Scalars['u8']['input'];
 }>;
@@ -2180,6 +2187,16 @@ export type GetDuelistsByAddressQueryVariables = Exact<{
 export type GetDuelistsByAddressQuery = { __typename?: 'World__Query', duelistModels?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null } | null } | null> | null } | null };
 
 
+export const CustomEventSubDocument = gql`
+    subscription customEventSub($eventId: String!) {
+  eventEmitted(keys: [$eventId, "*"]) {
+    id
+    keys
+    data
+    createdAt
+  }
+}
+    `;
 export const GetChallengesByStateDocument = gql`
     query getChallengesByState($state: u8!) {
   challengeModels(where: {state: $state}) {
@@ -2243,11 +2260,15 @@ export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, str
 
 
 const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
+const CustomEventSubDocumentString = print(CustomEventSubDocument);
 const GetChallengesByStateDocumentString = print(GetChallengesByStateDocument);
 const GetChallengesByIdDocumentString = print(GetChallengesByIdDocument);
 const GetDuelistsByAddressDocumentString = print(GetDuelistsByAddressDocument);
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    customEventSub(variables: CustomEventSubSubscriptionVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: CustomEventSubSubscription; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<CustomEventSubSubscription>(CustomEventSubDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'customEventSub', 'subscription', variables);
+    },
     getChallengesByState(variables: GetChallengesByStateQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByStateQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesByStateQuery>(GetChallengesByStateDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengesByState', 'query', variables);
     },
