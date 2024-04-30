@@ -3,17 +3,7 @@ import { getChallengesByState } from "../queries/getChallenges.js";
 import { ChallengeState } from "../utils/constants.js";
 import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 import { Challenge } from "../generated/graphql.js";
-
-//
-// Slash command
-//
-// saffire command reference:
-// https://www.sapphirejs.dev/docs/Guide/getting-started/creating-a-basic-app-command
-// https://github.com/sapphiredev/examples/blob/main/examples/with-typescript-starter/src/commands/ping.ts
-//
-// discord command builder reference:
-// https://discordjs.guide/slash-commands/advanced-creation.html
-//
+import { getDuelistByAddress } from '../queries/getChallenges.js';
 
 export class LiveDuelsCommand extends Command {
     public constructor(context: Command.LoaderContext, options?: Command.Options) {
@@ -24,40 +14,40 @@ export class LiveDuelsCommand extends Command {
     }
 
     public override registerApplicationCommands(registry: Command.Registry) {
-        registry.registerChatInputCommand((builder) => builder
-            .setName(this.name)
-            .setDescription(this.description)
-            // .addStringOption((builder) => builder
-            //     .setName("address")
-            //     .setDescription("Duelist Address")
-            //     .setRequired(true)
-            // )
+        registry.registerChatInputCommand(builder =>
+            builder
+                .setName("liveduels")
+                .setDescription(this.description)
         );
     }
 
-    public override async chatInputRun(
-        interaction: Command.ChatInputCommandInteraction
-    ) {
-        // const address = interaction.options.getString("address");
-
-        const state = ChallengeState.InProgress;
-
+    public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
         await interaction.deferReply();
 
-        const challenges: Challenge[] = await getChallengesByState(state);
+        try {
+            const challenges: Challenge[] = await getChallengesByState(ChallengeState.InProgress);
 
-        if (challenges) {
+            if (challenges.length === 0) {
+                return interaction.editReply({ content: "No live duels found!" });
+            }
+
+            // Fetching duelist data for each challenge
+            const enrichedChallenges = await Promise.all(challenges.map(async (challenge) => {
+                const challenger = await getDuelistByAddress(challenge.duelist_a);
+                const challenged = await getDuelistByAddress(challenge.duelist_b);
+                return { ...challenge, duelist_a: challenger, duelist_b: challenged };
+            }));
+
             return interaction.editReply({
-                // content: formatChallengesAsText(challenges),
                 embeds: formatChallengesAsEmbeds({
-                    challenges,
-                    title: 'Live Duels',
-                }),
+                    challenges: enrichedChallenges,
+                    title: 'Live Duel'
+                })
             });
-        } else {
-            return interaction.editReply({
-                content: "No duels found!",
-            });
+
+        } catch (error) {
+            console.error("Failed to fetch live duels:", error);
+            return interaction.editReply({ content: "An error occurred while fetching live duels." });
         }
     }
 }

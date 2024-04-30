@@ -22,6 +22,16 @@ export const getChallengesById = async (duel_id: bigint): Promise<ql.Challenge[]
     }
 };
 
+export const getDuelistByAddress = async(address: any): Promise<ql.Duelist | null> => {
+    try{
+        const { data } = await sdk.getDuelistsByAddress({ address });
+        return parseDuelistResponse(data)
+    }catch(error){
+        console.error("getDuelistByAddress() failed!", error);
+        throw error;
+    }
+}
+
 const parseChallengesResponse = (data: ql.GetChallengesByStateQuery | ql.GetChallengesByIdQuery): ql.Challenge[] => {
     let result: ql.Challenge[] = []
     if (data?.challengeModels?.edges) {
@@ -29,9 +39,26 @@ const parseChallengesResponse = (data: ql.GetChallengesByStateQuery | ql.GetChal
             const challenge = item.node;
             return {
                 ...challenge,
-                message: feltToString(challenge.message), // strings in Cairo are encoded in a felt252, need to be convert
+                message: feltToString(challenge.message), 
             }
         });
     }
     return result
+};
+
+const parseDuelistResponse = (
+    data: ql.GetDuelistsByAddressQuery
+): ql.Duelist | null => {
+    if (
+        data?.duelistModels?.edges?.length &&
+        data.duelistModels.edges.length > 0
+    ) {
+        const duelist = data.duelistModels.edges[0]?.node;
+        if (duelist) {
+            return {
+                ...duelist,
+            };
+        }
+    }
+    return null;
 };
