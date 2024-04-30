@@ -1,6 +1,6 @@
 import { GraphQLClient } from "graphql-request";
 import { Sdk, getSdk } from "./generated/graphql.js";
-import { SdkWs, getSdkWs } from "./configSdkWs.js";
+import { SdkWs, getSdkWs } from "./SdkWs.js";
 import { dojoConfig } from "./dojoConfig.js";
 
 const url_http = dojoConfig().toriiUrl + "/graphql";
