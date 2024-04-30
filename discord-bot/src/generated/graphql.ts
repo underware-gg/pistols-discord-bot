@@ -2172,6 +2172,13 @@ export type GetChallengesByIdQueryVariables = Exact<{
 
 export type GetChallengesByIdQuery = { __typename?: 'World__Query', challengeModels?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
 
+export type GetDuelistsByAddressQueryVariables = Exact<{
+  address?: InputMaybe<Scalars['ContractAddress']['input']>;
+}>;
+
+
+export type GetDuelistsByAddressQuery = { __typename?: 'World__Query', duelistModels?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null } | null } | null> | null } | null };
+
 
 export const GetChallengesByStateDocument = gql`
     query getChallengesByState($state: u8!) {
@@ -2211,6 +2218,26 @@ export const GetChallengesByIdDocument = gql`
   }
 }
     `;
+export const GetDuelistsByAddressDocument = gql`
+    query getDuelistsByAddress($address: ContractAddress) {
+  duelistModels(where: {address: $address}) {
+    edges {
+      node {
+        address
+        name
+        profile_pic
+        total_duels
+        total_wins
+        total_losses
+        total_draws
+        total_honour
+        honour
+        timestamp
+      }
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
@@ -2218,6 +2245,7 @@ export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, str
 const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
 const GetChallengesByStateDocumentString = print(GetChallengesByStateDocument);
 const GetChallengesByIdDocumentString = print(GetChallengesByIdDocument);
+const GetDuelistsByAddressDocumentString = print(GetDuelistsByAddressDocument);
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
     getChallengesByState(variables: GetChallengesByStateQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByStateQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
@@ -2225,6 +2253,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getChallengesById(variables: GetChallengesByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByIdQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesByIdQuery>(GetChallengesByIdDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengesById', 'query', variables);
+    },
+    getDuelistsByAddress(variables?: GetDuelistsByAddressQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetDuelistsByAddressQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetDuelistsByAddressQuery>(GetDuelistsByAddressDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getDuelistsByAddress', 'query', variables);
     }
   };
 }
