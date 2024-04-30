@@ -17,24 +17,29 @@ A Discord bot for Pistols at 10 Blocks
 ```mermaid
 graph TD;
   A[✅ #1 Bot Setup];
-  B[🏗️ #2 Duel Commands];
-  C[🏗️ #3 Duelist Commands];
+  C[✅ #3 Duelist Commands];
+  B[✅ #2 Duel Commands];
   D[#4 Duel Notifications];
   E[✅ #5 Social Link App];
   F[#6 Discord Users Notifications];
-  G[#7 Discord Users Commands];
+  G[🏗️ #7 Discord Users Commands];
   H[#8 Issue / Accept Challenge];
   I[#9 Player Moves];
+  J[🏗️ #14 New Duelists notification];
+  K[#15 my_turn command];
 
-  A-->B;
   A-->C;
-  B-->D;
+  A-->B;
+  C-->J;
   D-->F;
   E-->F;
+  J-->F;
   B-->G;
   E-->G;
   A-->H;
   E-->H;
   H-->I;
+  G-->K;
+  J-->D;
 
 ```
