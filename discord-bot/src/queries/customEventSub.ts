@@ -5,8 +5,8 @@ import { client } from "../index.js";
 import { feltToString } from "../utils/misc.js";
 import { EventName, EventKeys } from "../utils/constants.js";
 import * as ql from "../generated/graphql.js";
-import { formatDuelistAsEmbeds } from "../utils/duelists.js";
-import { EmbedBuilder } from "discord.js";
+import { formatDuelistPayload } from "../utils/duelists.js";
+import { BaseMessageOptions } from "discord.js";
 import { getDuelistByAddress } from "./getDuelists.js";
 
 export const customEventSub = async (eventName: EventName): Promise<boolean> => {
@@ -18,26 +18,23 @@ export const customEventSub = async (eventName: EventName): Promise<boolean> => 
       const { eventData } = parseCustomEventResponse(event, eventName);
       console.log(`+++++++ [${eventName}]:`, eventData);
 
-      let embeds: EmbedBuilder[] = [];
+      let payload: BaseMessageOptions | undefined;
       if (eventName == EventName.DuelistRegistered) {
         const duelist: ql.Duelist | null = await getDuelistByAddress(eventData.address);
-        console.log(`+++++++ Duelist:`, duelist);
+        // console.log(`+++++++ Duelist:`, duelist);
         if (duelist) {
-          embeds = formatDuelistAsEmbeds({
+          payload = formatDuelistPayload({
             duelist,
             title: eventData.is_new ? 'New Duelist!' : 'Updated Duelist',
             full: false,
           })
-          console.log(JSON.stringify(embeds))
         }
       }
 
-      if (embeds.length > 0) {
+      if (payload) {
         client.channels.fetch(process.env.DISCORD_CHANNEL_ID || "").then((channel) => {
           if (channel?.isTextBased()) {
-            channel.send({
-              embeds,
-            });
+            channel.send(payload);
           }
         }
         );

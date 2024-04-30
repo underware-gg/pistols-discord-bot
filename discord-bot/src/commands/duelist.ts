@@ -1,8 +1,7 @@
 import { Command } from "@sapphire/framework";
 import { getDuelistByAddress } from "../queries/getDuelists.js";
-import { formatDuelistAsEmbeds } from "../utils/duelists.js";
+import { formatDuelistPayload } from "../utils/duelists.js";
 import { Duelist } from "../generated/graphql.js";
-import { bigintToHex } from "../utils/misc.js";
 
 export class DuelistsCommand extends Command {
   public constructor(
@@ -44,11 +43,11 @@ export class DuelistsCommand extends Command {
       const duelist: Duelist | null = await getDuelistByAddress(address);
 
       if (duelist) {
-        const embeds = formatDuelistAsEmbeds({
+        const payload = formatDuelistPayload({
           duelist,
           title: "Duelist",
         });
-        return interaction.editReply({ embeds });
+        return interaction.editReply(payload);
       } else {
         return interaction.editReply({ content: "No duelist found!" });
       }

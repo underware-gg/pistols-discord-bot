@@ -1,7 +1,8 @@
-import { EmbedBuilder } from "discord.js";
+import { EmbedBuilder, BaseMessageOptions, ButtonBuilder, ButtonStyle, ActionRowBuilder } from "discord.js";
 import { Duelist } from "../generated/graphql";
-import { Colors } from "./constants.js";
+import { ChallengeState, Colors } from "./constants.js";
 import { formatTimestamp } from "../utils/misc.js";
+import { duelist_duels_builder } from "../interaction-handlers/duelist_duels.js";
 
 //
 // Format Challenges as embeds
@@ -15,7 +16,7 @@ import { formatTimestamp } from "../utils/misc.js";
 // https://discordjs.guide/popular-topics/embeds.html
 //
 
-export function formatDuelistAsEmbeds({
+export function formatDuelistPayload({
   duelist,
   title,
   full = true,
@@ -23,15 +24,14 @@ export function formatDuelistAsEmbeds({
   duelist: Duelist;
   title: string;
   full?: boolean;
-}): EmbedBuilder[] {
+}): BaseMessageOptions {
   if (!duelist) {
     // If the duelists array is empty, return a single embed with a message indicating no duelists found
     const embed = new EmbedBuilder().setDescription("No duelists found.");
-    return [embed];
+    return { embeds: [embed]};
   }
 
   const badge = duelist.honour > 90 ? "👑" : "";
-
   const embed = new EmbedBuilder()
     // .setTitle(`${title}: ${name}`)
     .setTitle(title)
@@ -47,6 +47,8 @@ export function formatDuelistAsEmbeds({
         value: `\`${duelist.address}\``,
       }
     );
+
+  let buttons = new ActionRowBuilder<ButtonBuilder>();
 
   if (full) {
     const winRatio = (duelist.total_duels > 0 ? Math.floor((duelist.total_wins / duelist.total_duels) * 100) : null);
@@ -78,13 +80,24 @@ export function formatDuelistAsEmbeds({
       },
       {
         name: "Win Ratio",
-        value: winRatio ? `${winRatio}%` : "?",
+        value: winRatio ? `${winRatio}%` : "-",
         inline: true,
       },
     );
+  
+    // Setup buttons
+    const live_duels = new ButtonBuilder()
+      .setCustomId(duelist_duels_builder(duelist.address, ChallengeState.InProgress))
+      .setLabel('Live Duels')
+      .setStyle(ButtonStyle.Success);
+    
+    buttons.addComponents(live_duels);
   }
 
-  return [embed];
+  return {
+    embeds: [embed],
+    components: buttons.components.length > 0 ? [buttons] : [],
+  }
 }
 
 
