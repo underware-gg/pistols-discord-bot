@@ -1,7 +1,7 @@
 import { SapphireClient } from "@sapphire/framework";
 import { GatewayIntentBits } from "discord.js";
 import { customEventSub } from "./queries/customEventSub.js";
-import { EventKey } from "./utils/constants.js";
+import { EventName } from "./utils/constants.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -25,4 +25,4 @@ console.log(`--- DISCORD_TOKEN :`, process.env.DISCORD_TOKEN ? 'Ok' : undefined)
 console.log("--- Logging in.....");
 await client.login(process.env.DISCORD_TOKEN);
 
-customEventSub(EventKey.DuelistRegistered, 'DuelistRegistered');
+customEventSub(EventName.DuelistRegistered);

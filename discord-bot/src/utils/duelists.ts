@@ -1,8 +1,7 @@
-import { APIEmbed, EmbedBuilder } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { Duelist } from "../generated/graphql";
 import { Colors } from "./constants.js";
-import { feltToString } from "../utils/misc.js";
-
+import { formatTimestamp } from "../utils/misc.js";
 
 //
 // Format Challenges as embeds
@@ -19,9 +18,11 @@ import { feltToString } from "../utils/misc.js";
 export function formatDuelistAsEmbeds({
   duelist,
   title,
+  full = true,
 }: {
   duelist: Duelist;
-  title?: string;
+  title: string;
+  full?: boolean;
 }): EmbedBuilder[] {
   if (!duelist) {
     // If the duelists array is empty, return a single embed with a message indicating no duelists found
@@ -29,39 +30,68 @@ export function formatDuelistAsEmbeds({
     return [embed];
   }
 
-  const embeds: EmbedBuilder[] = [];
+  const badge = duelist.honour > 90 ? "👑" : "";
 
-  const timestamp = new Date(duelist.timestamp * 1000);
-  const name = feltToString(duelist.name);
-  const url = `${process.env.CLIENT_URL}/profiles/${duelist.profile_pic}_a.jpg`;
   const embed = new EmbedBuilder()
-    .setTitle(`${title}: ${name}`)
-    //   .setThumbnail(`attachment://profile_pic_${duelist.profile_pic}.png`)
-    .setThumbnail(`${url}`)
+    // .setTitle(`${title}: ${name}`)
+    .setTitle(title)
+    .setColor(Colors.Medium)
+    .setThumbnail(makeSquareProfilePicUrl(duelist.profile_pic))
+    // .setImage(makeFullProfilePicUrl(duelist.profile_pic))
+    // .setDescription(`\`${duelist.address}\``)
+    .setFooter({ text: `Since: ${formatTimestamp(duelist.timestamp)}` })
     .addFields(
       {
-        name: "Address",
-        value: `${duelist.address.substring(0, 6) + "...."}`,
-      },
-      {
-        name: "Honour",
-        value: `${duelist.honour / 10} ${duelist.honour > 90 ? " 👑" : ""}`,
-      },
-      {
-        name: "Duel Stats",
-        value: `Total Duels: ${duelist.total_duels}\n`,
-      },
-      {
-        name: "Duel Elapsed Time",
-        value: `${timestamp.toLocaleString()}`,
-      },
-      {
-        name: `Duels by ${name}`,
-        value: `Type \`/duels_by_duelist \``,
+        name: duelist.name,
+        // value: `${shortAddress(duelist.address)}`,
+        value: `\`${duelist.address}\``,
       }
     );
 
-  embeds.push(embed);
+  if (full) {
+    const winRatio = (duelist.total_duels > 0 ? Math.floor((duelist.total_wins / duelist.total_duels) * 100) : null);
+    embed.addFields(
+      {
+        name: "Honour",
+        value: `${duelist.honour / 10} ${badge}`,
+        inline: true,
+      },
+      {
+        name: "Duels",
+        value: `${duelist.total_duels}`,
+        inline: true,
+      },
+      {
+        name: "Wins",
+        value: `${duelist.total_wins}`,
+        inline: true,
+      },
+      {
+        name: "Losses",
+        value: `${duelist.total_losses}`,
+        inline: true,
+      },
+      {
+        name: "Draws",
+        value: `${duelist.total_draws}`,
+        inline: true,
+      },
+      {
+        name: "Win Ratio",
+        value: winRatio ? `${winRatio}%` : "?",
+        inline: true,
+      },
+    );
+  }
 
-  return embeds;
+  return [embed];
+}
+
+
+export const makeSquareProfilePicUrl = (profile_pic: number): string => {
+  return `${process.env.CLIENT_URL}/profiles/${('00' + profile_pic).slice(-2) }_sq.jpg`;
+}
+
+export const makeFullProfilePicUrl = (profile_pic: number): string => {
+  return `${process.env.CLIENT_URL}/profiles/${('00' + profile_pic).slice(-2) }_a.jpg`;
 }
