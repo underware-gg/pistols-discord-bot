@@ -1,6 +1,6 @@
 import { Command } from "@sapphire/framework";
 import { getDuelistByAddress } from "../queries/getDuelists.js";
-import { formatDuelistsAsEmbeds } from "../utils/duelists.js";
+import { formatDuelistAsEmbeds } from "../utils/duelists.js";
 import { Duelist } from "../generated/graphql.js";
 import { bigintToHex } from "../utils/misc.js";
 
@@ -44,8 +44,8 @@ export class DuelistsCommand extends Command {
       const duelist: Duelist | null = await getDuelistByAddress(address);
 
       if (duelist) {
-        const embeds = formatDuelistsAsEmbeds({
-          duelists: [duelist],
+        const embeds = formatDuelistAsEmbeds({
+          duelist,
           title: "Duelist",
         });
         return interaction.editReply({ embeds });
