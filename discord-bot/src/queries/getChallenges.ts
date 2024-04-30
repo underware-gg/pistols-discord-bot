@@ -12,7 +12,7 @@ export const getChallengesByState = async (state: number): Promise<ql.Challenge[
     }
 };
 
-export const getChallengesById = async (duel_id: bigint): Promise<ql.Challenge[]> => {
+export const getChallengesById = async (duel_id: any): Promise<ql.Challenge[]> => {
     try {
         const { data } = await sdk.getChallengesById({ duel_id });
         return parseChallengesResponse(data)
