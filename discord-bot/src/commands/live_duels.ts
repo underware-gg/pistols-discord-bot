@@ -16,48 +16,50 @@ import { Challenge } from "../generated/graphql.js";
 //
 
 export class LiveDuelsCommand extends Command {
-    public constructor(context: Command.LoaderContext, options?: Command.Options) {
-        super(context, {
-            ...options,
-            description: "List Live Duels",
-        });
+  public constructor(
+    context: Command.LoaderContext,
+    options?: Command.Options
+  ) {
+    super(context, {
+      ...options,
+      description: "List Live Duels",
+    });
+  }
+
+  public override registerApplicationCommands(registry: Command.Registry) {
+    registry.registerChatInputCommand(
+      (builder) => builder.setName(this.name).setDescription(this.description)
+      // .addStringOption((builder) => builder
+      //     .setName("address")
+      //     .setDescription("Duelist Address")
+      //     .setRequired(true)
+      // )
+    );
+  }
+
+  public override async chatInputRun(
+    interaction: Command.ChatInputCommandInteraction
+  ) {
+    // const address = interaction.options.getString("address");
+
+    const state = ChallengeState.InProgress;
+
+    await interaction.deferReply();
+
+    const challenges: Challenge[] = await getChallengesByState(state);
+
+    if (challenges) {
+      return interaction.editReply({
+        // content: formatChallengesAsText(challenges),
+        embeds: formatChallengesAsEmbeds({
+          challenges,
+          title: "Live Duels",
+        }),
+      });
+    } else {
+      return interaction.editReply({
+        content: "No duels found!",
+      });
     }
-
-    public override registerApplicationCommands(registry: Command.Registry) {
-        registry.registerChatInputCommand((builder) => builder
-            .setName(this.name)
-            .setDescription(this.description)
-            // .addStringOption((builder) => builder
-            //     .setName("address")
-            //     .setDescription("Duelist Address")
-            //     .setRequired(true)
-            // )
-        );
-    }
-
-    public override async chatInputRun(
-        interaction: Command.ChatInputCommandInteraction
-    ) {
-        // const address = interaction.options.getString("address");
-
-        const state = ChallengeState.InProgress;
-
-        await interaction.deferReply();
-
-        const challenges: Challenge[] = await getChallengesByState(state);
-
-        if (challenges) {
-            return interaction.editReply({
-                // content: formatChallengesAsText(challenges),
-                embeds: formatChallengesAsEmbeds({
-                    challenges,
-                    title: 'Live Duels',
-                }),
-            });
-        } else {
-            return interaction.editReply({
-                content: "No duels found!",
-            });
-        }
-    }
+  }
 }
