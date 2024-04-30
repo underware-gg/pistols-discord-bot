@@ -16,7 +16,7 @@ const JWT_SECRET = 'thisisasecret';
 // note: this should be an environment variable
 // but I'll cover that in part 2 since
 // it will work fine locally for the time being
-const REDIRECT_URI = 'http://localhost:3000/api/oauth';
+const REDIRECT_URI = process.env.NEXT_PUBLIC_REDIRECT_URI;
 
 // Scopes we want to be able to access as a user
 const scope = ['identify'].join(' ');

@@ -12,7 +12,7 @@ export const getChallengesByState = async (state: number): Promise<ql.Challenge[
     }
 };
 
-export const getChallengesById = async (duel_id: bigint): Promise<ql.Challenge[]> => {
+export const getChallengesById = async (duel_id: any): Promise<ql.Challenge[]> => {
     try {
         const { data } = await sdk.getChallengesById({ duel_id });
         return parseChallengesResponse(data)
@@ -29,7 +29,7 @@ const parseChallengesResponse = (data: ql.GetChallengesByStateQuery | ql.GetChal
             const challenge = item.node;
             return {
                 ...challenge,
-                message: feltToString(challenge.message), // strings in Cairo are encoded in a felt252, need to be convert
+                message: feltToString(challenge.message), 
             }
         });
     }
