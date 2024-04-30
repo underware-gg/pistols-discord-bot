@@ -54,7 +54,6 @@ export const formatChallengesAsEmbeds = ({
                 { name: 'Challenged', value: `${challengedName}\nHonour: ${challengedHonour / 10} ${challengedHonour > 90 ? " 👑" : ""}`, inline: true },
                 {name: 'Round Number', value:`${challenge.round_number}`},
                 { name: 'Duel Time', value: `${duel_time.toLocaleString()}`},
-                { name: `Duels by ${challengerName}`, value: `Type \`/duels_by_duelist \`` }
             );
         return embed;
     });
