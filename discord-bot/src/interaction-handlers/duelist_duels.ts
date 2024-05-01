@@ -53,7 +53,7 @@ export class ButtonHandler extends InteractionHandler {
 
       //
       //-----------------------------------
-      
+
 
       await interaction.reply({
         embeds: formatChallengesAsEmbeds({
@@ -62,20 +62,16 @@ export class ButtonHandler extends InteractionHandler {
         }),
         ephemeral: true // private to the person who pressed the button
       });
-      console.log(`---6`)
 
     } catch (error) {
       console.error("Failed to fetch duels for the specified duelist:", error);
       await interaction.reply({ content: "An error occurred while fetching duels." });
-      console.log(`---7`)
       return;
     }
-
-    console.log(`---8`)
 
   }
 }
 
-export const duelist_duels_builder = (address: BigNumberish, state: ChallengeState):string => {
+export const duelist_duels_builder = (address: BigNumberish, state: ChallengeState): string => {
   return `duelist_duels;${address};${state}`;
 }

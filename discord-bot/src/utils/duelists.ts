@@ -28,7 +28,7 @@ export function formatDuelistPayload({
   if (!duelist) {
     // If the duelists array is empty, return a single embed with a message indicating no duelists found
     const embed = new EmbedBuilder().setDescription("No duelists found.");
-    return { embeds: [embed]};
+    return { embeds: [embed] };
   }
 
   const badge = duelist.honour > 90 ? "👑" : "";
@@ -84,14 +84,18 @@ export function formatDuelistPayload({
         inline: true,
       },
     );
-  
+
     // Setup buttons
     const live_duels = new ButtonBuilder()
       .setCustomId(duelist_duels_builder(duelist.address, ChallengeState.InProgress))
       .setLabel('Live Duels')
       .setStyle(ButtonStyle.Success);
-    
-    buttons.addComponents(live_duels);
+    const past_duels = new ButtonBuilder()
+      .setCustomId(duelist_duels_builder(duelist.address, ChallengeState.Resolved))
+      .setLabel('Past Duels')
+      .setStyle(ButtonStyle.Secondary);
+
+    buttons.addComponents(live_duels, past_duels);
   }
 
   return {
@@ -102,9 +106,9 @@ export function formatDuelistPayload({
 
 
 export const makeSquareProfilePicUrl = (profile_pic: number): string => {
-  return `${process.env.CLIENT_URL}/profiles/${('00' + profile_pic).slice(-2) }_sq.jpg`;
+  return `${process.env.CLIENT_URL}/profiles/${('00' + profile_pic).slice(-2)}_sq.jpg`;
 }
 
 export const makeFullProfilePicUrl = (profile_pic: number): string => {
-  return `${process.env.CLIENT_URL}/profiles/${('00' + profile_pic).slice(-2) }_a.jpg`;
+  return `${process.env.CLIENT_URL}/profiles/${('00' + profile_pic).slice(-2)}_a.jpg`;
 }
