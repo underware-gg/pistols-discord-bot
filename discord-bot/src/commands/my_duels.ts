@@ -3,7 +3,7 @@ import { Challenge } from "../generated/graphql.js";
 import { getChallengesByDuelist } from "../queries/getChallenges.js";
 import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 import { fetchDuelistAddress } from "../utils/social_app.js";
-import { ChallengeState } from "../utils/constants.js";
+import { toChallengeState } from "../utils/constants.js";
 
 export class MyDuelsCommand extends Command {
   public constructor(context: Command.LoaderContext, options?: Command.Options) {
@@ -46,7 +46,7 @@ export class MyDuelsCommand extends Command {
     try {
       const address = await fetchDuelistAddress(interaction.user.id);
       const input_state = interaction.options.getString("duel-state") || "5";
-      const state = parseInt(input_state) as ChallengeState;
+      const state = toChallengeState(input_state);
 
       const challenges: Challenge[] = address ? await getChallengesByDuelist(state, address) : [];
 

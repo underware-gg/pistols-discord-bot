@@ -2,6 +2,7 @@ import { Command } from "@sapphire/framework";
 import { getDuelistByAddress } from "../queries/getDuelists.js";
 import { formatDuelistPayload } from "../utils/duelists.js";
 import { Duelist } from "../generated/graphql.js";
+import { fetchDuelistAddress } from "../utils/social_app.js";
 
 export class DuelistsCommand extends Command {
   public constructor(
@@ -10,7 +11,7 @@ export class DuelistsCommand extends Command {
   ) {
     super(context, {
       ...options,
-      description: "List Live Duelists",
+      description: "Display your Duelist Profile",
     });
   }
 
@@ -19,19 +20,13 @@ export class DuelistsCommand extends Command {
       builder
         .setName(this.name)
         .setDescription(this.description)
-        .addStringOption((builder) =>
-          builder
-            .setName("address")
-            .setDescription("Duelist Address")
-            .setRequired(true)
-        )
     );
   }
 
   public override async chatInputRun(
     interaction: Command.ChatInputCommandInteraction
   ) {
-    const address = interaction.options.getString("address");
+    const address = await fetchDuelistAddress(interaction.user.id);
 
     await interaction.deferReply();
 

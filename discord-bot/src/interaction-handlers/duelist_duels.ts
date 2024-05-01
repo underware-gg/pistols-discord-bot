@@ -2,7 +2,7 @@ import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework
 import type { ButtonInteraction } from 'discord.js';
 import { BigNumberish } from 'starknet';
 import { getChallengesByDuelist } from '../queries/getChallenges.js';
-import { ChallengeState } from '../utils/constants.js';
+import { ChallengeState, toChallengeState } from '../utils/constants.js';
 import { Challenge } from '../generated/graphql.js';
 import { formatChallengesAsEmbeds } from '../utils/challenges.js';
 
@@ -16,7 +16,7 @@ export class ButtonHandler extends InteractionHandler {
 
   public override parse(interaction: ButtonInteraction) {
     const [customId, address, state] = interaction.customId.split(';');
-    // console.log(`INTERACTION:`, interaction.customId, customId, address, state)
+    console.log(`INTERACTION:`, interaction.customId, customId, address, state)
     if (customId === 'duelist_duels' && address && state) {
       return this.some({ address, state });
     }
@@ -27,7 +27,7 @@ export class ButtonHandler extends InteractionHandler {
     const { address, state } = options;
 
     try {
-      const challenges: Challenge[] = await getChallengesByDuelist(ChallengeState.InProgress, address);
+      const challenges: Challenge[] = await getChallengesByDuelist(toChallengeState(state), address);
 
       if (challenges.length === 0) {
         await interaction.reply({ content: "No duels found for this duelist!" });

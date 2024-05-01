@@ -1,7 +1,7 @@
 import { sdk } from "../config.js";
 import { BigNumberish } from "starknet";
 import { getDuelistByAddress } from "./getDuelists.js";
-import { ChallengeState } from "../utils/constants.js";
+import { ChallengeState, toChallengeState } from "../utils/constants.js";
 import { bigintEquals, feltToString } from "../utils/misc.js";
 import * as ql from "../generated/graphql.js";
 
@@ -27,12 +27,10 @@ export const getChallengesById = async (duel_id: any): Promise<ql.Challenge[]> =
 
 export const getChallengesByDuelist = async (state: ChallengeState, address: BigNumberish): Promise<ql.Challenge[]> => {
   const allChallenges: ql.Challenge[] = await getChallengesByState(state);
-  console.log(allChallenges)
   const challenges = allChallenges.filter(challenge => (
     bigintEquals(challenge.duelist_a.address, address) ||
     bigintEquals(challenge.duelist_b.address, address)
   ));
-  console.log(challenges)
   return challenges;
 }
 
@@ -44,7 +42,7 @@ const parseChallengesResponse = async (data: ql.GetChallengesByStateQuery | ql.G
     const duelist_b = await getDuelistByAddress(challenge.duelist_b);
     return {
       ...challenge,
-      state: challenge.state as ChallengeState,
+      state: toChallengeState(challenge.state),
       message: feltToString(challenge.message), // strings in Cairo are encoded in a felt252, need to be convert
       duelist_a,
       duelist_b,

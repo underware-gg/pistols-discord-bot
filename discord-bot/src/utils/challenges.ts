@@ -1,7 +1,7 @@
 import { EmbedBuilder } from "discord.js";
 import { Challenge } from "../generated/graphql";
 import { tagDuelist } from "./social_app.js";
-import { ChallengeState, ChallengeStateDescriptions, ChallengeStateNames, Colors } from "./constants.js";
+import { toChallengeState, ChallengeStateDescriptions, Colors } from "./constants.js";
 import { shortAddress } from "./misc.js";
 import { makeSquareProfilePicUrl } from "./duelists.js";
 //
@@ -40,7 +40,7 @@ export const formatChallengesAsEmbeds = async ({
   title?: string
 }): Promise<EmbedBuilder[]> => {
   return await Promise.all(challenges.map(async (challenge, index) => {
-    const state = challenge.state as ChallengeState;
+    const state = toChallengeState(challenge.state);
     const challengerHonour = challenge.duelist_a.honour;
     const challengedHonour = challenge.duelist_b.honour;
     const winner = (challenge.winner == 1 ? challenge.duelist_a : challenge.winner == 2 ? challenge.duelist_b : null)
@@ -74,7 +74,7 @@ export const formatChallengesAsEmbeds = async ({
       .setColor(Colors.Positive)
       .setTitle(title)
       .setAuthor({
-        name: challenge.message,
+        name: `*${challenge.message}*`,
         iconURL: makeSquareProfilePicUrl(challenge.duelist_a.profile_pic),
         //  url: 'https://discord.js.org',
       })
@@ -83,7 +83,7 @@ export const formatChallengesAsEmbeds = async ({
       .addFields(
         { name: 'Challenger', value: challenger.join('\n'), inline: true },
         { name: 'Challenged', value: challenged.join('\n'), inline: true },
-        // { name: 'Status', value: `${ChallengeStateNames[challenge.state as ChallengeState]}`, inline: true },
+        // { name: 'Status', value: `${ChallengeStateNames[toChallengeState(challenge.state)]}`, inline: true },
         // { name: 'Current Round', value: `${challenge.round_number}`, inline: true },
         // { name: 'Duel Time', value: `${duel_time.toLocaleString()}` },
       );

@@ -9,6 +9,7 @@ export enum ChallengeState {
   Draw, // 7
   All, // 8
 }
+export const toChallengeState = (state: number | ChallengeState | string) => ((typeof state == 'string' ? parseInt(state) : state) as ChallengeState);
 
 export const ChallengeStateNames: Record<ChallengeState, string> = {
   [ChallengeState.Null]: 'Null',
