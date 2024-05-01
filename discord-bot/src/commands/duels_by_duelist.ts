@@ -39,13 +39,13 @@ export class Duels_By_DuelistCommand extends Command {
         await interaction.deferReply();
 
         try {
-            const userAddress = async () => {
-                const call = `${baseApiUrl}/api/checkid?user_id=${encodeURIComponent(userId)}`;
-                const response = await axios.get(call);
-                const userAddress = response.data.duelist_address;
-                return userAddress;
-            };
-            const userAddressResult = await userAddress();
+            // const userAddress = async () => {
+            //     const call = `${baseApiUrl}/api/checkid?user_id=${encodeURIComponent(userId)}`;
+            //     const response = await axios.get(call);
+            //     const userAddress = response.data.duelist_address;
+            //     return userAddress;
+            // };
+            // const userAddressResult = await userAddress();
 
             const allChallenges: Challenge[] = await getChallengesByState(ChallengeState.InProgress);
             const relevantChallenges = allChallenges.filter(challenge =>
@@ -75,11 +75,14 @@ export class Duels_By_DuelistCommand extends Command {
                 }
             }));
 
+            duelists.push(address)
+
             const discordIds = [];
             for (const duelist of duelists) {
                 const discordIdResult = await fetchDiscordId(duelist);
                 discordIds.push(discordIdResult);
             }
+            // console.log(`discordIds:`, duelists, discordIds)
 
             const validDiscordIds = discordIds.filter(Boolean); // Filter out null or undefined values
             const content = validDiscordIds.length > 0 ? validDiscordIds.map(discordId => `<@${discordId}>`).join(' ') : '';
