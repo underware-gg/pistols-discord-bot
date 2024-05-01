@@ -99,7 +99,7 @@ export class Duels_By_DuelistCommand extends Command {
     }
 }
 
-const baseApiUrl = process.env.SOCIAL_APP;
+const baseApiUrl = process.env.SOCIAL_APP_URL;
 
 async function fetchDiscordId(duelistAddress: string | undefined): Promise<string | null> {
     try {
