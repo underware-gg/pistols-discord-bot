@@ -32,7 +32,7 @@ APPLICATION_ID=<APPLICATION_ID>
 DISCORD_CHANNEL_ID=1233121691354267749
 TORII_URL=https://api.cartridge.gg/x/pistols/torii
 CLIENT_URL=https://pistols.lootunder.world
-
+SOCIAL_APP_URL=https://pistols-social-app.vercel.app
 ```
 
 ### Install dependencies
