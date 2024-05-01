@@ -4,7 +4,7 @@ import { getDuelistByAddress } from '../queries/getDuelists.js';
 import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 import { ChallengeState } from "../utils/constants.js";
 import { Challenge } from "../generated/graphql.js";
-import axios from 'axios';
+import { fetchDuelistAddress } from "../utils/social_app.js";
 
 export class MyDuelsCommand extends Command {
   public constructor(context: Command.LoaderContext, options?: Command.Options) {
@@ -43,17 +43,9 @@ export class MyDuelsCommand extends Command {
 
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
     await interaction.deferReply();
-    const baseApiUrl = process.env.SOCIAL_APP_URL + "/api/fetch_id";
 
     try {
-      const userId = interaction.user.id;
-      const fetchUserAddress = async () => {
-        const call = `${baseApiUrl}?discord_id=${encodeURIComponent(userId)}`;
-        const response = await axios.get(call);
-        const userAddress = response.data.duelist_address;
-        return userAddress;
-      }
-      const userAddress = await fetchUserAddress();
+      const userAddress = await fetchDuelistAddress(interaction.user.id);
       const duel_state = interaction.options.getString("duel-state") || "5";
       const true_state = parseInt(duel_state);
 

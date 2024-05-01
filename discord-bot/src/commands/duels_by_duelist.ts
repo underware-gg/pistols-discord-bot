@@ -4,7 +4,7 @@ import { getDuelistByAddress } from '../queries/getDuelists.js';
 import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 import { ChallengeState } from "../utils/constants.js";
 import { Challenge } from "../generated/graphql.js";
-import axios from "axios";
+import { fetchDiscordId } from "../utils/social_app.js";
 
 export class Duels_By_DuelistCommand extends Command {
   public constructor(context: Command.LoaderContext, options?: Command.Options) {
@@ -39,13 +39,6 @@ export class Duels_By_DuelistCommand extends Command {
     await interaction.deferReply();
 
     try {
-      // const userAddress = async () => {
-      //     const call = `${baseApiUrl}/api/fetch_id?discord_id=${encodeURIComponent(userId)}`;
-      //     const response = await axios.get(call);
-      //     const userAddress = response.data.duelist_address;
-      //     return userAddress;
-      // };
-      // const userAddressResult = await userAddress();
 
       const allChallenges: Challenge[] = await getChallengesByState(ChallengeState.InProgress);
       const relevantChallenges = allChallenges.filter(challenge =>
@@ -99,25 +92,5 @@ export class Duels_By_DuelistCommand extends Command {
       console.error("Failed to fetch duels for the specified duelist:", error);
       return interaction.editReply({ content: "An error occurred while fetching duels." });
     }
-  }
-}
-
-const baseApiUrl = process.env.SOCIAL_APP_URL;
-
-async function fetchDiscordId(duelistAddress: string | undefined): Promise<string | null> {
-  try {
-    const apiUrl = `${baseApiUrl}/api/fetch_address?duelist_address=${encodeURIComponent(duelistAddress?.toString() ?? '')}`;
-    const response = await axios.get(apiUrl);
-
-    if (response.status === 404) {
-      console.log('Account not found for duelist:', duelistAddress);
-      return null;
-    } else {
-      const { discord_id } = response.data;
-      return discord_id;
-    }
-  } catch (error: any) {
-    console.error('Error fetching discord id:', error.message);
-    return null;
   }
 }
