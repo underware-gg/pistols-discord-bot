@@ -1,10 +1,9 @@
 import { Command } from "@sapphire/framework";
-import { getChallengesByState } from "../queries/getChallenges.js";
-import { getDuelistByAddress } from '../queries/getDuelists.js';
-import { formatChallengesAsEmbeds } from "../utils/challenges.js";
-import { ChallengeState } from "../utils/constants.js";
 import { Challenge } from "../generated/graphql.js";
+import { getChallengesByDuelist } from "../queries/getChallenges.js";
+import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 import { fetchDuelistAddress } from "../utils/social_app.js";
+import { ChallengeState } from "../utils/constants.js";
 
 export class MyDuelsCommand extends Command {
   public constructor(context: Command.LoaderContext, options?: Command.Options) {
@@ -45,43 +44,19 @@ export class MyDuelsCommand extends Command {
     await interaction.deferReply();
 
     try {
-      const userAddress = await fetchDuelistAddress(interaction.user.id);
-      const duel_state = interaction.options.getString("duel-state") || "5";
-      const true_state = parseInt(duel_state);
+      const address = await fetchDuelistAddress(interaction.user.id);
+      const input_state = interaction.options.getString("duel-state") || "5";
+      const state = parseInt(input_state) as ChallengeState;
 
-      const challenges: Challenge[] = await getChallengesByState(true_state);
+      const challenges: Challenge[] = address ? await getChallengesByDuelist(state, address) : [];
 
       if (challenges.length === 0) {
         return interaction.editReply({ content: "you a noob, you ain't got no duels!" });
       }
 
-      const enrichedChallenges = await Promise.all(challenges.map(async (challenge) => {
-        const { duelist_a, duelist_b } = challenge;
-
-        if (duelist_a === userAddress || duelist_b === userAddress) {
-          try {
-            const challenger = await getDuelistByAddress(duelist_a);
-            const challenged = await getDuelistByAddress(duelist_b);
-
-            return { ...challenge, duelist_a: challenger, duelist_b: challenged };
-          } catch (error: any) {
-            console.error(`Error processing challenge: ${error.message}`);
-            return null;
-          }
-        } else {
-          return null;
-        }
-      }));
-
-      const filteredChallenges = enrichedChallenges.filter(challenge => challenge !== null) as Challenge[];
-
-      if (filteredChallenges.length === 0) {
-        return interaction.editReply({ content: "you a noob, you ain't got no duels!" });
-      }
-
       return interaction.editReply({
         embeds: await formatChallengesAsEmbeds({
-          challenges: filteredChallenges,
+          challenges,
           title: 'My Duels'
         })
       });

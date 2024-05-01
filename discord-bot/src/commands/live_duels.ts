@@ -1,6 +1,5 @@
 import { Command } from "@sapphire/framework";
 import { getChallengesByState } from "../queries/getChallenges.js";
-import { getDuelistByAddress } from '../queries/getDuelists.js';
 import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 import { ChallengeState } from "../utils/constants.js";
 import { Challenge } from "../generated/graphql.js";
@@ -31,16 +30,9 @@ export class LiveDuelsCommand extends Command {
         return interaction.editReply({ content: "No live duels found!" });
       }
 
-      // Fetching duelist data for each challenge
-      const enrichedChallenges = await Promise.all(challenges.map(async (challenge) => {
-        const challenger = await getDuelistByAddress(challenge.duelist_a);
-        const challenged = await getDuelistByAddress(challenge.duelist_b);
-        return { ...challenge, duelist_a: challenger, duelist_b: challenged };
-      }));
-
       return interaction.editReply({
         embeds: await formatChallengesAsEmbeds({
-          challenges: enrichedChallenges,
+          challenges,
           title: 'Live Duel'
         })
       });

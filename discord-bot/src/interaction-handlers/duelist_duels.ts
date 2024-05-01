@@ -1,10 +1,9 @@
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
 import type { ButtonInteraction } from 'discord.js';
 import { BigNumberish } from 'starknet';
+import { getChallengesByDuelist } from '../queries/getChallenges.js';
 import { ChallengeState } from '../utils/constants.js';
 import { Challenge } from '../generated/graphql.js';
-import { getChallengesByState } from '../queries/getChallenges.js';
-import { getDuelistByAddress } from '../queries/getDuelists.js';
 import { formatChallengesAsEmbeds } from '../utils/challenges.js';
 
 export class ButtonHandler extends InteractionHandler {
@@ -28,36 +27,16 @@ export class ButtonHandler extends InteractionHandler {
     const { address, state } = options;
 
     try {
+      const challenges: Challenge[] = await getChallengesByDuelist(ChallengeState.InProgress, address);
 
-
-      //-----------------------------------
-      // TODO: GET THIS FROM duels_by_duelist.ts
-      //
-
-      const allChallenges: Challenge[] = await getChallengesByState(ChallengeState.InProgress);
-      const relevantChallenges = allChallenges.filter(challenge =>
-        challenge.duelist_a === address || challenge.duelist_b === address
-      );
-
-      if (relevantChallenges.length === 0) {
+      if (challenges.length === 0) {
         await interaction.reply({ content: "No duels found for this duelist!" });
         return;
       }
 
-      // Fetching duelist data for each challenge and the profile of the duelist
-      const enrichedChallenges = await Promise.all(relevantChallenges.map(async (challenge) => {
-        const challenger = await getDuelistByAddress(challenge.duelist_a);
-        const challenged = await getDuelistByAddress(challenge.duelist_b);
-        return { ...challenge, duelist_a: challenger, duelist_b: challenged };
-      }));
-
-      //
-      //-----------------------------------
-
-
       await interaction.reply({
         embeds: await formatChallengesAsEmbeds({
-          challenges: enrichedChallenges,
+          challenges,
           title: `Live Duels by ${address?.substring(0, 6)}`
         }),
         ephemeral: true // private to the person who pressed the button

@@ -51,6 +51,11 @@ export const formatChallengesAsEmbeds = async ({
         : ChallengeStateDescriptions[state]
     )
 
+    const descriptions = [
+      // `*${challenge.message}*`,
+      `Duel id: \`${challenge.duel_id}\``,
+    ]
+
     const { tag: tag_a } = await tagDuelist(challenge.duelist_a.address)
     const { tag: tag_b } = await tagDuelist(challenge.duelist_b.address)
 
@@ -68,8 +73,12 @@ export const formatChallengesAsEmbeds = async ({
     const embed = new EmbedBuilder()
       .setColor(Colors.Positive)
       .setTitle(title)
-      // .setDescription(`**Duel ID:** \`${shortAddress(challenge.duel_id)}\``)
-      .setDescription(`Duel id: \`${challenge.duel_id}\``)
+      .setAuthor({
+        name: challenge.message,
+        iconURL: makeSquareProfilePicUrl(challenge.duelist_a.profile_pic),
+        //  url: 'https://discord.js.org',
+      })
+      .setDescription(descriptions.join('\n'))
       .setThumbnail(makeSquareProfilePicUrl(winner?.profile_pic ?? 0))
       .addFields(
         { name: 'Challenger', value: challenger.join('\n'), inline: true },
