@@ -1,8 +1,8 @@
 {
     "world": {
-        "name": "dojo::world::world",
-        "address": "0x269c58e5fa1e7f6fe3756f1de88ecdfab7d03ba67e79ba0365b4ef1e81155be",
-        "class_hash": "0x5ac623f0c96059936bd2d0904bdd31799e430fe08a0caff7a5f497260b16497",
+        "kind": "Contract",
+        "class_hash": "0x799bc4e9da10bfb3dd88e6f223c9cfbf7745435cd14f5d69675ea448e578cd",
+        "original_class_hash": "0x799bc4e9da10bfb3dd88e6f223c9cfbf7745435cd14f5d69675ea448e578cd",
         "abi": [
             {
                 "type": "impl",
@@ -21,35 +21,25 @@
             },
             {
                 "type": "struct",
-                "name": "core::array::Span::<core::integer::u8>",
+                "name": "dojo::resource_metadata::ResourceMetadata",
                 "members": [
                     {
-                        "name": "snapshot",
-                        "type": "@core::array::Array::<core::integer::u8>"
-                    }
-                ]
-            },
-            {
-                "type": "enum",
-                "name": "core::option::Option::<core::felt252>",
-                "variants": [
-                    {
-                        "name": "Some",
+                        "name": "resource_id",
                         "type": "core::felt252"
                     },
                     {
-                        "name": "None",
-                        "type": "()"
+                        "name": "metadata_uri",
+                        "type": "core::array::Span::<core::felt252>"
                     }
                 ]
             },
             {
                 "type": "struct",
-                "name": "core::array::Span::<core::array::Span::<core::felt252>>",
+                "name": "core::array::Span::<core::integer::u8>",
                 "members": [
                     {
                         "name": "snapshot",
-                        "type": "@core::array::Array::<core::array::Span::<core::felt252>>"
+                        "type": "@core::array::Array::<core::integer::u8>"
                     }
                 ]
             },
@@ -73,31 +63,27 @@
                 "items": [
                     {
                         "type": "function",
-                        "name": "metadata_uri",
+                        "name": "metadata",
                         "inputs": [
                             {
-                                "name": "resource",
+                                "name": "resource_id",
                                 "type": "core::felt252"
                             }
                         ],
                         "outputs": [
                             {
-                                "type": "core::array::Span::<core::felt252>"
+                                "type": "dojo::resource_metadata::ResourceMetadata"
                             }
                         ],
                         "state_mutability": "view"
                     },
                     {
                         "type": "function",
-                        "name": "set_metadata_uri",
+                        "name": "set_metadata",
                         "inputs": [
                             {
-                                "name": "resource",
-                                "type": "core::felt252"
-                            },
-                            {
-                                "name": "uri",
-                                "type": "core::array::Span::<core::felt252>"
+                                "name": "metadata",
+                                "type": "dojo::resource_metadata::ResourceMetadata"
                             }
                         ],
                         "outputs": [],
@@ -114,7 +100,7 @@
                         ],
                         "outputs": [
                             {
-                                "type": "core::starknet::class_hash::ClassHash"
+                                "type": "(core::starknet::class_hash::ClassHash, core::starknet::contract_address::ContractAddress)"
                             }
                         ],
                         "state_mutability": "view"
@@ -211,14 +197,6 @@
                                 "type": "core::array::Span::<core::felt252>"
                             },
                             {
-                                "name": "offset",
-                                "type": "core::integer::u8"
-                            },
-                            {
-                                "name": "length",
-                                "type": "core::integer::u32"
-                            },
-                            {
                                 "name": "layout",
                                 "type": "core::array::Span::<core::integer::u8>"
                             }
@@ -243,10 +221,6 @@
                                 "type": "core::array::Span::<core::felt252>"
                             },
                             {
-                                "name": "offset",
-                                "type": "core::integer::u8"
-                            },
-                            {
                                 "name": "values",
                                 "type": "core::array::Span::<core::felt252>"
                             },
@@ -257,77 +231,6 @@
                         ],
                         "outputs": [],
                         "state_mutability": "external"
-                    },
-                    {
-                        "type": "function",
-                        "name": "entities",
-                        "inputs": [
-                            {
-                                "name": "model",
-                                "type": "core::felt252"
-                            },
-                            {
-                                "name": "index",
-                                "type": "core::option::Option::<core::felt252>"
-                            },
-                            {
-                                "name": "values",
-                                "type": "core::array::Span::<core::felt252>"
-                            },
-                            {
-                                "name": "values_length",
-                                "type": "core::integer::u32"
-                            },
-                            {
-                                "name": "values_layout",
-                                "type": "core::array::Span::<core::integer::u8>"
-                            }
-                        ],
-                        "outputs": [
-                            {
-                                "type": "(core::array::Span::<core::felt252>, core::array::Span::<core::array::Span::<core::felt252>>)"
-                            }
-                        ],
-                        "state_mutability": "view"
-                    },
-                    {
-                        "type": "function",
-                        "name": "entity_ids",
-                        "inputs": [
-                            {
-                                "name": "model",
-                                "type": "core::felt252"
-                            }
-                        ],
-                        "outputs": [
-                            {
-                                "type": "core::array::Span::<core::felt252>"
-                            }
-                        ],
-                        "state_mutability": "view"
-                    },
-                    {
-                        "type": "function",
-                        "name": "set_executor",
-                        "inputs": [
-                            {
-                                "name": "contract_address",
-                                "type": "core::starknet::contract_address::ContractAddress"
-                            }
-                        ],
-                        "outputs": [],
-                        "state_mutability": "external"
-                    },
-                    {
-                        "type": "function",
-                        "name": "executor",
-                        "inputs": [],
-                        "outputs": [
-                            {
-                                "type": "core::starknet::contract_address::ContractAddress"
-                            }
-                        ],
-                        "state_mutability": "view"
                     },
                     {
                         "type": "function",
@@ -494,10 +397,6 @@
                 "name": "constructor",
                 "inputs": [
                     {
-                        "name": "executor",
-                        "type": "core::starknet::contract_address::ContractAddress"
-                    },
-                    {
                         "name": "contract_base",
                         "type": "core::starknet::class_hash::ClassHash"
                     }
@@ -607,6 +506,16 @@
                         "name": "prev_class_hash",
                         "type": "core::starknet::class_hash::ClassHash",
                         "kind": "data"
+                    },
+                    {
+                        "name": "address",
+                        "type": "core::starknet::contract_address::ContractAddress",
+                        "kind": "data"
+                    },
+                    {
+                        "name": "prev_address",
+                        "type": "core::starknet::contract_address::ContractAddress",
+                        "kind": "data"
                     }
                 ]
             },
@@ -623,11 +532,6 @@
                     {
                         "name": "keys",
                         "type": "core::array::Span::<core::felt252>",
-                        "kind": "data"
-                    },
-                    {
-                        "name": "offset",
-                        "type": "core::integer::u8",
                         "kind": "data"
                     },
                     {
@@ -700,23 +604,6 @@
             },
             {
                 "type": "event",
-                "name": "dojo::world::world::ExecutorUpdated",
-                "kind": "struct",
-                "members": [
-                    {
-                        "name": "address",
-                        "type": "core::starknet::contract_address::ContractAddress",
-                        "kind": "data"
-                    },
-                    {
-                        "name": "prev_address",
-                        "type": "core::starknet::contract_address::ContractAddress",
-                        "kind": "data"
-                    }
-                ]
-            },
-            {
-                "type": "event",
                 "name": "dojo::world::world::Event",
                 "kind": "enum",
                 "variants": [
@@ -769,187 +656,30 @@
                         "name": "OwnerUpdated",
                         "type": "dojo::world::world::OwnerUpdated",
                         "kind": "nested"
-                    },
-                    {
-                        "name": "ExecutorUpdated",
-                        "type": "dojo::world::world::ExecutorUpdated",
-                        "kind": "nested"
                     }
                 ]
             }
         ],
-        "reads": [],
-        "writes": [],
-        "computed": []
-    },
-    "executor": {
-        "name": "dojo::executor::executor",
-        "address": null,
-        "class_hash": "0x585507fa2818fe78e66da6ea4c5915376739f4abf509d41153f60a16cb1f68d",
-        "abi": [
-            {
-                "type": "impl",
-                "name": "Executor",
-                "interface_name": "dojo::executor::IExecutor"
-            },
-            {
-                "type": "struct",
-                "name": "core::array::Span::<core::felt252>",
-                "members": [
-                    {
-                        "name": "snapshot",
-                        "type": "@core::array::Array::<core::felt252>"
-                    }
-                ]
-            },
-            {
-                "type": "interface",
-                "name": "dojo::executor::IExecutor",
-                "items": [
-                    {
-                        "type": "function",
-                        "name": "call",
-                        "inputs": [
-                            {
-                                "name": "class_hash",
-                                "type": "core::starknet::class_hash::ClassHash"
-                            },
-                            {
-                                "name": "entrypoint",
-                                "type": "core::felt252"
-                            },
-                            {
-                                "name": "calldata",
-                                "type": "core::array::Span::<core::felt252>"
-                            }
-                        ],
-                        "outputs": [
-                            {
-                                "type": "core::array::Span::<core::felt252>"
-                            }
-                        ],
-                        "state_mutability": "view"
-                    }
-                ]
-            },
-            {
-                "type": "event",
-                "name": "dojo::executor::executor::Event",
-                "kind": "enum",
-                "variants": []
-            }
-        ],
-        "reads": [],
-        "writes": [],
-        "computed": []
+        "address": "0x10923ed11da790f94efd6f68c5558f5f604df0ff2ff776bd5209b7ebb8985b8",
+        "transaction_hash": "0x27c84ed484c6923484e59d6bbdc27c3a32f96581ed790a1c6ca854ecfb139d2",
+        "block_number": 3,
+        "seed": "pistols",
+        "name": "dojo::world::world"
     },
     "base": {
-        "name": "dojo::base::base",
-        "class_hash": "0x6c458453d35753703ad25632deec20a29faf8531942ec109e6eb0650316a2bc",
-        "abi": [
-            {
-                "type": "impl",
-                "name": "WorldProviderImpl",
-                "interface_name": "dojo::world::IWorldProvider"
-            },
-            {
-                "type": "struct",
-                "name": "dojo::world::IWorldDispatcher",
-                "members": [
-                    {
-                        "name": "contract_address",
-                        "type": "core::starknet::contract_address::ContractAddress"
-                    }
-                ]
-            },
-            {
-                "type": "interface",
-                "name": "dojo::world::IWorldProvider",
-                "items": [
-                    {
-                        "type": "function",
-                        "name": "world",
-                        "inputs": [],
-                        "outputs": [
-                            {
-                                "type": "dojo::world::IWorldDispatcher"
-                            }
-                        ],
-                        "state_mutability": "view"
-                    }
-                ]
-            },
-            {
-                "type": "impl",
-                "name": "UpgradableImpl",
-                "interface_name": "dojo::components::upgradeable::IUpgradeable"
-            },
-            {
-                "type": "interface",
-                "name": "dojo::components::upgradeable::IUpgradeable",
-                "items": [
-                    {
-                        "type": "function",
-                        "name": "upgrade",
-                        "inputs": [
-                            {
-                                "name": "new_class_hash",
-                                "type": "core::starknet::class_hash::ClassHash"
-                            }
-                        ],
-                        "outputs": [],
-                        "state_mutability": "external"
-                    }
-                ]
-            },
-            {
-                "type": "constructor",
-                "name": "constructor",
-                "inputs": []
-            },
-            {
-                "type": "event",
-                "name": "dojo::components::upgradeable::upgradeable::Upgraded",
-                "kind": "struct",
-                "members": [
-                    {
-                        "name": "class_hash",
-                        "type": "core::starknet::class_hash::ClassHash",
-                        "kind": "data"
-                    }
-                ]
-            },
-            {
-                "type": "event",
-                "name": "dojo::components::upgradeable::upgradeable::Event",
-                "kind": "enum",
-                "variants": [
-                    {
-                        "name": "Upgraded",
-                        "type": "dojo::components::upgradeable::upgradeable::Upgraded",
-                        "kind": "nested"
-                    }
-                ]
-            },
-            {
-                "type": "event",
-                "name": "dojo::base::base::Event",
-                "kind": "enum",
-                "variants": [
-                    {
-                        "name": "UpgradeableEvent",
-                        "type": "dojo::components::upgradeable::upgradeable::Event",
-                        "kind": "nested"
-                    }
-                ]
-            }
-        ]
+        "kind": "Class",
+        "class_hash": "0x679177a2cb757694ac4f326d01052ff0963eac0bc2a17116a2b87badcdf6f76",
+        "original_class_hash": "0x679177a2cb757694ac4f326d01052ff0963eac0bc2a17116a2b87badcdf6f76",
+        "abi": null,
+        "name": "dojo::base::base"
     },
     "contracts": [
         {
-            "name": "pistols::mocks::lords_mock::lords_mock",
-            "address": "0x1c78b6e4a6f7fec47834ee44a18b568548b681a7adaefa9db98e699b08d5e8a",
-            "class_hash": "0x726ee54c15cf1311c8cb1040ebf4e2cc370a707db42c20c753f688797470c1",
+            "kind": "DojoContract",
+            "address": "0x775f949fd0aee5d034c3f1f1a59de273732e1b3b067b75c430d4ce33b153148",
+            "class_hash": "0x7edf9d5c56a055d830d1014c1f86edd74a57917f5320501076d6efcd4e2c737",
+            "original_class_hash": "0x7edf9d5c56a055d830d1014c1f86edd74a57917f5320501076d6efcd4e2c737",
+            "base_class_hash": "0x679177a2cb757694ac4f326d01052ff0963eac0bc2a17116a2b87badcdf6f76",
             "abi": [
                 {
                     "type": "impl",
@@ -1011,6 +741,20 @@
                     "interface_name": "pistols::mocks::lords_mock::ILordsMockInitializer"
                 },
                 {
+                    "type": "enum",
+                    "name": "core::bool",
+                    "variants": [
+                        {
+                            "name": "False",
+                            "type": "()"
+                        },
+                        {
+                            "name": "True",
+                            "type": "()"
+                        }
+                    ]
+                },
+                {
                     "type": "interface",
                     "name": "pistols::mocks::lords_mock::ILordsMockInitializer",
                     "items": [
@@ -1019,7 +763,18 @@
                             "name": "initializer",
                             "inputs": [],
                             "outputs": [],
-                            "state_mutability": "external"
+                            "state_mutability": "view"
+                        },
+                        {
+                            "type": "function",
+                            "name": "is_initialized",
+                            "inputs": [],
+                            "outputs": [
+                                {
+                                    "type": "core::bool"
+                                }
+                            ],
+                            "state_mutability": "view"
                         }
                     ]
                 },
@@ -1037,7 +792,7 @@
                             "name": "faucet",
                             "inputs": [],
                             "outputs": [],
-                            "state_mutability": "external"
+                            "state_mutability": "view"
                         }
                     ]
                 },
@@ -1172,20 +927,6 @@
                     "interface_name": "token::components::token::erc20::erc20_balance::IERC20Balance"
                 },
                 {
-                    "type": "enum",
-                    "name": "core::bool",
-                    "variants": [
-                        {
-                            "name": "False",
-                            "type": "()"
-                        },
-                        {
-                            "name": "True",
-                            "type": "()"
-                        }
-                    ]
-                },
-                {
                     "type": "interface",
                     "name": "token::components::token::erc20::erc20_balance::IERC20Balance",
                     "items": [
@@ -1223,7 +964,7 @@
                                     "type": "core::bool"
                                 }
                             ],
-                            "state_mutability": "external"
+                            "state_mutability": "view"
                         },
                         {
                             "type": "function",
@@ -1247,7 +988,7 @@
                                     "type": "core::bool"
                                 }
                             ],
-                            "state_mutability": "external"
+                            "state_mutability": "view"
                         }
                     ]
                 },
@@ -1298,7 +1039,7 @@
                                     "type": "core::bool"
                                 }
                             ],
-                            "state_mutability": "external"
+                            "state_mutability": "view"
                         }
                     ]
                 },
@@ -1349,7 +1090,7 @@
                                     "type": "core::bool"
                                 }
                             ],
-                            "state_mutability": "external"
+                            "state_mutability": "view"
                         }
                     ]
                 },
@@ -1514,12 +1255,15 @@
             ],
             "reads": [],
             "writes": [],
-            "computed": []
+            "computed": [],
+            "name": "pistols::mocks::lords_mock::lords_mock"
         },
         {
-            "name": "pistols::systems::actions::actions",
-            "address": "0x78af18db6887ee0eb2b339f95619e88b65aa47c7025ad42dc81c7be43b631ff",
-            "class_hash": "0x3a2b828af1b4e4c65963e872ca3f78f1ad223c60e2fc5c1c2348a7b6c00623c",
+            "kind": "DojoContract",
+            "address": "0x702e255a3446fce9c49df1c579a62fba9e6bfefd4621a437b28c559b68e0f81",
+            "class_hash": "0x3a74ca23371973bebe0433f7eb584bdc86403e46738d165257fc89b2d99bee0",
+            "original_class_hash": "0x3a74ca23371973bebe0433f7eb584bdc86403e46738d165257fc89b2d99bee0",
+            "base_class_hash": "0x679177a2cb757694ac4f326d01052ff0963eac0bc2a17116a2b87badcdf6f76",
             "abi": [
                 {
                     "type": "impl",
@@ -1579,6 +1323,64 @@
                     "type": "impl",
                     "name": "ActionsImpl",
                     "interface_name": "pistols::systems::actions::IActions"
+                },
+                {
+                    "type": "struct",
+                    "name": "pistols::models::models::Duelist",
+                    "members": [
+                        {
+                            "name": "address",
+                            "type": "core::starknet::contract_address::ContractAddress"
+                        },
+                        {
+                            "name": "name",
+                            "type": "core::felt252"
+                        },
+                        {
+                            "name": "profile_pic",
+                            "type": "core::integer::u8"
+                        },
+                        {
+                            "name": "total_duels",
+                            "type": "core::integer::u16"
+                        },
+                        {
+                            "name": "total_wins",
+                            "type": "core::integer::u16"
+                        },
+                        {
+                            "name": "total_losses",
+                            "type": "core::integer::u16"
+                        },
+                        {
+                            "name": "total_draws",
+                            "type": "core::integer::u16"
+                        },
+                        {
+                            "name": "total_honour",
+                            "type": "core::integer::u32"
+                        },
+                        {
+                            "name": "honour",
+                            "type": "core::integer::u8"
+                        },
+                        {
+                            "name": "villainy",
+                            "type": "core::integer::u8"
+                        },
+                        {
+                            "name": "trickery",
+                            "type": "core::integer::u8"
+                        },
+                        {
+                            "name": "virtue",
+                            "type": "core::integer::u8"
+                        },
+                        {
+                            "name": "timestamp",
+                            "type": "core::integer::u64"
+                        }
+                    ]
                 },
                 {
                     "type": "struct",
@@ -1663,7 +1465,11 @@
                                     "type": "core::integer::u8"
                                 }
                             ],
-                            "outputs": [],
+                            "outputs": [
+                                {
+                                    "type": "pistols::models::models::Duelist"
+                                }
+                            ],
                             "state_mutability": "view"
                         },
                         {
@@ -2065,6 +1871,33 @@
                 },
                 {
                     "type": "event",
+                    "name": "pistols::types::events::DuelistRegistered",
+                    "kind": "struct",
+                    "members": [
+                        {
+                            "name": "address",
+                            "type": "core::starknet::contract_address::ContractAddress",
+                            "kind": "data"
+                        },
+                        {
+                            "name": "name",
+                            "type": "core::felt252",
+                            "kind": "data"
+                        },
+                        {
+                            "name": "profile_pic",
+                            "type": "core::integer::u8",
+                            "kind": "data"
+                        },
+                        {
+                            "name": "is_new",
+                            "type": "core::bool",
+                            "kind": "data"
+                        }
+                    ]
+                },
+                {
+                    "type": "event",
                     "name": "pistols::types::events::NewChallengeEvent",
                     "kind": "struct",
                     "members": [
@@ -2123,7 +1956,7 @@
                             "kind": "data"
                         },
                         {
-                            "name": "duelist_address",
+                            "name": "address",
                             "type": "core::starknet::contract_address::ContractAddress",
                             "kind": "data"
                         },
@@ -2142,6 +1975,11 @@
                         {
                             "name": "UpgradeableEvent",
                             "type": "dojo::components::upgradeable::upgradeable::Event",
+                            "kind": "nested"
+                        },
+                        {
+                            "name": "DuelistRegistered",
+                            "type": "pistols::types::events::DuelistRegistered",
                             "kind": "nested"
                         },
                         {
@@ -2164,12 +2002,15 @@
             ],
             "reads": [],
             "writes": [],
-            "computed": []
+            "computed": [],
+            "name": "pistols::systems::actions::actions"
         },
         {
-            "name": "pistols::systems::admin::admin",
-            "address": "0x32c88d8593a215bac188af1cc576cf4b0704edb8d9c79ea12ccd695b7c33b81",
-            "class_hash": "0x71146626eab200b92532d1e78e6e79b86fbc395aca6e938a7288e830e0d5552",
+            "kind": "DojoContract",
+            "address": "0x281b9cb20b07e7aacbb9fcada94bd350a7b9d877755fdf08af4e0f3f2fe3bf2",
+            "class_hash": "0x3905b8a27589896274593f9cc73ecae8215eb8814836544d1fc16459e988322",
+            "original_class_hash": "0x3905b8a27589896274593f9cc73ecae8215eb8814836544d1fc16459e988322",
+            "base_class_hash": "0x679177a2cb757694ac4f326d01052ff0963eac0bc2a17116a2b87badcdf6f76",
             "abi": [
                 {
                     "type": "impl",
@@ -2227,7 +2068,7 @@
                 },
                 {
                     "type": "impl",
-                    "name": "AdminExternalImpl",
+                    "name": "AdminImpl",
                     "interface_name": "pistols::systems::admin::IAdmin"
                 },
                 {
@@ -2336,6 +2177,17 @@
                                 }
                             ],
                             "outputs": [],
+                            "state_mutability": "view"
+                        },
+                        {
+                            "type": "function",
+                            "name": "is_initialized",
+                            "inputs": [],
+                            "outputs": [
+                                {
+                                    "type": "core::bool"
+                                }
+                            ],
                             "state_mutability": "view"
                         },
                         {
@@ -2513,12 +2365,13 @@
             ],
             "reads": [],
             "writes": [],
-            "computed": []
+            "computed": [],
+            "name": "pistols::systems::admin::admin"
         }
     ],
     "models": [
         {
-            "name": "pistols::models::coins::coin",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "key",
@@ -2551,7 +2404,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0x2e36cfce20dfa311a0ed30fc15e6596986a86220b72eb460031228bafa56558",
+            "class_hash": "0x733ce322dd5d77fdb68ab997891a0a46834003fb3e5f12052f8f6227083ff72",
+            "original_class_hash": "0x733ce322dd5d77fdb68ab997891a0a46834003fb3e5f12052f8f6227083ff72",
             "abi": [
                 {
                     "type": "impl",
@@ -2653,6 +2507,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -2804,10 +2662,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "pistols::models::coins::coin"
         },
         {
-            "name": "pistols::models::config::config",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "key",
@@ -2835,7 +2694,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0x53059a3b76c8c62c14c1abab43f226962148e22ad1425cf70d6426672863433",
+            "class_hash": "0x3599fa3e07e926a11894221ee80929455bb55687029cc530a0ee40c098ffc1f",
+            "original_class_hash": "0x3599fa3e07e926a11894221ee80929455bb55687029cc530a0ee40c098ffc1f",
             "abi": [
                 {
                     "type": "impl",
@@ -2937,6 +2797,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -3070,10 +2934,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "pistols::models::config::config"
         },
         {
-            "name": "pistols::models::models::challenge",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "duel_id",
@@ -3121,7 +2986,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0x55dbc146cb3e3458130f0f9ab6ebd917df73ee93eb3087de9b5b898a8b7b60f",
+            "class_hash": "0x40a8c89324fd3f2eaf33f0484e0b29a99dc8791ca73e47d111ec72e386b2c53",
+            "original_class_hash": "0x40a8c89324fd3f2eaf33f0484e0b29a99dc8791ca73e47d111ec72e386b2c53",
             "abi": [
                 {
                     "type": "impl",
@@ -3223,6 +3089,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -3358,10 +3228,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "pistols::models::models::challenge"
         },
         {
-            "name": "pistols::models::models::duelist",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "address",
@@ -3409,12 +3280,28 @@
                     "key": false
                 },
                 {
+                    "name": "villainy",
+                    "type": "u8",
+                    "key": false
+                },
+                {
+                    "name": "trickery",
+                    "type": "u8",
+                    "key": false
+                },
+                {
+                    "name": "virtue",
+                    "type": "u8",
+                    "key": false
+                },
+                {
                     "name": "timestamp",
                     "type": "u64",
                     "key": false
                 }
             ],
-            "class_hash": "0xd7596a91d39c54436663c14d231429ece7b9584dd49653dd446986c6e18a2f",
+            "class_hash": "0x35d376427fca9fa5b83ae138826e5b0e5cd29b39034e8029fa33f0b7e624165",
+            "original_class_hash": "0x35d376427fca9fa5b83ae138826e5b0e5cd29b39034e8029fa33f0b7e624165",
             "abi": [
                 {
                     "type": "impl",
@@ -3516,6 +3403,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -3626,6 +3517,18 @@
                             "type": "core::integer::u8"
                         },
                         {
+                            "name": "villainy",
+                            "type": "core::integer::u8"
+                        },
+                        {
+                            "name": "trickery",
+                            "type": "core::integer::u8"
+                        },
+                        {
+                            "name": "virtue",
+                            "type": "core::integer::u8"
+                        },
+                        {
                             "name": "timestamp",
                             "type": "core::integer::u64"
                         }
@@ -3655,10 +3558,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "pistols::models::models::duelist"
         },
         {
-            "name": "pistols::models::models::pact",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "pair",
@@ -3671,7 +3575,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0x63724d812b1e531bd96168d52405e975c1d36ddd7b9f38e1ff104f9b0177f7a",
+            "class_hash": "0x3860eb2dfca07d6cffd069ed8a12937f69830c89ca410a6798d0643b940ede3",
+            "original_class_hash": "0x3860eb2dfca07d6cffd069ed8a12937f69830c89ca410a6798d0643b940ede3",
             "abi": [
                 {
                     "type": "impl",
@@ -3773,6 +3678,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -3880,10 +3789,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "pistols::models::models::pact"
         },
         {
-            "name": "pistols::models::models::round",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "duel_id",
@@ -3911,7 +3821,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0xa717b8ef188ea04cdea691beab3d4f848d0105c2281537e382bc05886f0fe3",
+            "class_hash": "0x2da5c69c0fb27bea4d38b1a0cb8c3427d81f7bed15415842dda19c6eba4df35",
+            "original_class_hash": "0x2da5c69c0fb27bea4d38b1a0cb8c3427d81f7bed15415842dda19c6eba4df35",
             "abi": [
                 {
                     "type": "impl",
@@ -4013,6 +3924,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -4190,10 +4105,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "pistols::models::models::round"
         },
         {
-            "name": "pistols::models::models::wager",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "duel_id",
@@ -4216,7 +4132,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0xedd44b8b8010f8268df169b31674e70da7cf6a7edfbb24c70039cf7ac37533",
+            "class_hash": "0x50668cca4fde9d2bc5a65daca7bf51ff6e38159be49541322b06dfd4d479dce",
+            "original_class_hash": "0x50668cca4fde9d2bc5a65daca7bf51ff6e38159be49541322b06dfd4d479dce",
             "abi": [
                 {
                     "type": "impl",
@@ -4318,6 +4235,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -4447,10 +4368,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "pistols::models::models::wager"
         },
         {
-            "name": "token::components::security::initializable::initializable_model",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "token",
@@ -4463,7 +4385,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0x19870cb507cbca8cf4d5b2f7d05f6fbb3b843da1dea183f27cb10ced1e7e1de",
+            "class_hash": "0x203cf018080b21fc921033ee35af2e1b8811cc7c73e9256fb7a86f794c556ce",
+            "original_class_hash": "0x203cf018080b21fc921033ee35af2e1b8811cc7c73e9256fb7a86f794c556ce",
             "abi": [
                 {
                     "type": "impl",
@@ -4565,6 +4488,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -4686,10 +4613,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "token::components::security::initializable::initializable_model"
         },
         {
-            "name": "token::components::token::erc20::erc20_allowance::erc_20_allowance_model",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "token",
@@ -4712,7 +4640,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0x584c206fc07296efc711b2433daf9d55705f4e724420f1bcebb080057abbb66",
+            "class_hash": "0x194d40513d3428318f01b1cd74380d3dc67e361a3e6f31c2c1297b1099fb9a5",
+            "original_class_hash": "0x194d40513d3428318f01b1cd74380d3dc67e361a3e6f31c2c1297b1099fb9a5",
             "abi": [
                 {
                     "type": "impl",
@@ -4814,6 +4743,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -4943,10 +4876,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "token::components::token::erc20::erc20_allowance::erc_20_allowance_model"
         },
         {
-            "name": "token::components::token::erc20::erc20_balance::erc_20_balance_model",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "token",
@@ -4964,7 +4898,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0x2dddfa8306289aa03aab2c4de1c04839fd2d305efede36c2e8760777394247e",
+            "class_hash": "0x7b1ae7ba3115fabcc3a01e0046ec79bbcea285822ae3bde8501c499dcfb944f",
+            "original_class_hash": "0x7b1ae7ba3115fabcc3a01e0046ec79bbcea285822ae3bde8501c499dcfb944f",
             "abi": [
                 {
                     "type": "impl",
@@ -5066,6 +5001,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -5191,235 +5130,11 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
-        },
-        {
-            "name": "token::components::token::erc20::erc20_bridgeable::erc_20_bridgeable_model",
-            "members": [
-                {
-                    "name": "token",
-                    "type": "ContractAddress",
-                    "key": true
-                },
-                {
-                    "name": "l2_bridge_address",
-                    "type": "ContractAddress",
-                    "key": false
-                }
             ],
-            "class_hash": "0x4419f391f3be1073fca3fdaf5033d1ca6896e074a42f18b62e1511dfeb43834",
-            "abi": [
-                {
-                    "type": "impl",
-                    "name": "DojoModelImpl",
-                    "interface_name": "dojo::model::IDojoModel"
-                },
-                {
-                    "type": "struct",
-                    "name": "core::array::Span::<core::integer::u8>",
-                    "members": [
-                        {
-                            "name": "snapshot",
-                            "type": "@core::array::Array::<core::integer::u8>"
-                        }
-                    ]
-                },
-                {
-                    "type": "struct",
-                    "name": "core::array::Span::<core::felt252>",
-                    "members": [
-                        {
-                            "name": "snapshot",
-                            "type": "@core::array::Array::<core::felt252>"
-                        }
-                    ]
-                },
-                {
-                    "type": "struct",
-                    "name": "core::array::Span::<core::array::Span::<core::felt252>>",
-                    "members": [
-                        {
-                            "name": "snapshot",
-                            "type": "@core::array::Array::<core::array::Span::<core::felt252>>"
-                        }
-                    ]
-                },
-                {
-                    "type": "struct",
-                    "name": "dojo::database::introspect::Struct",
-                    "members": [
-                        {
-                            "name": "name",
-                            "type": "core::felt252"
-                        },
-                        {
-                            "name": "attrs",
-                            "type": "core::array::Span::<core::felt252>"
-                        },
-                        {
-                            "name": "children",
-                            "type": "core::array::Span::<core::array::Span::<core::felt252>>"
-                        }
-                    ]
-                },
-                {
-                    "type": "struct",
-                    "name": "core::array::Span::<(core::felt252, core::array::Span::<core::felt252>)>",
-                    "members": [
-                        {
-                            "name": "snapshot",
-                            "type": "@core::array::Array::<(core::felt252, core::array::Span::<core::felt252>)>"
-                        }
-                    ]
-                },
-                {
-                    "type": "struct",
-                    "name": "dojo::database::introspect::Enum",
-                    "members": [
-                        {
-                            "name": "name",
-                            "type": "core::felt252"
-                        },
-                        {
-                            "name": "attrs",
-                            "type": "core::array::Span::<core::felt252>"
-                        },
-                        {
-                            "name": "children",
-                            "type": "core::array::Span::<(core::felt252, core::array::Span::<core::felt252>)>"
-                        }
-                    ]
-                },
-                {
-                    "type": "enum",
-                    "name": "dojo::database::introspect::Ty",
-                    "variants": [
-                        {
-                            "name": "Primitive",
-                            "type": "core::felt252"
-                        },
-                        {
-                            "name": "Struct",
-                            "type": "dojo::database::introspect::Struct"
-                        },
-                        {
-                            "name": "Enum",
-                            "type": "dojo::database::introspect::Enum"
-                        },
-                        {
-                            "name": "Tuple",
-                            "type": "core::array::Span::<core::array::Span::<core::felt252>>"
-                        }
-                    ]
-                },
-                {
-                    "type": "interface",
-                    "name": "dojo::model::IDojoModel",
-                    "items": [
-                        {
-                            "type": "function",
-                            "name": "name",
-                            "inputs": [],
-                            "outputs": [
-                                {
-                                    "type": "core::felt252"
-                                }
-                            ],
-                            "state_mutability": "view"
-                        },
-                        {
-                            "type": "function",
-                            "name": "unpacked_size",
-                            "inputs": [],
-                            "outputs": [
-                                {
-                                    "type": "core::integer::u32"
-                                }
-                            ],
-                            "state_mutability": "view"
-                        },
-                        {
-                            "type": "function",
-                            "name": "packed_size",
-                            "inputs": [],
-                            "outputs": [
-                                {
-                                    "type": "core::integer::u32"
-                                }
-                            ],
-                            "state_mutability": "view"
-                        },
-                        {
-                            "type": "function",
-                            "name": "layout",
-                            "inputs": [],
-                            "outputs": [
-                                {
-                                    "type": "core::array::Span::<core::integer::u8>"
-                                }
-                            ],
-                            "state_mutability": "view"
-                        },
-                        {
-                            "type": "function",
-                            "name": "schema",
-                            "inputs": [],
-                            "outputs": [
-                                {
-                                    "type": "dojo::database::introspect::Ty"
-                                }
-                            ],
-                            "state_mutability": "view"
-                        }
-                    ]
-                },
-                {
-                    "type": "impl",
-                    "name": "erc_20_bridgeable_modelImpl",
-                    "interface_name": "token::components::token::erc20::erc20_bridgeable::Ierc_20_bridgeable_model"
-                },
-                {
-                    "type": "struct",
-                    "name": "token::components::token::erc20::erc20_bridgeable::ERC20BridgeableModel",
-                    "members": [
-                        {
-                            "name": "token",
-                            "type": "core::starknet::contract_address::ContractAddress"
-                        },
-                        {
-                            "name": "l2_bridge_address",
-                            "type": "core::starknet::contract_address::ContractAddress"
-                        }
-                    ]
-                },
-                {
-                    "type": "interface",
-                    "name": "token::components::token::erc20::erc20_bridgeable::Ierc_20_bridgeable_model",
-                    "items": [
-                        {
-                            "type": "function",
-                            "name": "ensure_abi",
-                            "inputs": [
-                                {
-                                    "name": "model",
-                                    "type": "token::components::token::erc20::erc20_bridgeable::ERC20BridgeableModel"
-                                }
-                            ],
-                            "outputs": [],
-                            "state_mutability": "view"
-                        }
-                    ]
-                },
-                {
-                    "type": "event",
-                    "name": "token::components::token::erc20::erc20_bridgeable::erc_20_bridgeable_model::Event",
-                    "kind": "enum",
-                    "variants": []
-                }
-            ]
+            "name": "token::components::token::erc20::erc20_balance::erc_20_balance_model"
         },
         {
-            "name": "token::components::token::erc20::erc20_metadata::erc_20_metadata_model",
+            "kind": "DojoModel",
             "members": [
                 {
                     "name": "token",
@@ -5447,7 +5162,8 @@
                     "key": false
                 }
             ],
-            "class_hash": "0x509060b604af656e22a9255550df1a07a992371f26b50a5661cd164a1aa5af9",
+            "class_hash": "0x554661c0f3ba0abb585de13ad65cd95e60feee212f65e0f3d26f3c8b06d5058",
+            "original_class_hash": "0x554661c0f3ba0abb585de13ad65cd95e60feee212f65e0f3d26f3c8b06d5058",
             "abi": [
                 {
                     "type": "impl",
@@ -5549,6 +5265,10 @@
                         {
                             "name": "Tuple",
                             "type": "core::array::Span::<core::array::Span::<core::felt252>>"
+                        },
+                        {
+                            "name": "Array",
+                            "type": "core::integer::u32"
                         }
                     ]
                 },
@@ -5682,7 +5402,8 @@
                     "kind": "enum",
                     "variants": []
                 }
-            ]
+            ],
+            "name": "token::components::token::erc20::erc20_metadata::erc_20_metadata_model"
         }
     ]
 }

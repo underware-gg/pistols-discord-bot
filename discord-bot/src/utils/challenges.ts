@@ -39,8 +39,8 @@ export const formatChallengesAsEmbeds = ({
     title?: string
 }): EmbedBuilder[] => {
     return challenges.map((challenge, index) => {
-        const challengerName = feltToString(challenge.duelist_a.name);
-        const challengedName = feltToString(challenge.duelist_b.name);
+        const challengerName = challenge.duelist_a.name;
+        const challengedName = challenge.duelist_b.name;
         const challengerHonour = challenge.duelist_a.honour;
         const challengedHonour = challenge.duelist_b.honour;
         const duel_time = new Date(challenge.timestamp_start * 1000);
@@ -68,8 +68,8 @@ export const formatDuelsAsEmbeds = ({
     title?: string
 }): EmbedBuilder[] => {
     return challenges.map((challenge, index) => {
-        const challengerName = feltToString(challenge.duelist_a.name);
-        const challengedName = feltToString(challenge.duelist_b.name);
+        const challengerName = challenge.duelist_a.name;
+        const challengedName = challenge.duelist_b.name;
         const challengerHonour = challenge.duelist_a.honour;
         const challengedHonour = challenge.duelist_b.honour;
         const duel_time = new Date(challenge.timestamp_start * 1000);

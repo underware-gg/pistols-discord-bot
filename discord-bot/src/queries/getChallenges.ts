@@ -32,17 +32,15 @@ export const getDuelistByAddress = async(address: any): Promise<ql.Duelist | nul
     }
 }
 
-const parseChallengesResponse = (data: ql.GetChallengesByStateQuery | ql.GetChallengesByIdQuery): ql.Challenge[] => {
-    let result: ql.Challenge[] = []
-    if (data?.challengeModels?.edges) {
-        result = data.challengeModels.edges.map((item: any) => {
-            const challenge = item.node;
-            return {
-                ...challenge,
-                message: feltToString(challenge.message), 
-            }
-        });
-    }
+
+const parseChallengesResponse = (data: ql.GetChallengesByStateQuery | ql.GetChallengesByIdQuery | null | undefined): ql.Challenge[] => {
+    let result: ql.Challenge[] = data?.challengeModels?.edges?.map((item: any) => {
+        const challenge = item.node;
+        return {
+            ...challenge,
+            message: feltToString(challenge.message), // strings in Cairo are encoded in a felt252, need to be convert
+        }
+    }) ?? [];
     return result
 };
 
