@@ -47,13 +47,13 @@ export class MyDuelsCommand extends Command {
 
         try {
             const userId = interaction.user.id;
-            const userAddress = async () => {
+            const fetchUserAddress = async () => {
                 const call = `${baseApiUrl}?user_id=${encodeURIComponent(userId)}`;
                 const response = await axios.get(call);
                 const userAddress = response.data.duelist_address;
                 return userAddress;
             }
-            userAddress();
+            const userAddress = await fetchUserAddress();
             const duel_state = interaction.options.getString("duel-state") || "5";
             const true_state = parseInt(duel_state);
 
