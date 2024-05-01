@@ -43,7 +43,7 @@ export class MyDuelsCommand extends Command {
 
     public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
         await interaction.deferReply();
-        const baseApiUrl = 'http://localhost:3000/api/checkid';
+        const baseApiUrl = process.env.SOCIAL_APP + "/api/checkid";
 
         try {
             const userId = interaction.user.id;

@@ -40,7 +40,7 @@ export class Duels_By_DuelistCommand extends Command {
 
         try {
             const userAddress = async () => {
-                const call = `http://localhost:3000/api/checkid?user_id=${encodeURIComponent(userId)}`;
+                const call = `${baseApiUrl}/api/checkid?user_id=${encodeURIComponent(userId)}`;
                 const response = await axios.get(call);
                 const userAddress = response.data.duelist_address;
                 return userAddress;
@@ -99,9 +99,11 @@ export class Duels_By_DuelistCommand extends Command {
     }
 }
 
+const baseApiUrl = process.env.SOCIAL_APP;
+
 async function fetchDiscordId(duelistAddress: string | undefined): Promise<string | null> {
     try {
-        const apiUrl = `http://localhost:3000/api/checkuser?duelist_address=${encodeURIComponent(duelistAddress?.toString() ?? '')}`;
+        const apiUrl = `${baseApiUrl}/api/checkuser?duelist_address=${encodeURIComponent(duelistAddress?.toString() ?? '')}`;
         const response = await axios.get(apiUrl);
 
         if (response.status === 404) {
