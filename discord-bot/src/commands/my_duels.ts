@@ -80,7 +80,7 @@ export class MyDuelsCommand extends Command {
       }
 
       return interaction.editReply({
-        embeds: formatChallengesAsEmbeds({
+        embeds: await formatChallengesAsEmbeds({
           challenges: filteredChallenges,
           title: 'My Duels'
         })

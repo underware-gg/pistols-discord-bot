@@ -15,20 +15,11 @@ export const getDuelistByAddress = async (address: BigNumberish): Promise<ql.Due
   }
 }
 
-const parseDuelistResponse = (
-  data: ql.GetDuelistsByAddressQuery
-): ql.Duelist | null => {
-  if (
-    data?.duelistModels?.edges?.length &&
-    data.duelistModels.edges.length > 0
-  ) {
-    const duelist = data.duelistModels.edges[0]?.node;
-    if (duelist) {
-      return {
-        ...duelist,
-        name: feltToString(duelist.name),
-      };
-    }
+const parseDuelistResponse = (data: ql.GetDuelistsByAddressQuery): ql.Duelist | null => {
+  const duelist = data?.duelistModels?.edges?.[0]?.node;
+  if (!duelist) return null;
+  return {
+    ...duelist,
+    name: feltToString(duelist.name),
   }
-  return null;
-};
+}

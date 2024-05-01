@@ -1,13 +1,13 @@
+import { BaseMessageOptions } from "discord.js";
 import { getContractByName } from "@dojoengine/core";
 import { dojoConfig } from "../dojoConfig.js";
-import { sdk_ws } from "../config.js";
-import { client } from "../index.js";
+import { getDuelistByAddress } from "./getDuelists.js";
 import { feltToString } from "../utils/misc.js";
 import { EventName, EventKeys } from "../utils/constants.js";
-import * as ql from "../generated/graphql.js";
 import { formatDuelistPayload } from "../utils/duelists.js";
-import { BaseMessageOptions } from "discord.js";
-import { getDuelistByAddress } from "./getDuelists.js";
+import { sdk_ws } from "../config.js";
+import { client } from "../index.js";
+import * as ql from "../generated/graphql.js";
 
 export const customEventSub = async (eventName: EventName): Promise<boolean> => {
   const eventId = EventKeys[eventName];
@@ -23,7 +23,7 @@ export const customEventSub = async (eventName: EventName): Promise<boolean> => 
         const duelist: ql.Duelist | null = await getDuelistByAddress(eventData.address);
         // console.log(`+++++++ Duelist:`, duelist);
         if (duelist) {
-          payload = formatDuelistPayload({
+          payload = await formatDuelistPayload({
             duelist,
             title: eventData.is_new ? 'New Duelist!' : 'Updated Duelist',
             full: false,
@@ -48,7 +48,7 @@ export const customEventSub = async (eventName: EventName): Promise<boolean> => 
     return false;
   }
   return true;
-};
+}
 
 const parseCustomEventResponse = (event: ql.World__Event, eventName: string): ql.World__Event & { eventData: any } => {
   const { keys, data } = event;
@@ -74,14 +74,14 @@ const parseCustomEventResponse = (event: ql.World__Event, eventName: string): ql
     eventData,
   }
   return result
-};
+}
 
 export const getEventTypeByName = (abi: any, name: string) => {
   return abi.find((type: any) => {
     if (type.type != 'event') return false
     return nameEqualsTo(type.name, name);
   });
-};
+}
 
 export const nameEqualsTo = (name: string, to: string | string[]) => {
   if (Array.isArray(to)) {
@@ -93,4 +93,4 @@ export const nameEqualsTo = (name: string, to: string | string[]) => {
     const nameParts = name.split("::");
     return (name == to || nameParts[nameParts.length - 1] === to);
   }
-};
+}

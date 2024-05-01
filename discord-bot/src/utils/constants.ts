@@ -10,6 +10,30 @@ export enum ChallengeState {
   All, // 8
 }
 
+export const ChallengeStateNames: Record<ChallengeState, string> = {
+  [ChallengeState.Null]: 'Null',
+  [ChallengeState.Awaiting]: 'Awaiting',
+  [ChallengeState.Withdrawn]: 'Withdrawn',
+  [ChallengeState.Refused]: 'Refused',
+  [ChallengeState.Expired]: 'Expired',
+  [ChallengeState.InProgress]: 'In Progress',
+  [ChallengeState.Resolved]: 'Resolved',
+  [ChallengeState.Draw]: 'Draw',
+  [ChallengeState.All]: 'All',
+}
+
+export const ChallengeStateDescriptions: Record<ChallengeState, string> = {
+  [ChallengeState.Null]: "Challenge does not exist",
+  [ChallengeState.Awaiting]: "Awaiting for Challenged's reply",
+  [ChallengeState.Withdrawn]: "Cowardly withdrawn by Challenger",
+  [ChallengeState.Refused]: "Cowardly refused by Challenged",
+  [ChallengeState.Expired]: "Challenge expired",
+  [ChallengeState.InProgress]: "Challenge in progress",
+  [ChallengeState.Resolved]: "Honour has been satisfied",
+  [ChallengeState.Draw]: "Ended in a Draw!",//"Honour has not been satisfied",
+  [ChallengeState.All]: "All?",
+}
+
 export enum Colors {
   Darkest = '#201a18',
   Dark = '#584f49',

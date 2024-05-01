@@ -39,7 +39,7 @@ export class LiveDuelsCommand extends Command {
       }));
 
       return interaction.editReply({
-        embeds: formatChallengesAsEmbeds({
+        embeds: await formatChallengesAsEmbeds({
           challenges: enrichedChallenges,
           title: 'Live Duel'
         })

@@ -3,6 +3,7 @@ import { Duelist } from "../generated/graphql";
 import { ChallengeState, Colors } from "./constants.js";
 import { formatTimestamp } from "../utils/misc.js";
 import { duelist_duels_builder } from "../interaction-handlers/duelist_duels.js";
+import { tagDuelist } from "./social_app.js";
 
 //
 // Format Challenges as embeds
@@ -16,7 +17,7 @@ import { duelist_duels_builder } from "../interaction-handlers/duelist_duels.js"
 // https://discordjs.guide/popular-topics/embeds.html
 //
 
-export function formatDuelistPayload({
+export async function formatDuelistPayload({
   duelist,
   title,
   full = true,
@@ -24,29 +25,25 @@ export function formatDuelistPayload({
   duelist: Duelist;
   title: string;
   full?: boolean;
-}): BaseMessageOptions {
+}): Promise<BaseMessageOptions> {
   if (!duelist) {
     // If the duelists array is empty, return a single embed with a message indicating no duelists found
     const embed = new EmbedBuilder().setDescription("No duelists found.");
     return { embeds: [embed] };
   }
 
+  let contents = []
+  const { tag } = await tagDuelist(duelist.address)
+  if (tag) contents.push(tag);
+  contents.push(`\`${duelist.address}\``)
+
   const badge = duelist.honour > 90 ? "👑" : "";
   const embed = new EmbedBuilder()
-    // .setTitle(`${title}: ${name}`)
-    .setTitle(title)
+    .setTitle(`${title}: ${duelist.name}`)
     .setColor(Colors.Medium)
     .setThumbnail(makeSquareProfilePicUrl(duelist.profile_pic))
-    // .setImage(makeFullProfilePicUrl(duelist.profile_pic))
-    // .setDescription(`\`${duelist.address}\``)
+    .setDescription(contents.join('\n'))
     .setFooter({ text: `Since: ${formatTimestamp(duelist.timestamp)}` })
-    .addFields(
-      {
-        name: duelist.name,
-        // value: `${shortAddress(duelist.address)}`,
-        value: `\`${duelist.address}\``,
-      }
-    );
 
   let buttons = new ActionRowBuilder<ButtonBuilder>();
 

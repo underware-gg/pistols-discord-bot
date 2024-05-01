@@ -43,7 +43,7 @@ export class DuelistsCommand extends Command {
       const duelist: Duelist | null = await getDuelistByAddress(address);
 
       if (duelist) {
-        const payload = formatDuelistPayload({
+        const payload = await formatDuelistPayload({
           duelist,
           title: "Duelist",
         });

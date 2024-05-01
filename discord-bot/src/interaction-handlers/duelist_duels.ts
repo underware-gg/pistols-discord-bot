@@ -56,7 +56,7 @@ export class ButtonHandler extends InteractionHandler {
 
 
       await interaction.reply({
-        embeds: formatChallengesAsEmbeds({
+        embeds: await formatChallengesAsEmbeds({
           challenges: enrichedChallenges,
           title: `Live Duels by ${address?.substring(0, 6)}`
         }),

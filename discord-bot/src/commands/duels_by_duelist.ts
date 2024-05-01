@@ -34,7 +34,6 @@ export class Duels_By_DuelistCommand extends Command {
 
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
     const address = interaction.options.getString("address");
-    const userId = interaction.user.id;
 
     await interaction.deferReply();
 
@@ -56,33 +55,8 @@ export class Duels_By_DuelistCommand extends Command {
         return { ...challenge, duelist_a: challenger, duelist_b: challenged };
       }));
 
-      const duelists = await Promise.all(enrichedChallenges.map(async (challenge) => {
-        const challenger = challenge.duelist_a?.address;
-        const challenged = challenge.duelist_b?.address;
-
-        // Check if either duelist matches the user's address
-        if (challenger === address || challenged === address) {
-          return challenger || challenged;
-        } else {
-          return null;
-        }
-      }));
-
-      duelists.push(address)
-
-      const discordIds = [];
-      for (const duelist of duelists) {
-        const discordIdResult = await fetchDiscordId(duelist);
-        discordIds.push(discordIdResult);
-      }
-      // console.log(`discordIds:`, duelists, discordIds)
-
-      const validDiscordIds = discordIds.filter(Boolean); // Filter out null or undefined values
-      const content = validDiscordIds.length > 0 ? validDiscordIds.map(discordId => `<@${discordId}>`).join(' ') : '';
-
       return interaction.editReply({
-        content: content || `<@${userId}>`,
-        embeds: formatChallengesAsEmbeds({
+        embeds: await formatChallengesAsEmbeds({
           challenges: enrichedChallenges,
           title: `Live Duels by ${address?.substring(0, 6)}`
         })

@@ -27,3 +27,12 @@ export const fetchDiscordId = async (address: BigNumberish): Promise<string | nu
   }
   return discord_id;
 }
+
+export const tagDuelist = async (address: BigNumberish): Promise<any> => {
+  const discord_id = await fetchDiscordId(address);
+  const tag = discord_id ? `<@${discord_id}>` : null
+  return {
+    discord_id,
+    tag,
+  }
+}
