@@ -1,22 +1,24 @@
 {
-    "files.exclude": {
-        "**/node_modules": true,
-        "**/build": true,
-        "**/dist": true,
-        "**/target": true,
-        "**/.github": true,
-        "**/.git": true
-    },
-    "search.exclude": {
-        "**/*-lock.json": true,
-        "**/*.lock": true,
-        "**/.gitignore": true,
-        "**/.gitmodules": true
-    },
-    "typescript.validate.enable": true,
-    "editor.detectIndentation": false,
-    "editor.formatOnPaste": true,
-    "editor.insertSpaces": true,
-    "editor.wordWrap": "off",
-    "editor.tabSize": 4,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/target": true,
+    "**/.next": true,
+    "**/.github": true,
+    "**/.git": true,
+    "**/*.tsbuildinfo": true
+  },
+  "search.exclude": {
+    "**/*-lock.json": true,
+    "**/*.lock": true,
+    "**/.gitignore": true,
+    "**/.gitmodules": true
+  },
+  "typescript.validate.enable": true,
+  "editor.detectIndentation": false,
+  "editor.formatOnPaste": true,
+  "editor.insertSpaces": true,
+  "editor.wordWrap": "off",
+  "editor.tabSize": 2
 }

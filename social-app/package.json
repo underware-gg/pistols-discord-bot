@@ -1,7 +1,7 @@
 {
-  "name": "underware_gg",
-  "private": true,
-  "version": "0.1.0",
+  "name": "pistols-social-app",
+  "version": "0.0.1",
+  "private": false,
   "type": "module",
   "scripts": {
     "dev": "next dev",

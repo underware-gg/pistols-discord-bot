@@ -2,7 +2,7 @@ import React from 'react'
 
 const Background = ({
   children = null,
-  className=null,
+  className = null,
 }) => {
   return (
     <React.Fragment>

@@ -23,10 +23,10 @@ const scope = ['identify'].join(' ');
 
 // URL to redirect to outbound (to request authorization)
 const OAUTH_URL = urlcat('https://discord.com/api/oauth2/authorize', {
-    client_id: CLIENT_ID,
-    redirect_uri: REDIRECT_URI,
-    response_type: 'token',
-    scope,
+  client_id: CLIENT_ID,
+  redirect_uri: REDIRECT_URI,
+  response_type: 'token',
+  scope,
 });
 
 /**
@@ -34,67 +34,67 @@ const OAUTH_URL = urlcat('https://discord.com/api/oauth2/authorize', {
  * @param code The code from the callback querystring
  */
 async function exchangeCode(code: string) {
-    const body = new URLSearchParams({
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        redirect_uri: REDIRECT_URI,
-        grant_type: 'authorization_code',
-        code,
-        scope,
-    }).toString();
+  const body = new URLSearchParams({
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    redirect_uri: REDIRECT_URI,
+    grant_type: 'authorization_code',
+    code,
+    scope,
+  }).toString();
 
-    const { data: auth } = await axios.post<{ access_token: string; token_type: string }>(
-        'https://discord.com/api/oauth2/token',
-        body,
-        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
-    );
+  const { data: auth } = await axios.post<{ access_token: string; token_type: string }>(
+    'https://discord.com/api/oauth2/token',
+    body,
+    { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
+  );
 
-    const { data: user } = await axios.get<RESTGetAPIUserResult>(
-        'https://discord.com/api/users/@me',
-        { headers: { Authorization: `Bearer ${auth.access_token}` } },
-    );
-    // Include Discord ID in the user object
-    user.id = user.id;
-    return { user, auth };
+  const { data: user } = await axios.get<RESTGetAPIUserResult>(
+    'https://discord.com/api/users/@me',
+    { headers: { Authorization: `Bearer ${auth.access_token}` } },
+  );
+  // Include Discord ID in the user object
+  user.id = user.id;
+  return { user, auth };
 }
 
 /**
  * Generates the set-cookie header value from a given JWT token
  */
 function getCookieHeader(token: string) {
-    return serialize('token', token, {
-        httpOnly: true,
-        path: '/',
-        secure: process.env.NODE_ENV !== 'development',
-        expires: dayjs().add(1, 'day').toDate(),
-        sameSite: 'lax',
-    });
+  return serialize('token', token, {
+    httpOnly: true,
+    path: '/',
+    secure: process.env.NODE_ENV !== 'development',
+    expires: dayjs().add(1, 'day').toDate(),
+    sameSite: 'lax',
+  });
 }
 
 const handler = async (req, res) => {
-    const { code = null } = req.query;
+  const { code = null } = req.query;
 
-    if (!code) {
-        res.redirect(OAUTH_URL);
-        return;
-    }
+  if (!code) {
+    res.redirect(OAUTH_URL);
+    return;
+  }
 
-    try {
-        const { user, auth } = await exchangeCode(code);
-        const token = sign({ user, auth }, JWT_SECRET, { expiresIn: '24h' });
-        const cookie = serialize('token', token, {
-            httpOnly: true,
-            path: '/',
-            secure: process.env.NODE_ENV !== 'development',
-            expires: dayjs().add(1, 'day').toDate(),
-            sameSite: 'lax',
-        });
-        res.setHeader('Set-Cookie', cookie);
+  try {
+    const { user, auth } = await exchangeCode(code);
+    const token = sign({ user, auth }, JWT_SECRET, { expiresIn: '24h' });
+    const cookie = serialize('token', token, {
+      httpOnly: true,
+      path: '/',
+      secure: process.env.NODE_ENV !== 'development',
+      expires: dayjs().add(1, 'day').toDate(),
+      sameSite: 'lax',
+    });
+    res.setHeader('Set-Cookie', cookie);
 
-        res.redirect('/dashboard'); // Redirect directly to dashboard
-    } catch (error) {
-        res.status(500).json({ message: 'Authentication failed' });
-    }
-};
+    res.redirect('/dashboard'); // Redirect directly to dashboard
+  } catch (error) {
+    res.status(500).json({ message: 'Authentication failed' });
+  }
+}
 
 export default handler;

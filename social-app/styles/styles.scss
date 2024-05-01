@@ -1,4 +1,3 @@
-
 $font-family: 'EB Garamond', serif;
 $font-family-mono: 'Courier Prime', monospace;
 
@@ -41,17 +40,18 @@ $ui-column: 60px;
 $ui-row: 40px;
 
 html {
-	overflow: scroll;
-	// scroll-behavior: smooth;
+  overflow: scroll;
+  // scroll-behavior: smooth;
 }
 
-html, body {
+html,
+body {
   font-family: $font-family;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.2;
   font-weight: 400;
   box-sizing: border-box;
-  
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -90,13 +90,31 @@ a:hover {
   text-decoration-thickness: 1px;
 }
 
-h1 { font-size: 2.6em; }
-h2 { font-size: 2.2em; }
-h3 { font-size: 1.8em; }
-h4 { font-size: 1.5em; }
-h5 { font-size: 1.2em; }
+h1 {
+  font-size: 2.6em;
+}
 
-h1, h2, h3, h4, h5 {
+h2 {
+  font-size: 2.2em;
+}
+
+h3 {
+  font-size: 1.8em;
+}
+
+h4 {
+  font-size: 1.5em;
+}
+
+h5 {
+  font-size: 1.2em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: $font-family;
   // text-shadow: $text-shadow;
   line-height: 1.2em;
@@ -140,21 +158,22 @@ canvas {
 // scss mixins
 // https: //sass-lang.com/documentation/at-rules/mixin
 @mixin make-box-shadow($values_) {
-	-webkit-box-shadow: $values_;
-	-moz-box-shadow: $values_;
-	box-shadow: $values_;
+  -webkit-box-shadow: $values_;
+  -moz-box-shadow: $values_;
+  box-shadow: $values_;
 }
+
 @mixin make-animation($duration_, $ease_, $count_, $name_) {
-	animation-duration: $duration_;
-	animation-timing-function: $ease_;
-	animation-iteration-count: $count_;
-	animation-fill-mode: forwards;
-	animation-name: $name_;
-	-webkit-animation-duration: $duration_;
-	-webkit-animation-timing-function: $ease_;
-	-webkit-animation-iteration-count: $count_;
-	-webkit-animation-fill-mode: forwards;
-	-webkit-animation-name: $name_;
+  animation-duration: $duration_;
+  animation-timing-function: $ease_;
+  animation-iteration-count: $count_;
+  animation-fill-mode: forwards;
+  animation-name: $name_;
+  -webkit-animation-duration: $duration_;
+  -webkit-animation-timing-function: $ease_;
+  -webkit-animation-iteration-count: $count_;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-name: $name_;
 }
 
 
@@ -162,38 +181,97 @@ canvas {
 // GENERIC
 //
 
-.AlignLeft { text-align: left!important; justify-content: left!important; }
-.AlignCenter { text-align: center!important; justify-content: center!important; }
-.AlignRight { text-align: right!important; justify-content: right!important; }
-.AlignTop { vertical-align: top; }
-.AlignMiddle { vertical-align: middle; }
-.AlignBottom { vertical-align: bottom; }
+.AlignLeft {
+  text-align: left !important;
+  justify-content: left !important;
+}
 
-.NoPadding { padding: 0!important; }
-.NoMargin { margin: 0!important }
-.NoBorder { border: 0!important }
-.AutoMargin { margin: auto!important }
+.AlignCenter {
+  text-align: center !important;
+  justify-content: center !important;
+}
 
-.Padded { padding: 0.5em!important; }
-.PaddedLeft { padding-left: 0.5em!important; }
-.PaddedRight { padding-right: 0.5em!important; }
-.PaddedTop { padding-top: 0.5em!important; }
-.PaddedBottom { padding-bottom: 0.5em!important; }
+.AlignRight {
+  text-align: right !important;
+  justify-content: right !important;
+}
 
-.Margin6 { margin: 6px!important }
+.AlignTop {
+  vertical-align: top;
+}
 
-.Block { display: inline-block; }
-.Flex { display: flex; }
+.AlignMiddle {
+  vertical-align: middle;
+}
 
-.NoMouse { pointer-events: none; }
-.YesMouse { pointer-events: auto; }
+.AlignBottom {
+  vertical-align: bottom;
+}
+
+.NoPadding {
+  padding: 0 !important;
+}
+
+.NoMargin {
+  margin: 0 !important
+}
+
+.NoBorder {
+  border: 0 !important
+}
+
+.AutoMargin {
+  margin: auto !important
+}
+
+.Padded {
+  padding: 0.5em !important;
+}
+
+.PaddedLeft {
+  padding-left: 0.5em !important;
+}
+
+.PaddedRight {
+  padding-right: 0.5em !important;
+}
+
+.PaddedTop {
+  padding-top: 0.5em !important;
+}
+
+.PaddedBottom {
+  padding-bottom: 0.5em !important;
+}
+
+.Margin6 {
+  margin: 6px !important
+}
+
+.Block {
+  display: inline-block;
+}
+
+.Flex {
+  display: flex;
+}
+
+.NoMouse {
+  pointer-events: none;
+}
+
+.YesMouse {
+  pointer-events: auto;
+}
 
 .Important {
   color: $color-important;
 }
+
 .Black {
   color: $color-darkest;
 }
+
 .Bold {
   color: $color-brightest;
   font-weight: 600;
@@ -201,20 +279,23 @@ canvas {
 
 .Positive {
   // background-color: inherit!important;
-  color: $color-positive!important;
+  color: $color-positive !important;
   // color: inherit!important;
 }
+
 .Negative {
   // background-color: inherit!important;
-  color: $color-negative!important;
+  color: $color-negative !important;
 }
+
 .Warning {
   // background-color: inherit!important;
-  color: $color-warning!important;
+  color: $color-warning !important;
 }
+
 .Canceled {
   // background-color: inherit!important;
-  color: $color-inactive!important;
+  color: $color-inactive !important;
 }
 
 .Code {
@@ -229,8 +310,9 @@ canvas {
 .Smaller {
   font-size: 10px;
 }
+
 .Larger {
-  font-size: 1.5em!important;
+  font-size: 1.5em !important;
 }
 
 .Faded {
@@ -243,38 +325,43 @@ canvas {
 
 .Anchor {
   cursor: pointer;
-  pointer-events: all!important;
+  pointer-events: all !important;
 }
 
 .Spacer5 {
   width: '100%';
   min-height: 5px;
 }
+
 .Spacer10 {
   width: '100%';
   min-height: 10px;
 }
+
 .Spacer20 {
   width: '100%';
   min-height: 20px;
 }
+
 .Spacer50 {
   width: '100%';
   min-height: 50px;
 }
 
 .Hidden {
-  display: none!important;
+  display: none !important;
 }
 
 .Relative {
   position: relative;
 }
+
 .AbsoluteLeft {
   position: absolute;
   top: 0;
   left: 0;
 }
+
 .AbsoluteRight {
   position: absolute;
   top: 0;
@@ -282,47 +369,59 @@ canvas {
 }
 
 .Grayscale {
-  filter: grayscale(100%); /* Current draft standard */
-  -webkit-filter: grayscale(100%); /* New WebKit */
+  filter: grayscale(100%);
+  /* Current draft standard */
+  -webkit-filter: grayscale(100%);
+  /* New WebKit */
   -moz-filter: grayscale(100%);
-  -ms-filter: grayscale(100%); 
-  -o-filter: grayscale(100%); /* Not yet supported in Gecko, Opera or IE */ 
-  filter: gray; /* IE */
-  -webkit-filter: grayscale(1); /* Old WebKit */
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  /* Not yet supported in Gecko, Opera or IE */
+  filter: gray;
+  /* IE */
+  -webkit-filter: grayscale(1);
+  /* Old WebKit */
 }
 
 .Sepia {
-  filter: sepia(100%); /* Current draft standard */
-  -webkit-filter: sepia(100%); /* New WebKit */
+  filter: sepia(100%);
+  /* Current draft standard */
+  -webkit-filter: sepia(100%);
+  /* New WebKit */
   -moz-filter: sepia(100%);
-  -ms-filter: sepia(100%); 
-  -o-filter: sepia(100%); /* Not yet supported in Gecko, Opera or IE */ 
-  filter: rgb(185, 176, 117); /* IE */
-  -webkit-filter: sepia(1); /* Old WebKit */
+  -ms-filter: sepia(100%);
+  -o-filter: sepia(100%);
+  /* Not yet supported in Gecko, Opera or IE */
+  filter: rgb(185, 176, 117);
+  /* IE */
+  -webkit-filter: sepia(1);
+  /* Old WebKit */
 }
 
 .FillWidth {
-  width: 100%!important;
+  width: 100% !important;
   min-width: 100%;
   align-items: center;
 }
+
 .FillHeight {
-  height: 100%!important;
+  height: 100% !important;
   min-height: 100%;
   vertical-align: middle;
 }
+
 .FillParent {
   @extend .FillWidth, .FillHeight;
 }
 
 .CenteredContainer {
-	height: 100%;
+  height: 100%;
   min-height: 100%;
-	width: 100%;
-	display: flex !important;
-	justify-content: center;
-	align-items: center;
-	// text-align: center;
+  width: 100%;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  // text-align: center;
 }
 
 TextArea {
@@ -332,6 +431,7 @@ TextArea {
   width: 100%;
   height: 400px;
 }
+
 TextArea::selection {
   background-color: $color-brightest;
   color: $color-dark;
@@ -344,18 +444,19 @@ TextArea::selection {
 //
 
 .App {
-	// font-family: $font-family;
-	min-width: 100vw;
-    width: 100vw;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-    position: relative;
+  // font-family: $font-family;
+  min-width: 100vw;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
-.App::-webkit-scrollbar{
-    display: none;
+
+.App::-webkit-scrollbar {
+  display: none;
 }
 
 .Logo {
@@ -374,49 +475,51 @@ TextArea::selection {
   font-size: 2em !important;
 }
 
-.button{
-    background-color:#5865F2;
-    height: 4rem;
-    width: 12rem;
-    font-size: 1rem;
-    color: white;
-    border-radius: 12px;
+.button {
+  background-color: #5865F2;
+  height: 4rem;
+  width: 12rem;
+  font-size: 1rem;
+  color: white;
+  border-radius: 12px;
 }
-.Profilepicture{
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    margin-left: 0rem;
+
+.Profilepicture {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  margin-left: 0rem;
+  margin: auto;
 }
-.Profileimage{
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
 }
-.form-group{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+
+.form-control {
+  height: 3rem;
+  width: 18rem;
+  border-radius: 12px;
+  color: black;
+  padding-inline: 1rem;
 }
-.form-control{
-    height: 3rem;
-    width: 18rem;
-    border-radius: 12px;
-    color: black;
-    padding-inline: 1rem;
+
+.walletbutton,
+.logoutbutton {
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
-.walletbutton, .logoutbutton{
-    border-radius: 8px;
-    margin-bottom: 1rem;
-}
-.wallet-container{
-    display: flex;
-    align-self: center;
-    justify-content: center;
-    gap: 1rem;
+
+.wallet-container {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 

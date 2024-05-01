@@ -1,35 +1,36 @@
 {
-    "name": "pistols-discord-bot",
-    "version": "0.0.1",
-    "module": "index.ts",
-    "type": "module",
-    "main": "dist/src/server.js",
-    "scripts": {
-        "build": "tsc",
-        "serve": "tsc && node dist/src/index.js",
-        "codegen": "graphql-codegen"
-    },
-    "devDependencies": {
-        "@graphql-codegen/cli": "^5.0.2",
-        "@graphql-codegen/typescript": "^4.0.6",
-        "@graphql-codegen/typescript-graphql-request": "^6.2.0",
-        "@graphql-codegen/typescript-operations": "^4.2.0",
-        "@types/node": "^20.12.7",
-        "@types/ws": "^8.5.10",
-        "graphql": "^16.8.1",
-        "graphql-request": "^6.1.0",
-        "typescript": "^5.2.2"
-    },
-    "dependencies": {
-        "@dojoengine/core": "^0.6.125",
-        "@sapphire/decorators": "^6.1.0",
-        "@sapphire/framework": "^4.8.5",
-        "@sapphire/plugin-editable-commands": "^4.0.2",
-        "axios": "^1.6.8",
-        "discord.js": "^14.14.1",
-        "dotenv": "^16.4.5",
-        "graphql-ws": "^5.16.0",
-        "starknet": "^6.1.5",
-        "ws": "^8.12.0"
-    }
+  "name": "pistols-discord-bot",
+  "version": "0.0.1",
+  "private": false,
+  "type": "module",
+  "module": "index.ts",
+  "main": "dist/src/server.js",
+  "scripts": {
+    "build": "tsc",
+    "serve": "tsc && node dist/src/index.js",
+    "codegen": "graphql-codegen"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.6",
+    "@graphql-codegen/typescript-graphql-request": "^6.2.0",
+    "@graphql-codegen/typescript-operations": "^4.2.0",
+    "@types/node": "^20.12.7",
+    "@types/ws": "^8.5.10",
+    "graphql": "^16.8.1",
+    "graphql-request": "^6.1.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@dojoengine/core": "^0.6.125",
+    "@sapphire/decorators": "^6.1.0",
+    "@sapphire/framework": "^4.8.5",
+    "@sapphire/plugin-editable-commands": "^4.0.2",
+    "axios": "^1.6.8",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "graphql-ws": "^5.16.0",
+    "starknet": "^6.1.5",
+    "ws": "^8.12.0"
+  }
 }

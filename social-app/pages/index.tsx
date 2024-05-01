@@ -9,7 +9,7 @@ export default function IndexPage() {
 
 //   const handleLogin = () => {
 //     router.push("/api/oauth");
-//   };
+//   }
 
   const _login = () => {
     const app_id = process.env.NEXT_PUBLIC_CLIENT_ID

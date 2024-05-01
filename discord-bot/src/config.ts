@@ -10,7 +10,7 @@ console.log(`--- GraphQL HTTP :`, url_http)
 console.log(`--- GraphQL WS   :`, url_ws)
 
 export const sdk: Sdk = getSdk(
-    new GraphQLClient(dojoConfig().toriiUrl + "/graphql")
+  new GraphQLClient(dojoConfig().toriiUrl + "/graphql")
 );
 
 export const sdk_ws: SdkWs = getSdkWs(url_ws);

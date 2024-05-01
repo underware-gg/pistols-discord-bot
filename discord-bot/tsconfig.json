@@ -1,28 +1,30 @@
 {
-    "compilerOptions": {
-        "lib": ["ESNext"],
-        "module": "esnext",
-        "target": "esnext",
-        "moduleResolution": "bundler",
-        "moduleDetection": "force",
-        "noEmit": false,
-        "composite": true,
-        "strict": true,
-        "downlevelIteration": true,
-        "skipLibCheck": true,
-        "jsx": "preserve",
-        "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true,
-        "rootDir": "./",
-        "allowJs": true,
-        "outDir": "dist",
-        "types": []
-    },
-    "include": [
-        "./src/**/*",
-        "./src/manifest.json"
+  "compilerOptions": {
+    "lib": [
+      "ESNext"
     ],
-    "exclude": [
-        "manifest.json"
-    ]
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "noEmit": false,
+    "composite": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "rootDir": "./",
+    "allowJs": true,
+    "outDir": "dist",
+    "types": []
+  },
+  "include": [
+    "./src/**/*",
+    "./src/manifest.json"
+  ],
+  "exclude": [
+    "manifest.json"
+  ]
 }

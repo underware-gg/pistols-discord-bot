@@ -22,5 +22,5 @@ const config: CodegenConfig = {
       `sed -i '' "s/import { GraphQLClientRequestHeaders } from 'graphql-request\\/build\\/cjs\\/types';/export type GraphQLClientRequestHeaders = Headers | string\\[\\]\\[\\] | Record<string, string>/" ./src/generated/graphql.ts`,
     ],
   },
-};
+}
 export default config;

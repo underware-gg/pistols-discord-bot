@@ -2,10 +2,10 @@ import { destroyCookie } from "nookies";
 
 const handler = (req, res) => {
 
-    destroyCookie(null, "token");
+  destroyCookie(null, "token");
 
-    res.writeHead(302, { Location: "/" });
-    res.end();
-};
+  res.writeHead(302, { Location: "/" });
+  res.end();
+}
 
 export default handler;
