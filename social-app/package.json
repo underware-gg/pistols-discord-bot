@@ -13,10 +13,8 @@
     "@supabase/supabase-js": "^2.42.7",
     "@types/node-fetch": "^2.6.11",
     "axios": "^1.6.8",
-    "clsx": "^2.1.1",
     "cookie": "^0.6.0",
     "dayjs": "^1.11.10",
-    "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "next": "^14.2.2",
     "next-auth": "^4.24.7",
@@ -29,6 +27,7 @@
     "sass": "^1.69.5",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^3.0.0-beta.2",
+    "starknet": "^6.1.5",
     "tailwindcss": "^3.4.3",
     "urlcat": "^3.1.0"
   },

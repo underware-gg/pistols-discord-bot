@@ -43,12 +43,12 @@ export class MyDuelsCommand extends Command {
 
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
     await interaction.deferReply();
-    const baseApiUrl = process.env.SOCIAL_APP_URL + "/api/checkid";
+    const baseApiUrl = process.env.SOCIAL_APP_URL + "/api/fetch_id";
 
     try {
       const userId = interaction.user.id;
       const fetchUserAddress = async () => {
-        const call = `${baseApiUrl}?user_id=${encodeURIComponent(userId)}`;
+        const call = `${baseApiUrl}?discord_id=${encodeURIComponent(userId)}`;
         const response = await axios.get(call);
         const userAddress = response.data.duelist_address;
         return userAddress;

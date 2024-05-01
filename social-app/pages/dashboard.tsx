@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
-import { Button } from "semantic-ui-react";
 import Router from "next/router";
+import { Button, Image } from "semantic-ui-react";
 import { parseCookies, destroyCookie } from "nookies";
 import { JwtPayload, verify } from "jsonwebtoken";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Image from "next/image";
+import axios from "axios";
 import App from "@/components/App";
 
 const Dashboard = ({ user }) => {
-  const [walletAddresses, setWalletAddresses] = useState({
-    duelist: user?.duelist || "",
+  const [inputData, setInputData] = useState({
+    duelist_address: user?.duelist_address || "",
   });
 
   useEffect(() => {
@@ -19,19 +18,19 @@ const Dashboard = ({ user }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setWalletAddresses({ ...walletAddresses, [name]: value });
-  };
+    setInputData({ ...inputData, [name]: value });
+  }
 
   const handleLogout = () => {
     destroyCookie(null, "token");
     Router.push("/api/logout");
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const token = parseCookies().token;
-      const response = await fetch("/api/databaseops", {
+      const response = await fetch("/api/upsert", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +38,7 @@ const Dashboard = ({ user }) => {
         },
         body: JSON.stringify({
           discord_id: user.id,
-          duelist: walletAddresses.duelist,
+          duelist_address: inputData.duelist_address,
         }),
       });
       if (response.ok) {
@@ -58,41 +57,35 @@ const Dashboard = ({ user }) => {
       console.error("Error saving data:", error);
       toast.error("Failed to save data.");
     }
-  };
+  }
 
   const retrieveAccountDetails = async () => {
     try {
-      const id = user.id;
-      if (!id) {
+      const discord_id = user.id;
+      if (!discord_id) {
         console.error("User id is undefined");
         return;
       }
-      const token = parseCookies().token;
-      const response = await fetch("/api/fetchAccount", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ id: id }),
-      });
-      const data = await response.json();
 
-      if (Array.isArray(data) && data.length > 0) {
-        const accountDetails = data[0];
-        const duelistAddress = accountDetails.duelist_address;
+      const url = '/api/fetch_id?' + new URLSearchParams({ discord_id })
+      const response = await axios.get(url);
+      const { data } = response;
 
-        setWalletAddresses({ ...walletAddresses, duelist: duelistAddress });
-        toast.success("Wallet retrieved successfully.");
-      } else {
-        console.error("Invalid data format");
-        toast.error("Failed to retrieve wallet.");
+      if (data) {
+        const { duelist_address } = data;
+        if (duelist_address) {
+          setInputData({ ...inputData, duelist_address });
+          toast.success("Wallet retrieved successfully.");
+          return;
+        }
       }
+      console.error("Invalid data format");
+      toast.error("Failed to retrieve wallet.");
     } catch (error) {
       console.error("Error retrieving account details:", error);
       toast.error("Failed to retrieve wallet.");
     }
-  };
+  }
 
   const avatarUrl =
     user && user.avatar
@@ -102,53 +95,52 @@ const Dashboard = ({ user }) => {
   return (
     <App>
       <div className="AlignCenter">
-        <h1>Dashboard</h1>
         {user ? (
           <>
-            <p>Welcome, {user.username}!</p>
-            <p>Email: {user.email}</p>
+            <h1>Welcome, {user.username}</h1>
+            {/* <p>Email: {user.email}</p> */}
             <p>Discord ID: {user.id}</p>
-            <span className="AlignCenter Profilepicture">
-              <img
+            <span className="AlignCenter">
+              <Image
                 src={avatarUrl}
                 alt="User Avatar"
-                width={100}
-                height={100}
-                className="Profileimage"
+                className="Profilepicture"
               />
             </span>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="duelist">Duelist Address:</label>
+                <label htmlFor="duelist_address" className="TitleCase">Duelist Address:</label>
                 <input
-                  className="form-control"
+                  className="form-control FillWidth"
                   type="text"
-                  id="duelist"
-                  name="duelist"
-                  value={walletAddresses.duelist}
+                  id="duelist_address"
+                  name="duelist_address"
+                  value={inputData.duelist_address}
                   onChange={handleChange}
                 />
               </div>
-              <Button type="submit" className="walletbutton">
-                Save Wallet
-              </Button>
             </form>
             <span className="wallet-container">
               <Button onClick={() => retrieveAccountDetails()} className="walletbutton">
                 Retrieve Wallet
               </Button>
+              <Button type="submit" className="walletbutton">
+                Save Wallet
+              </Button>
+            </span>
+            <span className="wallet-container">
               <Button onClick={() => handleLogout()} className="logoutbutton">
                 Logout
               </Button>
             </span>
           </>
         ) : (
-          <p>You are not logged in.</p>
+          <h5>You are not logged in.</h5>
         )}
       </div>
     </App>
   );
-};
+}
 
 export async function getServerSideProps(context) {
   const cookies = parseCookies(context);
@@ -163,7 +155,7 @@ export async function getServerSideProps(context) {
         destination: "/",
         permanent: false,
       },
-    };
+    }
   }
 }
 export default Dashboard;

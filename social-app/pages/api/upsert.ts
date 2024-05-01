@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { bigintToHex } from '@/utils/misc';
 
 export default async function handler(req, res) {
 
@@ -12,15 +13,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { discord_id, duelist } = req.body;
+    const { discord_id, duelist_address } = req.body;
 
     // Input validation (optional): You can add checks here to ensure data meets your requirements
 
     const { data, error } = await supabase.from("pistols_accounts").upsert([
       {
         discord_id: discord_id,
-        duelist_address: duelist,
-        created_at: new Date().toISOString(),
+        duelist_address: bigintToHex(duelist_address),
       },
     ]);
 
