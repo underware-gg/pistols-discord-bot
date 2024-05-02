@@ -2165,19 +2165,32 @@ export type CustomEventSubSubscriptionVariables = Exact<{
 
 export type CustomEventSubSubscription = { __typename?: 'World__Subscription', eventEmitted: { __typename?: 'World__Event', id?: string | null, keys?: Array<string | null> | null, data?: Array<string | null> | null, createdAt?: any | null } };
 
+export type ChallengeFieldsFragment = { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null };
+
 export type GetChallengesByStateQueryVariables = Exact<{
   state: Scalars['u8']['input'];
 }>;
 
 
-export type GetChallengesByStateQuery = { __typename?: 'World__Query', challengeModels?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+export type GetChallengesByStateQuery = { __typename?: 'World__Query', challenges?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
 
 export type GetChallengesByIdQueryVariables = Exact<{
   duel_id: Scalars['u128']['input'];
 }>;
 
 
-export type GetChallengesByIdQuery = { __typename?: 'World__Query', challengeModels?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+export type GetChallengesByIdQuery = { __typename?: 'World__Query', challenges?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+
+export type GetChallengeDependenciesQueryVariables = Exact<{
+  duel_id?: InputMaybe<Scalars['u128']['input']>;
+  duelist_a?: InputMaybe<Scalars['ContractAddress']['input']>;
+  duelist_b?: InputMaybe<Scalars['ContractAddress']['input']>;
+}>;
+
+
+export type GetChallengeDependenciesQuery = { __typename?: 'World__Query', wager?: { __typename?: 'WagerConnection', edges?: Array<{ __typename?: 'WagerEdge', node?: { __typename?: 'Wager', coin?: any | null, fee?: any | null, value?: any | null } | null } | null> | null } | null, duelist_a?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null } | null } | null> | null } | null, duelist_b?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null } | null } | null> | null } | null };
+
+export type DuelistFieldsFragment = { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null };
 
 export type GetDuelistsByAddressQueryVariables = Exact<{
   address?: InputMaybe<Scalars['ContractAddress']['input']>;
@@ -2186,7 +2199,33 @@ export type GetDuelistsByAddressQueryVariables = Exact<{
 
 export type GetDuelistsByAddressQuery = { __typename?: 'World__Query', duelistModels?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null } | null } | null> | null } | null };
 
-
+export const ChallengeFieldsFragmentDoc = gql`
+    fragment challengeFields on Challenge {
+  duel_id
+  duelist_a
+  duelist_b
+  message
+  round_number
+  state
+  timestamp_end
+  timestamp_start
+  winner
+}
+    `;
+export const DuelistFieldsFragmentDoc = gql`
+    fragment duelistFields on Duelist {
+  address
+  name
+  profile_pic
+  total_duels
+  total_wins
+  total_losses
+  total_draws
+  total_honour
+  honour
+  timestamp
+}
+    `;
 export const CustomEventSubDocument = gql`
     subscription customEventSub($eventId: String!) {
   eventEmitted(keys: [$eventId, "*"]) {
@@ -2199,62 +2238,64 @@ export const CustomEventSubDocument = gql`
     `;
 export const GetChallengesByStateDocument = gql`
     query getChallengesByState($state: u8!) {
-  challengeModels(where: {state: $state}) {
+  challenges: challengeModels(where: {state: $state}) {
     edges {
       node {
-        duel_id
-        duelist_a
-        duelist_b
-        message
-        round_number
-        state
-        timestamp_end
-        timestamp_start
-        winner
+        ...challengeFields
       }
     }
   }
 }
-    `;
+    ${ChallengeFieldsFragmentDoc}`;
 export const GetChallengesByIdDocument = gql`
     query getChallengesById($duel_id: u128!) {
-  challengeModels(where: {duel_id: $duel_id}) {
+  challenges: challengeModels(where: {duel_id: $duel_id}) {
     edges {
       node {
-        duel_id
-        duelist_a
-        duelist_b
-        message
-        round_number
-        state
-        timestamp_end
-        timestamp_start
-        winner
+        ...challengeFields
       }
     }
   }
 }
-    `;
+    ${ChallengeFieldsFragmentDoc}`;
+export const GetChallengeDependenciesDocument = gql`
+    query getChallengeDependencies($duel_id: u128, $duelist_a: ContractAddress, $duelist_b: ContractAddress) {
+  wager: wagerModels(where: {duel_id: $duel_id}) {
+    edges {
+      node {
+        coin
+        fee
+        value
+      }
+    }
+  }
+  duelist_a: duelistModels(where: {address: $duelist_a}) {
+    edges {
+      node {
+        ...duelistFields
+      }
+    }
+  }
+  duelist_b: duelistModels(where: {address: $duelist_b}) {
+    edges {
+      node {
+        ...duelistFields
+      }
+    }
+  }
+}
+    ${DuelistFieldsFragmentDoc}`;
 export const GetDuelistsByAddressDocument = gql`
     query getDuelistsByAddress($address: ContractAddress) {
   duelistModels(where: {address: $address}) {
     edges {
       node {
-        address
-        name
-        profile_pic
-        total_duels
-        total_wins
-        total_losses
-        total_draws
-        total_honour
-        honour
-        timestamp
+        ...duelistFields
       }
     }
   }
 }
-    `;
+    ${DuelistFieldsFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
@@ -2263,6 +2304,7 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 const CustomEventSubDocumentString = print(CustomEventSubDocument);
 const GetChallengesByStateDocumentString = print(GetChallengesByStateDocument);
 const GetChallengesByIdDocumentString = print(GetChallengesByIdDocument);
+const GetChallengeDependenciesDocumentString = print(GetChallengeDependenciesDocument);
 const GetDuelistsByAddressDocumentString = print(GetDuelistsByAddressDocument);
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
@@ -2274,6 +2316,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getChallengesById(variables: GetChallengesByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByIdQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesByIdQuery>(GetChallengesByIdDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengesById', 'query', variables);
+    },
+    getChallengeDependencies(variables?: GetChallengeDependenciesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengeDependenciesQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengeDependenciesQuery>(GetChallengeDependenciesDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengeDependencies', 'query', variables);
     },
     getDuelistsByAddress(variables?: GetDuelistsByAddressQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetDuelistsByAddressQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetDuelistsByAddressQuery>(GetDuelistsByAddressDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getDuelistsByAddress', 'query', variables);

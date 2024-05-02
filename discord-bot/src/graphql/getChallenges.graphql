@@ -1,34 +1,56 @@
+fragment challengeFields on Challenge {
+  duel_id
+  duelist_a
+  duelist_b
+  message
+  round_number
+  state
+  timestamp_end
+  timestamp_start
+  winner
+}
+
 query getChallengesByState($state: u8!) {
-  challengeModels(where: { state: $state }) {
+  challenges: challengeModels(where: { state: $state }) {
     edges {
       node {
-        duel_id
-        duelist_a
-        duelist_b
-        message
-        round_number
-        state
-        timestamp_end
-        timestamp_start
-        winner
+        ...challengeFields
       }
     }
   }
 }
 
 query getChallengesById($duel_id: u128!) {
-  challengeModels(where: { duel_id: $duel_id }) {
+  challenges: challengeModels(where: { duel_id: $duel_id }) {
     edges {
       node {
-        duel_id
-        duelist_a
-        duelist_b
-        message
-        round_number
-        state
-        timestamp_end
-        timestamp_start
-        winner
+        ...challengeFields
+      }
+    }
+  }
+}
+
+query getChallengeDependencies($duel_id: u128, $duelist_a: ContractAddress, $duelist_b: ContractAddress) {
+  wager: wagerModels(where: { duel_id: $duel_id }) {
+    edges {
+      node {
+        coin
+        fee
+        value
+      }
+    }
+  }
+  duelist_a: duelistModels(where: { address: $duelist_a }) {
+    edges {
+      node {
+        ...duelistFields
+      }
+    }
+  }
+  duelist_b: duelistModels(where: { address: $duelist_b }) {
+    edges {
+      node {
+        ...duelistFields
       }
     }
   }

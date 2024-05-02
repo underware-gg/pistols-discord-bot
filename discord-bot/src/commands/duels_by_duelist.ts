@@ -1,8 +1,7 @@
 import { Command } from "@sapphire/framework";
-import { getChallengesByDuelist } from "../queries/getChallenges.js";
+import { getChallengesByDuelist, ChallengeResponse } from "../queries/getChallenges.js";
 import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 import { ChallengeState } from "../utils/constants.js";
-import { Challenge } from "../generated/graphql.js";
 
 export class Duels_By_DuelistCommand extends Command {
   public constructor(context: Command.LoaderContext, options?: Command.Options) {
@@ -36,7 +35,7 @@ export class Duels_By_DuelistCommand extends Command {
     await interaction.deferReply();
 
     try {
-      const challenges: Challenge[] = address ? await getChallengesByDuelist(ChallengeState.InProgress, address) : [];
+      const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist(ChallengeState.InProgress, address) : [];
 
       if (challenges.length === 0) {
         return interaction.editReply({ content: "No duels found for this duelist!" });
@@ -45,7 +44,6 @@ export class Duels_By_DuelistCommand extends Command {
       return interaction.editReply({
         embeds: await formatChallengesAsEmbeds({
           challenges,
-          title: `Live Duels by ${address?.substring(0, 6)}`
         })
       });
 

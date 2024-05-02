@@ -3,20 +3,28 @@ import { sdk } from "../config.js";
 import { bigintToHex, feltToString } from "../utils/misc.js";
 import { BigNumberish } from "starknet";
 
-export const getDuelistByAddress = async (address: BigNumberish): Promise<ql.Duelist | null> => {
+export const getDuelistByAddress = async (address: BigNumberish): Promise<DuelistResponse | null> => {
   try {
     const { data } = await sdk.getDuelistsByAddress({
       address: bigintToHex(address),
     });
-    return parseDuelistResponse(data)
+    return parseDuelistResponse(data?.duelistModels as ql.DuelistConnection)
   } catch (error) {
     console.error("getDuelistByAddress() failed!", error);
     throw error;
   }
 }
 
-const parseDuelistResponse = (data: ql.GetDuelistsByAddressQuery): ql.Duelist | null => {
-  const duelist = data?.duelistModels?.edges?.[0]?.node;
+//--------------------------------------
+// Duelist
+//
+
+export type DuelistResponse = ql.Duelist & {
+  name: string
+}
+
+export const parseDuelistResponse = (connection: ql.DuelistConnection): DuelistResponse | null => {
+  const duelist = connection?.edges?.[0]?.node;
   if (!duelist) return null;
   return {
     ...duelist,

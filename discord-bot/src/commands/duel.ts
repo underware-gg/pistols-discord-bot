@@ -1,7 +1,6 @@
 import { Command } from "@sapphire/framework";
-import { getChallengesById } from "../queries/getChallenges.js";
-import { formatDuelsAsEmbeds } from "../utils/challenges.js";
-import { Challenge } from "../generated/graphql.js";
+import { getChallengesById, ChallengeResponse } from "../queries/getChallenges.js";
+import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 
 
 export class Duels_By_DuelistCommand extends Command {
@@ -31,16 +30,15 @@ export class Duels_By_DuelistCommand extends Command {
     await interaction.deferReply();
 
     try {
-      const challenges: Challenge[] = await getChallengesById(duel_id);
+      const challenges: ChallengeResponse[] = await getChallengesById(duel_id);
 
       if (challenges.length === 0) {
         return interaction.editReply({ content: "No duel found!" });
       }
 
       return interaction.editReply({
-        embeds: formatDuelsAsEmbeds({
+        embeds: await formatChallengesAsEmbeds({
           challenges,
-          title: `Duel ${duel_id?.substring(0, 6)}`
         })
       });
 

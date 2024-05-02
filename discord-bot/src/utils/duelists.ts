@@ -1,8 +1,8 @@
 import { EmbedBuilder, BaseMessageOptions, ButtonBuilder, ButtonStyle, ActionRowBuilder } from "discord.js";
-import { Duelist } from "../generated/graphql";
 import { ChallengeState, Colors } from "./constants.js";
 import { formatTimestamp } from "../utils/misc.js";
 import { duelist_duels_builder } from "../interaction-handlers/duelist_duels.js";
+import { DuelistResponse } from "../queries/getDuelists.js";
 import { tagDuelist } from "./social_app.js";
 
 //
@@ -10,7 +10,7 @@ import { tagDuelist } from "./social_app.js";
 //
 // example usage:
 // return interaction.editReply({
-//     embeds: formatChallengesAsEmbeds(challenges),
+//     embeds: await formatChallengesAsEmbeds(challenges),
 // });
 //
 // reference:
@@ -22,7 +22,7 @@ export async function formatDuelistPayload({
   title,
   full = true,
 }: {
-  duelist: Duelist;
+  duelist: DuelistResponse;
   title: string;
   full?: boolean;
 }): Promise<BaseMessageOptions> {

@@ -1,7 +1,6 @@
 import { Command } from "@sapphire/framework";
-import { getDuelistByAddress } from "../queries/getDuelists.js";
+import { getDuelistByAddress, DuelistResponse } from "../queries/getDuelists.js";
 import { formatDuelistPayload } from "../utils/duelists.js";
-import { Duelist } from "../generated/graphql.js";
 import { fetchDuelistAddress } from "../utils/social_app.js";
 
 export class DuelistsCommand extends Command {
@@ -35,7 +34,7 @@ export class DuelistsCommand extends Command {
     }
 
     try {
-      const duelist: Duelist | null = await getDuelistByAddress(address);
+      const duelist: DuelistResponse | null = await getDuelistByAddress(address);
 
       if (duelist) {
         const payload = await formatDuelistPayload({

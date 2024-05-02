@@ -1,8 +1,7 @@
 import { Command } from "@sapphire/framework";
-import { getChallengesByState } from "../queries/getChallenges.js";
+import { getChallengesByState, ChallengeResponse } from "../queries/getChallenges.js";
 import { formatChallengesAsEmbeds } from "../utils/challenges.js";
 import { ChallengeState } from "../utils/constants.js";
-import { Challenge } from "../generated/graphql.js";
 
 export class LiveDuelsCommand extends Command {
   public constructor(context: Command.LoaderContext, options?: Command.Options) {
@@ -24,7 +23,7 @@ export class LiveDuelsCommand extends Command {
     await interaction.deferReply();
 
     try {
-      const challenges: Challenge[] = await getChallengesByState(ChallengeState.InProgress);
+      const challenges: ChallengeResponse[] = await getChallengesByState(ChallengeState.InProgress);
 
       if (challenges.length === 0) {
         return interaction.editReply({ content: "No live duels found!" });
@@ -33,7 +32,6 @@ export class LiveDuelsCommand extends Command {
       return interaction.editReply({
         embeds: await formatChallengesAsEmbeds({
           challenges,
-          title: 'Live Duel'
         })
       });
 

@@ -1,7 +1,7 @@
 import { BaseMessageOptions } from "discord.js";
 import { getContractByName } from "@dojoengine/core";
 import { dojoConfig } from "../dojoConfig.js";
-import { getDuelistByAddress } from "./getDuelists.js";
+import { getDuelistByAddress, DuelistResponse } from "./getDuelists.js";
 import { feltToString } from "../utils/misc.js";
 import { EventName, EventKeys } from "../utils/constants.js";
 import { formatDuelistPayload } from "../utils/duelists.js";
@@ -20,7 +20,7 @@ export const customEventSub = async (eventName: EventName): Promise<boolean> => 
 
       let payload: BaseMessageOptions | undefined;
       if (eventName == EventName.DuelistRegistered) {
-        const duelist: ql.Duelist | null = await getDuelistByAddress(eventData.address);
+        const duelist: DuelistResponse | null = await getDuelistByAddress(eventData.address);
         // console.log(`+++++++ Duelist:`, duelist);
         if (duelist) {
           payload = await formatDuelistPayload({

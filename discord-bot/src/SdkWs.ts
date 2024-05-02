@@ -1,6 +1,6 @@
 import { createClient } from 'graphql-ws';
 import { DocumentNode, print } from 'graphql';
-import { CustomEventSubDocument, CustomEventSubSubscriptionVariables, World__Event } from "./generated/graphql.js";
+import * as ql from "./generated/graphql.js";
 import WebSocket from "ws";
 
 
@@ -13,7 +13,7 @@ export const getSdkWs = (url: string) => {
     webSocketImpl: WebSocket,
   });
 
-  const subscribe = async (doc: DocumentNode, variables: any, onEvent: (event: World__Event) => void) => {
+  const subscribe = async (doc: DocumentNode, variables: any, onEvent: (event: ql.World__Event) => void) => {
     const query = print(doc);
     // console.log(`+++ sub()`, query, variables)
     const subscription = client.iterate({
@@ -23,15 +23,15 @@ export const getSdkWs = (url: string) => {
 
     for await (const event of subscription) {
       // console.log(event);
-      onEvent(event?.data?.eventEmitted as World__Event ?? null)
+      onEvent(event?.data?.eventEmitted as ql.World__Event ?? null)
       // complete a running subscription by breaking the iterator loop
       // break;
     }
   }
 
   return {
-    customEventSub(variables: CustomEventSubSubscriptionVariables, onEvent: (event: World__Event) => void): Promise<void> {
-      return subscribe(CustomEventSubDocument, variables, onEvent);
+    customEventSub(variables: ql.CustomEventSubSubscriptionVariables, onEvent: (event: ql.World__Event) => void): Promise<void> {
+      return subscribe(ql.CustomEventSubDocument, variables, onEvent);
     },
   }
 }

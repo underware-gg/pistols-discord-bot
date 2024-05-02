@@ -13,6 +13,9 @@ export const shortAddress = (address: string | null) => (
         : `${address.slice(0, 6)}..${address.slice(-4)}`
 )
 
+export const ETH_TO_WEI = 1_000_000_000_000_000_000n
+export const ethToWei = (v: BigNumberish): bigint => (BigInt(v) * ETH_TO_WEI)
+export const weiToEth = (v: BigNumberish): bigint => (BigInt(v) / ETH_TO_WEI)
 
 export const formatTimestamp = (t: number): string => {
   const timeUTC = new Date(t * 1000).getTime()
