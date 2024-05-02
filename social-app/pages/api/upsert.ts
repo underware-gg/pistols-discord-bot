@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     const { data, error } = await supabase.from("pistols_accounts").upsert([
       {
         discord_id: discord_id,
-        duelist_address: bigintToHex(duelist_address),
+        duelist_address: duelist_address ? bigintToHex(duelist_address) : null,
       },
     ]);
 
