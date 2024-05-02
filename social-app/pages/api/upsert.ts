@@ -14,6 +14,7 @@ export default async function handler(req, res) {
 
   try {
     const { discord_id, duelist_address } = req.body;
+    // console.log(`upsert:`, discord_id, `[${duelist_address}]`, typeof duelist_address);
 
     // Input validation (optional): You can add checks here to ensure data meets your requirements
 

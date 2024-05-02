@@ -75,11 +75,11 @@ export const fetchDuelistAddress = async (id: number | string): Promise<string |
   try {
     const response = await axios.get(url);
     data = response?.data ?? null;
-    result = data?.duelist_address ?? null;
+    result = data?.duelist_address || null;
   } catch (error) {
     // not found
   }
-  _cache.set(discord_id, data)
+  _cache.set(discord_id, result ? data : null)
   return result;
 }
 
@@ -95,11 +95,11 @@ export const fetchDiscordId = async (address: BigNumberish): Promise<string | nu
   try {
     const response = await axios.get(url);
     data = response?.data ?? null;
-    result = data?.discord_id ?? null;
+    result = data?.discord_id || null;
   } catch (error) {
     // not found
   }
-  _cache.set(duelist_address, data)
+  _cache.set(duelist_address, result ? data : null)
   return result;
 }
 

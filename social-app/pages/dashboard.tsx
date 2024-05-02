@@ -107,7 +107,7 @@ const Dashboard = ({ user }) => {
                 className="Profilepicture"
               />
             </span>
-            <form onSubmit={handleSubmit}>
+            <form>
               <div className="form-group">
                 <label htmlFor="duelist_address" className="TitleCase">Duelist Address:</label>
                 <input
@@ -124,7 +124,7 @@ const Dashboard = ({ user }) => {
               <Button onClick={() => retrieveAccountDetails()} className="walletbutton">
                 Retrieve Wallet
               </Button>
-              <Button type="submit" className="walletbutton">
+              <Button onClick={(e) => handleSubmit(e)} type="submit" className="walletbutton">
                 Save Wallet
               </Button>
             </span>
