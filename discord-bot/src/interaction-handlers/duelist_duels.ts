@@ -3,7 +3,7 @@ import type { ButtonInteraction } from 'discord.js';
 import { BigNumberish } from 'starknet';
 import { getChallengesByDuelist, ChallengeResponse } from '../queries/getChallenges.js';
 import { ChallengeState, toChallengeState } from '../utils/constants.js';
-import { formatChallengesAsEmbeds } from '../utils/challenges.js';
+import { formatChallengesAsEmbeds } from '../formatters/challenges.js';
 
 export class ButtonHandler extends InteractionHandler {
   public constructor(ctx: InteractionHandler.LoaderContext, options: InteractionHandler.Options) {

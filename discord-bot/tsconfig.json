@@ -22,7 +22,7 @@
   },
   "include": [
     "./src/**/*",
-    "./src/manifest.json"
+    "./src/config/manifest.json"
   ],
   "exclude": [
     "manifest.json"

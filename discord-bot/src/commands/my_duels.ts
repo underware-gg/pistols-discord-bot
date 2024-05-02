@@ -1,6 +1,6 @@
 import { Command } from "@sapphire/framework";
 import { getChallengesByDuelist, ChallengeResponse } from "../queries/getChallenges.js";
-import { formatChallengesAsEmbeds } from "../utils/challenges.js";
+import { formatChallengesAsEmbeds } from "../formatters/challenges.js";
 import { fetchDuelistAddress } from "../utils/social_app.js";
 import { toChallengeState } from "../utils/constants.js";
 

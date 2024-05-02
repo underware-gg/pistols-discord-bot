@@ -1,6 +1,6 @@
 import { Command } from "@sapphire/framework";
 import { getDuelistByAddress, DuelistResponse } from "../queries/getDuelists.js";
-import { formatDuelistPayload } from "../utils/duelists.js";
+import { formatDuelistPayload } from "../formatters/duelists.js";
 
 export class DuelistsCommand extends Command {
   public constructor(

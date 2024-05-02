@@ -1,9 +1,9 @@
 import { EmbedBuilder } from "discord.js";
-import { tagDuelist } from "./social_app.js";
-import { toChallengeState, ChallengeStateDescriptions, Colors, ChallengeState, ChallengeStateNames } from "./constants.js";
+import { tagDuelist } from "../utils/social_app.js";
+import { toChallengeState, ChallengeStateDescriptions, Colors, ChallengeState, ChallengeStateNames } from "../utils/constants.js";
 import { ChallengeResponse } from "../queries/getChallenges.js";
-import { makeDuelUrl, makeLogoUrl, makeSquareProfilePicUrl } from "./game.js";
-import { formatTimestamp } from "./misc.js";
+import { makeDuelUrl, makeLogoUrl, makeSquareProfilePicUrl } from "../utils/pistols.js";
+import { formatTimestamp } from "../utils/misc.js";
 
 //
 // Format Challenges as text message

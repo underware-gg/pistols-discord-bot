@@ -1,11 +1,11 @@
 import { BaseMessageOptions } from "discord.js";
 import { getContractByName } from "@dojoengine/core";
-import { dojoConfig } from "../dojoConfig.js";
+import { dojoConfig } from "../config/dojoConfig.js";
 import { getDuelistByAddress, DuelistResponse } from "./getDuelists.js";
 import { feltToString } from "../utils/misc.js";
 import { EventName, EventKeys } from "../utils/constants.js";
-import { formatDuelistPayload } from "../utils/duelists.js";
-import { sdk_ws } from "../config.js";
+import { formatDuelistPayload } from "../formatters/duelists.js";
+import { sdk_ws } from "../config/config.js";
 import { client } from "../index.js";
 import * as ql from "../generated/graphql.js";
 

@@ -1,5 +1,5 @@
 import * as ql from "../generated/graphql.js";
-import { sdk } from "../config.js";
+import { sdk } from "../config/config.js";
 import { bigintToHex, feltToString } from "../utils/misc.js";
 import { BigNumberish } from "starknet";
 

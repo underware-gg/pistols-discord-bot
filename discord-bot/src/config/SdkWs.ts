@@ -1,6 +1,6 @@
 import { createClient } from 'graphql-ws';
 import { DocumentNode, print } from 'graphql';
-import * as ql from "./generated/graphql.js";
+import * as ql from "../generated/graphql.js";
 import WebSocket from "ws";
 
 

@@ -1,6 +1,6 @@
 import { Command } from "@sapphire/framework";
 import { getChallengesByState, ChallengeResponse } from "../queries/getChallenges.js";
-import { formatChallengesAsEmbeds } from "../utils/challenges.js";
+import { formatChallengesAsEmbeds } from "../formatters/challenges.js";
 import { ChallengeState } from "../utils/constants.js";
 
 export class LiveDuelsCommand extends Command {

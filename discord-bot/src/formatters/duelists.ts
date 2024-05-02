@@ -1,10 +1,10 @@
 import { EmbedBuilder, BaseMessageOptions, ButtonBuilder, ButtonStyle, ActionRowBuilder } from "discord.js";
-import { ChallengeState, Colors } from "./constants.js";
+import { ChallengeState, Colors } from "../utils/constants.js";
 import { formatTimestamp } from "../utils/misc.js";
 import { duelist_duels_builder } from "../interaction-handlers/duelist_duels.js";
 import { DuelistResponse } from "../queries/getDuelists.js";
-import { tagDuelist } from "./social_app.js";
-import { makeSquareProfilePicUrl } from "./game.js";
+import { tagDuelist } from "../utils/social_app.js";
+import { makeSquareProfilePicUrl } from "../utils/pistols.js";
 
 //
 // Format Challenges as embeds

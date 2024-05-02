@@ -1,4 +1,4 @@
-import { sdk } from "../config.js";
+import { sdk } from "../config/config.js";
 import { BigNumberish } from "starknet";
 import { DuelistResponse, parseDuelistResponse } from "./getDuelists.js";
 import { ChallengeState, toChallengeState } from "../utils/constants.js";
