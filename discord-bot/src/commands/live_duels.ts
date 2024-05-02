@@ -23,7 +23,7 @@ export class LiveDuelsCommand extends Command {
     await interaction.deferReply();
 
     try {
-      const challenges: ChallengeResponse[] = await getChallengesByState(ChallengeState.InProgress);
+      const challenges: ChallengeResponse[] = await getChallengesByState([ChallengeState.InProgress]);
 
       if (challenges.length === 0) {
         return interaction.editReply({ content: "No live duels found!" });

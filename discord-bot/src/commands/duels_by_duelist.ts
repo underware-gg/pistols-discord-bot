@@ -35,7 +35,7 @@ export class Duels_By_DuelistCommand extends Command {
     await interaction.deferReply();
 
     try {
-      const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist(ChallengeState.InProgress, address) : [];
+      const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist([ChallengeState.InProgress], address) : [];
 
       if (challenges.length === 0) {
         return interaction.editReply({ content: "No duels found for this duelist!" });

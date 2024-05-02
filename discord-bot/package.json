@@ -7,7 +7,7 @@
   "main": "dist/src/server.js",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon --ext ts --exec 'tsc && node dist/src/index.js'",
+    "dev": "tsc && nodemon --ext ts --exec 'tsc && node dist/src/index.js'",
     "serve": "tsc && node dist/src/index.js",
     "codegen": "graphql-codegen"
   },

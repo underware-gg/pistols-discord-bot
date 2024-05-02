@@ -21,7 +21,7 @@ query getChallengesById($duel_id: u128!) {
 }
 
 query getChallengesByState($state: u8!) {
-  challenges: challengeModels(where: { state: $state }) {
+  challenges: challengeModels(where: { state: $state }, limit: 10) {
     edges {
       node {
         ...challengeFields
@@ -30,15 +30,63 @@ query getChallengesByState($state: u8!) {
   }
 }
 
-query getChallengesByDuelist($state: u8!, $address: ContractAddress!) {
-  challenges_a: challengeModels(where: { state: $state, duelist_a: $address }) {
+query getChallengesByStates($state1: u8!, $state2: u8!) {
+  challenges_1: challengeModels(where: { state: $state1 }, limit: 10) {
     edges {
       node {
         ...challengeFields
       }
     }
   }
-  challenges_b: challengeModels(where: { state: $state, duelist_b: $address }) {
+  challenges_2: challengeModels(where: { state: $state2 }, limit: 10) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+}
+
+query getChallengesByDuelistAndState($address: ContractAddress!, $state: u8!) {
+  challenges_a: challengeModels(where: { duelist_a: $address, state: $state }, limit: 10) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+  challenges_b: challengeModels(where: { duelist_b: $address, state: $state }, limit: 10) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+}
+
+query getChallengesByDuelistAndStates($address: ContractAddress!, $state1: u8!, $state2: u8!) {
+  challenges_a1: challengeModels(where: { duelist_a: $address, state: $state1 }, limit: 10) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+  challenges_a2: challengeModels(where: { duelist_a: $address, state: $state2 }, limit: 10) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+  challenges_b1: challengeModels(where: { duelist_b: $address, state: $state1 }, limit: 10) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+  challenges_b2: challengeModels(where: { duelist_b: $address, state: $state2 }, limit: 10) {
     edges {
       node {
         ...challengeFields

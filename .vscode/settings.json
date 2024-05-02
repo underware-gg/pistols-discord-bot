@@ -12,6 +12,7 @@
   "search.exclude": {
     "**/*-lock.json": true,
     "**/*.lock": true,
+    "**/generated": true,
     "**/.gitignore": true,
     "**/.gitmodules": true
   },
