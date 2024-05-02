@@ -475,14 +475,13 @@ TextArea::selection {
   font-size: 2em !important;
 }
 
-.button {
-  background-color: #5865F2;
-  height: 4rem;
-  width: 12rem;
-  font-size: 1rem;
-  color: white;
-  border-radius: 12px;
-}
+// .button {
+//   height: 3rem;
+//   width: 12rem;
+//   font-size: 1rem;
+//   color: white;
+//   border-radius: 12px;
+// }
 
 .Profilepicture {
   width: 180px;
@@ -555,9 +554,9 @@ input::placeholder {
 .ui.form input:not([type]),
 .ui.selection.dropdown {
   @extend ._button_shape, ._round_border;
-  background-color: $color-dark !important;
+  background-color: $color-bright !important;
   // color: rgba($color-text, 0.75)!important;
-  color: $color-text !important;
+  color: $color-dark !important;
 }
 
 .ui.selection.dropdown {
@@ -567,7 +566,7 @@ input::placeholder {
 .ui.form input[type=text],
 .ui.form input[type=text]:focus {
   font-family: $font-family;
-  color: $color-brightest;
+  color: $color-dark;
   padding: 0.5em 1em;
 }
 
@@ -576,7 +575,7 @@ input::placeholder {
 .ui.form input:not([type]):focus {
   @extend ._round_border_active;
   background-color: $color-dark;
-  color: $color-brightest !important;
+  color: $color-dark !important;
 }
 
 .ui.label {

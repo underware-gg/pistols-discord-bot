@@ -1,15 +1,15 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Button } from "semantic-ui-react";
+import { Button, Divider } from "semantic-ui-react";
 import App from "@/components/App";
 import Logo from "@/components/Logo";
 
 export default function IndexPage() {
   const router = useRouter();
 
-//   const handleLogin = () => {
-//     router.push("/api/oauth");
-//   }
+  //   const handleLogin = () => {
+  //     router.push("/api/oauth");
+  //   }
 
   const _login = () => {
     const app_id = process.env.NEXT_PUBLIC_CLIENT_ID
@@ -18,17 +18,40 @@ export default function IndexPage() {
     router.push(url)
   }
 
+  const _play = () => {
+    router.push(process.env.NEXT_PUBLIC_CLIENT_URL)
+  }
+
+  const _addBot = () => {
+    router.push(process.env.NEXT_PUBLIC_DISCORD_ADD_BOT_URL)
+  }
+
   return (
     <App>
       <div className="AlignCenter">
         <Logo />
         <h1 className="TitleCase">Pistols at 10 Blocks</h1>
-        <h3 className="TitleCase">Social Link</h3>
-        <div className="Spacer10" />
+        <Button onClick={() => _play()}>
+          Play the Game!
+        </Button>
+
+        <Divider />
+        <h3 className="TitleCase">Discord Users</h3>
+        <p className="TitleCase">
+          Link a Duelist to your Discord account<br/>
+          to receive notifications and interact with the game
+        </p>
         <Button onClick={() => _login()}>
           Discord Login
         </Button>
-        <div style={{ height: "5vh" }}>&nbsp;</div>
+
+        <Divider />
+        <h3 className="TitleCase">Server Admins</h3>
+        <Button onClick={() => _addBot()}>
+          Add Bot to Server
+        </Button>
+
+
       </div>
     </App>
   );

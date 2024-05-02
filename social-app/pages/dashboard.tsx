@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Router from "next/router";
-import { Button, Image } from "semantic-ui-react";
+import { Button, Divider, Image, Input } from "semantic-ui-react";
 import { parseCookies, destroyCookie } from "nookies";
 import { JwtPayload, verify } from "jsonwebtoken";
 import { toast } from "react-toastify";
@@ -8,6 +8,9 @@ import axios from "axios";
 import App from "@/components/App";
 
 const Dashboard = ({ user }) => {
+  const [allSet, setAllSet] = useState(false);
+  const [busy, setBusy] = useState(false);
+
   const [inputData, setInputData] = useState({
     duelist_address: user?.duelist_address || "",
   });
@@ -29,6 +32,7 @@ const Dashboard = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setBusy(true);
       const token = parseCookies().token;
       const response = await fetch("/api/upsert", {
         method: "POST",
@@ -44,7 +48,9 @@ const Dashboard = ({ user }) => {
       if (response.ok) {
         const data = await response.json();
         toast.success(data.message);
+        setAllSet(Boolean(inputData.duelist_address));
       } else {
+        setAllSet(false);
         if (response.status === 401) {
           toast.error("Unauthorized access. Please log in again.");
         } else if (response.status === 404) {
@@ -57,6 +63,7 @@ const Dashboard = ({ user }) => {
       console.error("Error saving data:", error);
       toast.error("Failed to save data.");
     }
+    setBusy(false);
   }
 
   const retrieveAccountDetails = async () => {
@@ -66,6 +73,7 @@ const Dashboard = ({ user }) => {
         console.error("User id is undefined");
         return;
       }
+      setBusy(true);
 
       const url = '/api/fetch_id?' + new URLSearchParams({ discord_id })
       const response = await axios.get(url);
@@ -76,6 +84,8 @@ const Dashboard = ({ user }) => {
         if (duelist_address) {
           setInputData({ ...inputData, duelist_address });
           toast.success("Wallet retrieved successfully.");
+          setAllSet(Boolean(duelist_address));
+          setBusy(false);
           return;
         }
       }
@@ -85,6 +95,8 @@ const Dashboard = ({ user }) => {
       console.error("Error retrieving account details:", error);
       toast.error("Failed to retrieve wallet.");
     }
+    setAllSet(false);
+    setBusy(false);
   }
 
   const avatarUrl =
@@ -107,30 +119,38 @@ const Dashboard = ({ user }) => {
                 className="Profilepicture"
               />
             </span>
+            <Divider hidden />
+            <span className="wallet-container">
+              <Button onClick={() => handleLogout()} className="logoutbutton">
+                Logout
+              </Button>
+            </span>
+
+            <Divider />
+
             <form>
               <div className="form-group">
                 <label htmlFor="duelist_address" className="TitleCase">Duelist Address:</label>
-                <input
+                <Input
                   className="form-control FillWidth"
                   type="text"
                   id="duelist_address"
                   name="duelist_address"
                   value={inputData.duelist_address}
                   onChange={handleChange}
+                  disabled={busy}
                 />
               </div>
             </form>
+
+            {allSet && <p className="TitleCase">All Set!</p>}
+
             <span className="wallet-container">
-              <Button onClick={() => retrieveAccountDetails()} className="walletbutton">
+              <Button disabled={busy} onClick={() => retrieveAccountDetails()} className="walletbutton">
                 Retrieve Wallet
               </Button>
-              <Button onClick={(e) => handleSubmit(e)} type="submit" className="walletbutton">
+              <Button disabled={busy} onClick={(e) => handleSubmit(e)} type="submit" className="walletbutton">
                 Save Wallet
-              </Button>
-            </span>
-            <span className="wallet-container">
-              <Button onClick={() => handleLogout()} className="logoutbutton">
-                Logout
               </Button>
             </span>
           </>
