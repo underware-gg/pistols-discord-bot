@@ -12,9 +12,13 @@ export default function IndexPage() {
   //   }
 
   const _login = () => {
-    const app_id = process.env.NEXT_PUBLIC_CLIENT_ID
-    const redirect_uri = encodeURIComponent(process.env.NEXT_PUBLIC_REDIRECT_URI)
-    const url = `https://discord.com/oauth2/authorize?client_id=${app_id}&response_type=code&redirect_uri=${redirect_uri}&scope=identify+email`
+    const options = {
+      client_id: process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID,
+      redirect_uri: process.env.NEXT_PUBLIC_DISCORD_REDIRECT_URL,
+      response_type: 'code',
+      scope: 'identify email',
+    }
+    const url = 'https://discord.com/oauth2/authorize?' + new URLSearchParams(options)
     router.push(url)
   }
 

@@ -8,15 +8,15 @@ import axios from 'axios';
 
 // Configuration constants
 // TODO: Add these to environment variables
-const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
+const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
 const JWT_SECRET = 'thisisasecret';
 
 // The URL that we will redirect to
 // note: this should be an environment variable
 // but I'll cover that in part 2 since
 // it will work fine locally for the time being
-const REDIRECT_URI = process.env.NEXT_PUBLIC_REDIRECT_URI;
+const REDIRECT_URL = process.env.NEXT_PUBLIC_DISCORD_REDIRECT_URL;
 
 // Scopes we want to be able to access as a user
 const scope = ['identify'].join(' ');
@@ -24,7 +24,7 @@ const scope = ['identify'].join(' ');
 // URL to redirect to outbound (to request authorization)
 const OAUTH_URL = urlcat('https://discord.com/api/oauth2/authorize', {
   client_id: CLIENT_ID,
-  redirect_uri: REDIRECT_URI,
+  redirect_uri: REDIRECT_URL,
   response_type: 'token',
   scope,
 });
@@ -36,8 +36,8 @@ const OAUTH_URL = urlcat('https://discord.com/api/oauth2/authorize', {
 async function exchangeCode(code: string) {
   const body = new URLSearchParams({
     client_id: CLIENT_ID,
-    client_secret: CLIENT_SECRET,
-    redirect_uri: REDIRECT_URI,
+    client_secret: DISCORD_CLIENT_SECRET,
+    redirect_uri: REDIRECT_URL,
     grant_type: 'authorization_code',
     code,
     scope,
