@@ -2,6 +2,7 @@ import { Command } from "@sapphire/framework";
 import { getDuelistByAddress, DuelistResponse } from "../queries/getDuelists.js";
 import { formatDuelistPayload } from "../formatters/duelists.js";
 import { fetchDuelistAddress } from "../utils/social_app.js";
+import { formatAccountNotLinked } from "../formatters/messages.js";
 
 export class DuelistsCommand extends Command {
   public constructor(
@@ -29,20 +30,15 @@ export class DuelistsCommand extends Command {
 
     try {
       const address = await fetchDuelistAddress(interaction.user.id);
-      if (!address) {
-        return interaction.editReply({ content: "Invalid address provided!" });
-      }
-
-      const duelist: DuelistResponse | null = await getDuelistByAddress(address);
-
-      if (duelist) {
-        const payload = await formatDuelistPayload({
-          duelist,
-          title: "Duelist",
-        });
-        return interaction.editReply(payload);
-      } else {
-        return interaction.editReply({ content: "No duelist found!" });
+      if (address) {
+        const duelist: DuelistResponse | null = await getDuelistByAddress(address);
+        if (duelist) {
+          const payload = await formatDuelistPayload({
+            duelist,
+            title: "Duelist",
+          });
+          return interaction.editReply(payload);
+        }
       }
     } catch (error) {
       console.error("Error fetching duelist:", error);
@@ -50,5 +46,8 @@ export class DuelistsCommand extends Command {
         content: "An error occurred while fetching the duelist.",
       });
     }
+
+    // not found!
+    return interaction.editReply(formatAccountNotLinked());
   }
 }

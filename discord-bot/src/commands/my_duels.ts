@@ -3,6 +3,7 @@ import { getChallengesByDuelist, ChallengeResponse } from "../queries/getChallen
 import { formatChallengesAsEmbeds } from "../formatters/challenges.js";
 import { fetchDuelistAddress } from "../utils/social_app.js";
 import { ChallengeState, toChallengeState } from "../utils/constants.js";
+import { formatAccountNotLinked, formatYouHaveNoDuels } from "../formatters/messages.js";
 
 export const stateChoices = [
   { name: 'Awaiting', value: JSON.stringify([ChallengeState.Awaiting]) },
@@ -45,24 +46,28 @@ export class MyDuelsCommand extends Command {
 
     try {
       const address = await fetchDuelistAddress(interaction.user.id);
-      const input_states = JSON.parse(interaction.options.getString("state") || "[]");
-      const states = input_states.map((v: string | number) => toChallengeState(v));
+      if (address) {
+        const input_states = JSON.parse(interaction.options.getString("state") || "[]");
+        const states = input_states.map((v: string | number) => toChallengeState(v));
 
-      const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist(states, address) : [];
-      if (challenges.length === 0) {
-        return interaction.editReply({ content: "you a noob, you ain't got no duels!" });
+        const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist(states, address) : [];
+        if (challenges.length === 0) {
+          return interaction.editReply(formatYouHaveNoDuels());
+        }
+        return interaction.editReply(formatYouHaveNoDuels());
+
+        return interaction.editReply({
+          embeds: await formatChallengesAsEmbeds({
+            challenges,
+          })
+        });
       }
-
-      return interaction.editReply({
-        embeds: await formatChallengesAsEmbeds({
-          challenges,
-        })
-      });
-    }
-
-    catch (error) {
+    } catch (error) {
       console.error("Failed to fetch live duels:", error);
       return interaction.editReply({ content: "An error occurred while fetching live duels." });
     }
+
+    // not found!
+    return interaction.editReply(formatAccountNotLinked());
   }
 }

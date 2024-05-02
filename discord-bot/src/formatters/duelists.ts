@@ -5,6 +5,7 @@ import { duelist_duels, past_duels } from "../interactions/duels.js";
 import { DuelistResponse } from "../queries/getDuelists.js";
 import { tagDuelist } from "../utils/social_app.js";
 import { makeSquareProfilePicUrl } from "../utils/pistols.js";
+import { makeButtonsComponents } from "./messages.js";
 
 //
 // Format Challenges as embeds
@@ -46,7 +47,7 @@ export async function formatDuelistPayload({
     .setDescription(contents.join('\n'))
     .setFooter({ text: `Since: ${formatTimestamp(duelist.timestamp)}` })
 
-  let buttons = new ActionRowBuilder<ButtonBuilder>();
+  const buttons: ButtonBuilder[] = [];
 
   if (full) {
     const winRatio = (duelist.total_duels > 0 ? Math.floor((duelist.total_wins / duelist.total_duels) * 100) : null);
@@ -84,28 +85,29 @@ export async function formatDuelistPayload({
     );
 
     // Setup buttons
-    const button1 = new ButtonBuilder()
+    buttons.push(new ButtonBuilder()
       .setCustomId(duelist_duels().builder(duelist.address, ChallengeState.Awaiting))
       .setEmoji('🤝')
       .setLabel('Awaiting')
-      .setStyle(ButtonStyle.Secondary);
-    const button2 = new ButtonBuilder()
+      .setStyle(ButtonStyle.Secondary)
+    );
+    buttons.push(new ButtonBuilder()
       .setCustomId(duelist_duels().builder(duelist.address, ChallengeState.InProgress))
       .setEmoji('⚔️')
       .setLabel('Live Duels')
-      .setStyle(ButtonStyle.Success);
-    const button3 = new ButtonBuilder()
+      .setStyle(ButtonStyle.Success)
+    );
+    buttons.push(new ButtonBuilder()
       .setCustomId(past_duels().builder(duelist.address))
       .setEmoji('🪦')
       .setLabel('Past Duels')
-      .setStyle(ButtonStyle.Secondary);
-
-    buttons.addComponents(button1, button2, button3);
+      .setStyle(ButtonStyle.Secondary)
+    );
   }
 
   return {
     embeds: [embed],
-    components: buttons.components.length > 0 ? [buttons] : [],
+    components: makeButtonsComponents(...buttons),
   }
 }
 
