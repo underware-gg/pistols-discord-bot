@@ -1,8 +1,9 @@
 import { BaseMessageOptions, EmbedBuilder } from "discord.js";
 import { tagDuelist } from "../utils/social_app.js";
-import { toChallengeState, ChallengeStateDescriptions, Colors, ChallengeState, ChallengeStateNames } from "../utils/constants.js";
-import { ChallengeResponse } from "../queries/getChallenges.js";
+import { toChallengeState, ChallengeStateDescriptions, Colors, ChallengeState } from "../utils/constants.js";
 import { makeDuelUrl, makeLogoUrl, makeSquareProfilePicUrl } from "../utils/pistols.js";
+import { ChallengeResponse } from "../queries/getChallenges.js";
+import { formatNoDuelsFound } from "./messages.js";
 import { formatTimestamp } from "../utils/misc.js";
 
 //
@@ -35,7 +36,10 @@ export const formatChallengesPayload = async ({
   challenges,
 }: {
   challenges: ChallengeResponse[],
-  }): Promise<BaseMessageOptions> => {
+}): Promise<BaseMessageOptions> => {
+  if (!challenges || challenges.length == 0) {
+    return formatNoDuelsFound();
+  }
   const embeds = await Promise.all(challenges.map(async (challenge, index) => {
     const state = toChallengeState(challenge.state);
     const honour_a = challenge.duelist_a.honour;

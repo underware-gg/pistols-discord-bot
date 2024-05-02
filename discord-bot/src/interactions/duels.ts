@@ -16,9 +16,6 @@ export const duelist_duels = () => {
   const run = async (options: string[]): Promise<InteractionReplyOptions> => {
     const [customId, address, state] = options;
     const challenges: ChallengeResponse[] = await getChallengesByDuelist([toChallengeState(state)], address);
-    if (challenges.length === 0) {
-      return { content: "No duels found!" };
-    }
     return await formatChallengesPayload({ challenges });
   }
   return {
@@ -40,9 +37,6 @@ export const past_duels = () => {
   const run = async (options: string[]): Promise<InteractionReplyOptions> => {
     const [customId, address] = options;
     const challenges: ChallengeResponse[] = await getChallengesByDuelist([ChallengeState.Refused, ChallengeState.Draw], address);
-    if (challenges.length === 0) {
-      return { content: "No duels found!" };
-    }
     return await formatChallengesPayload({ challenges });
   }
   return {

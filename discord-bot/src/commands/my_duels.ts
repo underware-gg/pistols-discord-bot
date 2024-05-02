@@ -1,9 +1,9 @@
 import { Command } from "@sapphire/framework";
 import { getChallengesByDuelist, ChallengeResponse } from "../queries/getChallenges.js";
-import { formatChallengesPayload } from "../formatters/challenges.js";
+import { formatAccountNotLinked } from "../formatters/messages.js";
 import { fetchDuelistAddress } from "../utils/social_app.js";
+import { formatChallengesPayload } from "../formatters/challenges.js";
 import { ChallengeState, toChallengeState } from "../utils/constants.js";
-import { formatAccountNotLinked, formatYouHaveNoDuels } from "../formatters/messages.js";
 
 export const stateChoices = [
   { name: 'Awaiting', value: JSON.stringify([ChallengeState.Awaiting]) },
@@ -43,26 +43,19 @@ export class MyDuelsCommand extends Command {
 
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
     await interaction.deferReply({ ephemeral: true });
-
     try {
       const address = await fetchDuelistAddress(interaction.user.id);
       if (address) {
         const input_states = JSON.parse(interaction.options.getString("state") || "[]");
         const states = input_states.map((v: string | number) => toChallengeState(v));
-
         const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist(states, address) : [];
-        if (challenges.length === 0) {
-          return interaction.editReply(formatYouHaveNoDuels());
-        }
-        
         return interaction.editReply(await formatChallengesPayload({ challenges }));
       }
     } catch (error) {
       console.error("Failed to fetch live duels:", error);
       return interaction.editReply({ content: "An error occurred while fetching live duels." });
     }
-
-    // not found!
+    // account not linked
     return interaction.editReply(formatAccountNotLinked());
   }
 }

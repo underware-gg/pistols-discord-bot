@@ -2,7 +2,7 @@ import { Command } from "@sapphire/framework";
 import { getDuelistByAddress, DuelistResponse } from "../queries/getDuelists.js";
 import { formatDuelistPayload } from "../formatters/duelists.js";
 
-export class DuelistsCommand extends Command {
+export class ProfileCommand extends Command {
   public constructor(
     context: Command.LoaderContext,
     options?: Command.Options
@@ -30,25 +30,18 @@ export class DuelistsCommand extends Command {
   public override async chatInputRun(
     interaction: Command.ChatInputCommandInteraction
   ) {
-    const address = interaction.options.getString("address");
-
-    await interaction.deferReply();
-
-    if (!address) {
-      return interaction.editReply({ content: "Invalid address provided!" });
-    }
-
+    await interaction.deferReply({ ephemeral: true });
     try {
-      const duelist: DuelistResponse | null = await getDuelistByAddress(address);
-
-      if (duelist) {
-        const payload = await formatDuelistPayload({
-          duelist,
-          title: "Duelist",
-        });
-        return interaction.editReply(payload);
-      } else {
-        return interaction.editReply({ content: "No duelist found!" });
+      const address = interaction.options.getString("address");
+      if (address) {
+        const duelist: DuelistResponse | null = await getDuelistByAddress(address);
+        if (duelist) {
+          const payload = await formatDuelistPayload({
+            duelist,
+            title: "Duelist",
+          });
+          return interaction.editReply(payload);
+        }
       }
     } catch (error) {
       console.error("Error fetching duelist:", error);
@@ -56,5 +49,7 @@ export class DuelistsCommand extends Command {
         content: "An error occurred while fetching the duelist.",
       });
     }
+    // not found!
+    return interaction.editReply({ content: "Duelist not found!" });
   }
 }

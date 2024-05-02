@@ -19,17 +19,10 @@ export class LiveDuelsCommand extends Command {
   }
 
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
-    await interaction.deferReply();
-
+    await interaction.deferReply({ ephemeral: true });
     try {
       const challenges: ChallengeResponse[] = await getChallengesByState([ChallengeState.InProgress]);
-
-      if (challenges.length === 0) {
-        return interaction.editReply({ content: "No live duels found!" });
-      }
-
       return interaction.editReply(await formatChallengesPayload({ challenges }));
-
     } catch (error) {
       console.error("Failed to fetch live duels:", error);
       return interaction.editReply({ content: "An error occurred while fetching live duels." });
