@@ -25,13 +25,13 @@ export const ChallengeStateNames: Record<ChallengeState, string> = {
 
 export const ChallengeStateDescriptions: Record<ChallengeState, string> = {
   [ChallengeState.Null]: "Challenge does not exist",
-  [ChallengeState.Awaiting]: "Awaiting for Challenged's reply",
+  [ChallengeState.Awaiting]: "Awaiting to accept...",
   [ChallengeState.Withdrawn]: "Cowardly withdrawn by Challenger",
   [ChallengeState.Refused]: "Cowardly refused by Challenged",
   [ChallengeState.Expired]: "Challenge expired",
-  [ChallengeState.InProgress]: "Challenge in progress",
+  [ChallengeState.InProgress]: "Challenge in progress...",
   [ChallengeState.Resolved]: "Honour has been satisfied",
-  [ChallengeState.Draw]: "Ended in a Draw!",//"Honour has not been satisfied",
+  [ChallengeState.Draw]: "Draw!",//"Honour has not been satisfied",
   [ChallengeState.All]: "All?",
 }
 

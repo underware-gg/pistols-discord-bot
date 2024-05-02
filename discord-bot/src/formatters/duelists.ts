@@ -1,7 +1,7 @@
 import { EmbedBuilder, BaseMessageOptions, ButtonBuilder, ButtonStyle, ActionRowBuilder } from "discord.js";
 import { ChallengeState, Colors } from "../utils/constants.js";
 import { formatTimestamp } from "../utils/misc.js";
-import { duelist_duels_builder } from "../interaction-handlers/duelist_duels.js";
+import { duelist_duels, past_duels } from "../interactions/duels.js";
 import { DuelistResponse } from "../queries/getDuelists.js";
 import { tagDuelist } from "../utils/social_app.js";
 import { makeSquareProfilePicUrl } from "../utils/pistols.js";
@@ -84,16 +84,23 @@ export async function formatDuelistPayload({
     );
 
     // Setup buttons
-    const live_duels = new ButtonBuilder()
-      .setCustomId(duelist_duels_builder(duelist.address, ChallengeState.InProgress))
+    const button1 = new ButtonBuilder()
+      .setCustomId(duelist_duels().builder(duelist.address, ChallengeState.Awaiting))
+      .setEmoji('🤝')
+      .setLabel('Awaiting')
+      .setStyle(ButtonStyle.Secondary);
+    const button2 = new ButtonBuilder()
+      .setCustomId(duelist_duels().builder(duelist.address, ChallengeState.InProgress))
+      .setEmoji('⚔️')
       .setLabel('Live Duels')
       .setStyle(ButtonStyle.Success);
-    const past_duels = new ButtonBuilder()
-      .setCustomId(duelist_duels_builder(duelist.address, ChallengeState.Resolved))
+    const button3 = new ButtonBuilder()
+      .setCustomId(past_duels().builder(duelist.address))
+      .setEmoji('🪦')
       .setLabel('Past Duels')
       .setStyle(ButtonStyle.Secondary);
 
-    buttons.addComponents(live_duels, past_duels);
+    buttons.addComponents(button1, button2, button3);
   }
 
   return {

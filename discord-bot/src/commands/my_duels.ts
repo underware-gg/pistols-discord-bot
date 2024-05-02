@@ -2,7 +2,7 @@ import { Command } from "@sapphire/framework";
 import { getChallengesByDuelist, ChallengeResponse } from "../queries/getChallenges.js";
 import { formatChallengesAsEmbeds } from "../formatters/challenges.js";
 import { fetchDuelistAddress } from "../utils/social_app.js";
-import { toChallengeState } from "../utils/constants.js";
+import { ChallengeState, toChallengeState } from "../utils/constants.js";
 
 export class MyDuelsCommand extends Command {
   public constructor(context: Command.LoaderContext, options?: Command.Options) {
@@ -22,14 +22,12 @@ export class MyDuelsCommand extends Command {
             .setDescription('the duel state, completed or not')
             .setRequired(true)
             .addChoices(
-              { name: 'Ongoing', value: '5' },
-              { name: 'Resolved', value: '6' },
-              { name: 'Awaiting', value: '1' },
-              { name: 'Withdrawn', value: '2' },
-              { name: 'Expired', value: '4' },
-              { name: 'Refused', value: '3' },
-              { name: 'Draw', value: '7' },
-              { name: 'All', value: '8' }
+              { name: 'Awaiting', value: JSON.stringify([ChallengeState.Awaiting]) },
+              { name: 'Live', value: JSON.stringify([ChallengeState.InProgress]) },
+              { name: 'Past', value: JSON.stringify([ChallengeState.Resolved, ChallengeState.Draw]) },
+              { name: 'Resolved', value: JSON.stringify([ChallengeState.Resolved]) },
+              { name: 'Draws', value: JSON.stringify([ChallengeState.Draw]) },
+              { name: 'Canceled', value: JSON.stringify([ChallengeState.Expired, ChallengeState.Refused]) },
             ))
         .addIntegerOption((opt) => opt
           .setName('page')
@@ -44,10 +42,10 @@ export class MyDuelsCommand extends Command {
 
     try {
       const address = await fetchDuelistAddress(interaction.user.id);
-      const input_state = interaction.options.getString("duel-state") || "5";
-      const state = toChallengeState(input_state);
+      const input_states = JSON.parse(interaction.options.getString("duel-state") || "[]");
+      const states = input_states.map((v: string | number) => toChallengeState(v));
 
-      const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist(state, address) : [];
+      const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist(states, address) : [];
 
       if (challenges.length === 0) {
         return interaction.editReply({ content: "you a noob, you ain't got no duels!" });
