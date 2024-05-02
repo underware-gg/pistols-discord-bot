@@ -38,7 +38,7 @@ export class MyDuelsCommand extends Command {
   }
 
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
-    await interaction.deferReply();
+    await interaction.deferReply({ ephemeral: true });
 
     try {
       const address = await fetchDuelistAddress(interaction.user.id);

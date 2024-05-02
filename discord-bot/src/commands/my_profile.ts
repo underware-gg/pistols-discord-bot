@@ -25,15 +25,14 @@ export class DuelistsCommand extends Command {
   public override async chatInputRun(
     interaction: Command.ChatInputCommandInteraction
   ) {
-    const address = await fetchDuelistAddress(interaction.user.id);
-
-    await interaction.deferReply();
-
-    if (!address) {
-      return interaction.editReply({ content: "Invalid address provided!" });
-    }
+    await interaction.deferReply({ ephemeral: true });
 
     try {
+      const address = await fetchDuelistAddress(interaction.user.id);
+      if (!address) {
+        return interaction.editReply({ content: "Invalid address provided!" });
+      }
+
       const duelist: DuelistResponse | null = await getDuelistByAddress(address);
 
       if (duelist) {
