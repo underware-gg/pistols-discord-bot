@@ -1,6 +1,6 @@
 import { Command } from "@sapphire/framework";
 import { getChallengesByState, ChallengeResponse } from "../queries/getChallenges.js";
-import { formatChallengesAsEmbeds } from "../formatters/challenges.js";
+import { formatChallengesPayload } from "../formatters/challenges.js";
 import { ChallengeState } from "../utils/constants.js";
 
 export class LiveDuelsCommand extends Command {
@@ -28,11 +28,7 @@ export class LiveDuelsCommand extends Command {
         return interaction.editReply({ content: "No live duels found!" });
       }
 
-      return interaction.editReply({
-        embeds: await formatChallengesAsEmbeds({
-          challenges,
-        })
-      });
+      return interaction.editReply(await formatChallengesPayload({ challenges }));
 
     } catch (error) {
       console.error("Failed to fetch live duels:", error);

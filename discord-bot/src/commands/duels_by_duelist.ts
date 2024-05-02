@@ -1,6 +1,6 @@
 import { Command } from "@sapphire/framework";
 import { getChallengesByDuelist, ChallengeResponse } from "../queries/getChallenges.js";
-import { formatChallengesAsEmbeds } from "../formatters/challenges.js";
+import { formatChallengesPayload } from "../formatters/challenges.js";
 import { ChallengeState, toChallengeState } from "../utils/constants.js";
 import { stateChoices } from "./my_duels.js";
 
@@ -48,11 +48,7 @@ export class Duels_By_DuelistCommand extends Command {
         return interaction.editReply({ content: "No duels found for this duelist!" });
       }
 
-      return interaction.editReply({
-        embeds: await formatChallengesAsEmbeds({
-          challenges,
-        })
-      });
+      return interaction.editReply(await formatChallengesPayload({ challenges }));
 
     } catch (error) {
       console.error("Failed to fetch duels for the specified duelist:", error);

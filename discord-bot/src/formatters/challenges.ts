@@ -1,4 +1,4 @@
-import { EmbedBuilder } from "discord.js";
+import { BaseMessageOptions, EmbedBuilder } from "discord.js";
 import { tagDuelist } from "../utils/social_app.js";
 import { toChallengeState, ChallengeStateDescriptions, Colors, ChallengeState, ChallengeStateNames } from "../utils/constants.js";
 import { ChallengeResponse } from "../queries/getChallenges.js";
@@ -25,20 +25,18 @@ export const formatChallengesAsText = (challenges: ChallengeResponse[]): string 
 // Format Challenges as embeds
 //
 // example usage:
-// return interaction.editReply({
-//     embeds: await formatChallengesAsEmbeds(challenges),
-// });
+// return interaction.editReply(await formatChallengesPayload());
 //
 // reference:
 // https://discordjs.guide/popular-topics/embeds.html
 //
 
-export const formatChallengesAsEmbeds = async ({
+export const formatChallengesPayload = async ({
   challenges,
 }: {
   challenges: ChallengeResponse[],
-}): Promise<EmbedBuilder[]> => {
-  return await Promise.all(challenges.map(async (challenge, index) => {
+  }): Promise<BaseMessageOptions> => {
+  const embeds = await Promise.all(challenges.map(async (challenge, index) => {
     const state = toChallengeState(challenge.state);
     const honour_a = challenge.duelist_a.honour;
     const honour_b = challenge.duelist_b.honour;
@@ -116,4 +114,7 @@ export const formatChallengesAsEmbeds = async ({
       );
     return embed;
   }));
+  return {
+    embeds
+  }
 }

@@ -2,7 +2,7 @@ import type { InteractionReplyOptions } from 'discord.js';
 import { BigNumberish } from 'starknet';
 import { getChallengesByDuelist, ChallengeResponse } from '../queries/getChallenges.js';
 import { ChallengeState, toChallengeState } from '../utils/constants.js';
-import { formatChallengesAsEmbeds } from '../formatters/challenges.js';
+import { formatChallengesPayload } from '../formatters/challenges.js';
 import { bigintToHex } from '../utils/misc.js';
 
 //------------------------------
@@ -19,7 +19,7 @@ export const duelist_duels = () => {
     if (challenges.length === 0) {
       return { content: "No duels found!" };
     }
-    return { embeds: await formatChallengesAsEmbeds({ challenges }) };
+    return await formatChallengesPayload({ challenges });
   }
   return {
     customId,
@@ -35,7 +35,7 @@ export const duelist_duels = () => {
 export const past_duels = () => {
   const customId = 'past_duels';
   const builder = (address: BigNumberish) => {
-    return `${customId};${bigintToHex(address) }`;
+    return `${customId};${bigintToHex(address)}`;
   }
   const run = async (options: string[]): Promise<InteractionReplyOptions> => {
     const [customId, address] = options;
@@ -43,7 +43,7 @@ export const past_duels = () => {
     if (challenges.length === 0) {
       return { content: "No duels found!" };
     }
-    return { embeds: await formatChallengesAsEmbeds({ challenges }) };
+    return await formatChallengesPayload({ challenges });
   }
   return {
     customId,

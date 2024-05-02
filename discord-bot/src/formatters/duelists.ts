@@ -8,13 +8,6 @@ import { makeSquareProfilePicUrl } from "../utils/pistols.js";
 import { makeButtonsComponents } from "./messages.js";
 
 //
-// Format Challenges as embeds
-//
-// example usage:
-// return interaction.editReply({
-//     embeds: await formatChallengesAsEmbeds(challenges),
-// });
-//
 // reference:
 // https://discordjs.guide/popular-topics/embeds.html
 //

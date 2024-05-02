@@ -1,6 +1,6 @@
 import { Command } from "@sapphire/framework";
 import { getChallengesByDuelist, ChallengeResponse } from "../queries/getChallenges.js";
-import { formatChallengesAsEmbeds } from "../formatters/challenges.js";
+import { formatChallengesPayload } from "../formatters/challenges.js";
 import { fetchDuelistAddress } from "../utils/social_app.js";
 import { ChallengeState, toChallengeState } from "../utils/constants.js";
 import { formatAccountNotLinked, formatYouHaveNoDuels } from "../formatters/messages.js";
@@ -54,13 +54,8 @@ export class MyDuelsCommand extends Command {
         if (challenges.length === 0) {
           return interaction.editReply(formatYouHaveNoDuels());
         }
-        return interaction.editReply(formatYouHaveNoDuels());
-
-        return interaction.editReply({
-          embeds: await formatChallengesAsEmbeds({
-            challenges,
-          })
-        });
+        
+        return interaction.editReply(await formatChallengesPayload({ challenges }));
       }
     } catch (error) {
       console.error("Failed to fetch live duels:", error);
