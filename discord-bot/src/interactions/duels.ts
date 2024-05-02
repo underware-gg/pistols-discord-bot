@@ -1,0 +1,55 @@
+import type { InteractionReplyOptions } from 'discord.js';
+import { BigNumberish } from 'starknet';
+import { getChallengesByDuelist, ChallengeResponse } from '../queries/getChallenges.js';
+import { ChallengeState, toChallengeState } from '../utils/constants.js';
+import { formatChallengesAsEmbeds } from '../formatters/challenges.js';
+import { bigintToHex } from '../utils/misc.js';
+
+//------------------------------
+// duelist_duels
+//
+export const duelist_duels = () => {
+  const customId = 'duelist_duels';
+  const builder = (address: BigNumberish, state: ChallengeState) => {
+    return `${customId};${bigintToHex(address)};${state}`;
+  }
+  const run = async (options: string[]): Promise<InteractionReplyOptions> => {
+    const [customId, address, state] = options;
+    const challenges: ChallengeResponse[] = await getChallengesByDuelist([toChallengeState(state)], address);
+    if (challenges.length === 0) {
+      return { content: "No duels found!" };
+    }
+    return { embeds: await formatChallengesAsEmbeds({ challenges }) };
+  }
+  return {
+    customId,
+    ephemeral: true,
+    builder,
+    run,
+  }
+}
+
+//------------------------------
+// duelist_duels
+//
+export const past_duels = () => {
+  const customId = 'past_duels';
+  const builder = (address: BigNumberish) => {
+    return `${customId};${bigintToHex(address) }`;
+  }
+  const run = async (options: string[]): Promise<InteractionReplyOptions> => {
+    const [customId, address] = options;
+    const challenges: ChallengeResponse[] = await getChallengesByDuelist([ChallengeState.Refused, ChallengeState.Draw], address);
+    if (challenges.length === 0) {
+      return { content: "No duels found!" };
+    }
+    return { embeds: await formatChallengesAsEmbeds({ challenges }) };
+  }
+  return {
+    customId,
+    ephemeral: true,
+    builder,
+    run,
+  }
+}
+
