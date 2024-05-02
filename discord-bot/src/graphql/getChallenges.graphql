@@ -10,6 +10,16 @@ fragment challengeFields on Challenge {
   winner
 }
 
+query getChallengesById($duel_id: u128!) {
+  challenges: challengeModels(where: { duel_id: $duel_id }) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+}
+
 query getChallengesByState($state: u8!) {
   challenges: challengeModels(where: { state: $state }) {
     edges {
@@ -20,8 +30,15 @@ query getChallengesByState($state: u8!) {
   }
 }
 
-query getChallengesById($duel_id: u128!) {
-  challenges: challengeModels(where: { duel_id: $duel_id }) {
+query getChallengesByDuelist($state: u8!, $address: ContractAddress!) {
+  challenges_a: challengeModels(where: { state: $state, duelist_a: $address }) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+  challenges_b: challengeModels(where: { state: $state, duelist_b: $address }) {
     edges {
       node {
         ...challengeFields

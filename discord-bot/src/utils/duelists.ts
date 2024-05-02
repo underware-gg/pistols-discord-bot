@@ -4,6 +4,7 @@ import { formatTimestamp } from "../utils/misc.js";
 import { duelist_duels_builder } from "../interaction-handlers/duelist_duels.js";
 import { DuelistResponse } from "../queries/getDuelists.js";
 import { tagDuelist } from "./social_app.js";
+import { makeSquareProfilePicUrl } from "./game.js";
 
 //
 // Format Challenges as embeds
@@ -101,11 +102,3 @@ export async function formatDuelistPayload({
   }
 }
 
-
-export const makeSquareProfilePicUrl = (profile_pic: number): string => {
-  return `${process.env.CLIENT_URL}/profiles/${('00' + profile_pic).slice(-2)}_sq.jpg`;
-}
-
-export const makeFullProfilePicUrl = (profile_pic: number): string => {
-  return `${process.env.CLIENT_URL}/profiles/${('00' + profile_pic).slice(-2)}_a.jpg`;
-}

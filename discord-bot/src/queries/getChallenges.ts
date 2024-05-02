@@ -5,6 +5,8 @@ import { ChallengeState, toChallengeState } from "../utils/constants.js";
 import { bigintEquals, feltToString, weiToEth } from "../utils/misc.js";
 import * as ql from "../generated/graphql.js";
 
+const PAGE_SIZE = 10;
+
 export const getChallengesByState = async (state: ChallengeState): Promise<ChallengeResponse[]> => {
   try {
     const { data } = await sdk.getChallengesByState({ state });
@@ -26,12 +28,23 @@ export const getChallengesById = async (duel_id: any): Promise<ChallengeResponse
 }
 
 export const getChallengesByDuelist = async (state: ChallengeState, address: BigNumberish): Promise<ChallengeResponse[]> => {
-  const allChallenges: ChallengeResponse[] = await getChallengesByState(state);
-  const challenges = allChallenges.filter(challenge => (
-    bigintEquals(challenge.duelist_a.address, address) ||
-    bigintEquals(challenge.duelist_b.address, address)
-  ));
-  return challenges;
+  try {
+    const { data } = await sdk.getChallengesByDuelist({ state, address });
+    if (!data) return [];
+    const data_challenges = {
+      edges: [
+        ...(data.challenges_a?.edges ?? []),
+        ...(data.challenges_b?.edges ?? []),
+      ] as ql.ChallengeEdge[]
+    } ;
+    data_challenges.edges.sort((a, b) => (b.node?.timestamp_start - a.node?.timestamp_start)).sort((a, b) => (b.node?.timestamp_end - a.node?.timestamp_end))
+    data_challenges.edges = data_challenges.edges.slice(0, PAGE_SIZE);
+    const challenges = await parseChallengesResponse(data_challenges as unknown as ql.ChallengeConnection)
+    return challenges
+  } catch (error) {
+    console.error("getChallengesByState() fetching error:", error);
+    return [];
+  }
 }
 
 

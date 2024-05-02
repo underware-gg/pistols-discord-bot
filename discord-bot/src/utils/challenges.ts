@@ -1,8 +1,10 @@
 import { EmbedBuilder } from "discord.js";
 import { tagDuelist } from "./social_app.js";
-import { toChallengeState, ChallengeStateDescriptions, Colors } from "./constants.js";
+import { toChallengeState, ChallengeStateDescriptions, Colors, ChallengeState, ChallengeStateNames } from "./constants.js";
 import { ChallengeResponse } from "../queries/getChallenges.js";
-import { makeSquareProfilePicUrl } from "./duelists.js";
+import { makeDuelUrl, makeLogoUrl, makeSquareProfilePicUrl } from "./game.js";
+import { formatTimestamp } from "./misc.js";
+
 //
 // Format Challenges as text message
 // 
@@ -38,37 +40,63 @@ export const formatChallengesAsEmbeds = async ({
 }): Promise<EmbedBuilder[]> => {
   return await Promise.all(challenges.map(async (challenge, index) => {
     const state = toChallengeState(challenge.state);
-    const challengerHonour = challenge.duelist_a.honour;
-    const challengedHonour = challenge.duelist_b.honour;
+    const honour_a = challenge.duelist_a.honour;
+    const honour_b = challenge.duelist_b.honour;
     const winner = (challenge.winner == 1 ? challenge.duelist_a : challenge.winner == 2 ? challenge.duelist_b : null)
+    const wager = challenge.wager.value_eth;
     // const duel_time = new Date(challenge.timestamp_start * 1000);
 
-    const title = `#${index + 1}: ` + (
+    const title = ` ` + (
       winner ? `${winner.name} won!`
         : ChallengeStateDescriptions[state]
     )
 
-    const descriptions = [
-      // `*${challenge.message}*`,
-      `Duel id: \`${challenge.duel_id}\``,
-    ]
+    const thumbnail = state == ChallengeState.Resolved ? makeSquareProfilePicUrl(winner?.profile_pic ?? 0)
+      : [ChallengeState.Awaiting, ChallengeState.InProgress].includes(state) ? makeSquareProfilePicUrl(0)
+        : makeLogoUrl();
+
+    let descriptions: string[] = []
+    if (wager > 0) {
+      if ([ChallengeState.Awaiting, ChallengeState.InProgress, ChallengeState.Resolved].includes(state)) {
+        descriptions.push(`💰 ${wager}`);
+      } else {
+        descriptions.push(`💰 ~~${wager}~~`);
+      }
+    }
+    descriptions.push(`\`${challenge.duel_id}\``);
+    if ([ChallengeState.InProgress, ChallengeState.Resolved, ChallengeState.Draw].includes(state)) {
+      descriptions.push(`[replay duel](${makeDuelUrl(challenge.duel_id)})`);
+    }
+
+    const footerText = `#${index + 1} / ${formatTimestamp(challenge.timestamp_end ? challenge.timestamp_end : challenge.timestamp_start)}`;
+
+    const color = state == ChallengeState.Awaiting ? Colors.Bright
+      : state == ChallengeState.InProgress ? Colors.Warning
+        : state == ChallengeState.Resolved ? Colors.Positive
+          : state == ChallengeState.Draw ? Colors.Negative
+            : Colors.Dark
 
     const { tag: tag_a } = await tagDuelist(challenge.duelist_a.address)
     const { tag: tag_b } = await tagDuelist(challenge.duelist_b.address)
 
-    const challenger = [
-      challenge.duelist_a.name,
-      `Honour: ${challengerHonour / 10}  ${challengerHonour > 90 ? " 👑" : ""}`
+    // Duelists
+    const name_a = challenge.duelist_a.name;// + ' 🆚';
+    const name_b = challenge.duelist_b.name;
+    const desc_a = [
+      // challenge.duelist_a.name,
+      `Honour: ${honour_a / 10}  ${honour_a > 90 ? " 👑" : ""}`
     ]
-    const challenged = [
-      challenge.duelist_b.name,
-      `Honour: ${challengedHonour / 10} ${challengedHonour > 90 ? " 👑" : ""}`
+    const desc_b = [
+      // challenge.duelist_b.name,
+      `Honour: ${honour_b / 10} ${honour_b > 90 ? " 👑" : ""}`
     ]
-    if (tag_a) challenger.push(tag_a)
-    if (tag_b) challenged.push(tag_b)
+    if (tag_a) desc_a.push(tag_a)
+    if (tag_b) desc_b.push(tag_b)
+    // if (wager > 0 && challenge.winner == 1) desc_a.push(`💰 ${wager}`);
+    // if (wager > 0 && challenge.winner == 2) desc_b.push(`💰 ${wager}`);
 
     const embed = new EmbedBuilder()
-      .setColor(Colors.Positive)
+      .setColor(color)
       .setTitle(title)
       .setAuthor({
         name: challenge.message,
@@ -76,16 +104,16 @@ export const formatChallengesAsEmbeds = async ({
         //  url: 'https://discord.js.org',
       })
       .setDescription(descriptions.join('\n'))
-      .setThumbnail(makeSquareProfilePicUrl(winner?.profile_pic ?? 0))
+      .setThumbnail(thumbnail)
+      .setFooter({ text: footerText, iconURL: undefined })
       .addFields(
-        { name: 'Challenger', value: challenger.join('\n'), inline: true },
-        { name: 'Challenged', value: challenged.join('\n'), inline: true },
-        { name: 'Wager', value: challenge.wager.value_eth ? `💰 ${challenge.wager.value_eth}` : `-`, inline: true },
+        { name: name_a, value: desc_a.join('\n'), inline: true },
+        { name: ' ', value: '⚔️', inline: true },
+        { name: name_b, value: desc_b.join('\n'), inline: true },
+        // { name: 'Wager', value: challenge.wager.value_eth ? `💰 ${challenge.wager.value_eth}` : `-`, inline: true },
         // { name: 'Status', value: `${ChallengeStateNames[toChallengeState(challenge.state)]}`, inline: true },
         // { name: 'Current Round', value: `${challenge.round_number}`, inline: true },
-        // { name: 'Duel Time', value: `${duel_time.toLocaleString()}` },
       );
     return embed;
   }));
 }
-

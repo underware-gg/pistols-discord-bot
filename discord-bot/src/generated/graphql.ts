@@ -2167,6 +2167,13 @@ export type CustomEventSubSubscription = { __typename?: 'World__Subscription', e
 
 export type ChallengeFieldsFragment = { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null };
 
+export type GetChallengesByIdQueryVariables = Exact<{
+  duel_id: Scalars['u128']['input'];
+}>;
+
+
+export type GetChallengesByIdQuery = { __typename?: 'World__Query', challenges?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+
 export type GetChallengesByStateQueryVariables = Exact<{
   state: Scalars['u8']['input'];
 }>;
@@ -2174,12 +2181,13 @@ export type GetChallengesByStateQueryVariables = Exact<{
 
 export type GetChallengesByStateQuery = { __typename?: 'World__Query', challenges?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
 
-export type GetChallengesByIdQueryVariables = Exact<{
-  duel_id: Scalars['u128']['input'];
+export type GetChallengesByDuelistQueryVariables = Exact<{
+  state: Scalars['u8']['input'];
+  address: Scalars['ContractAddress']['input'];
 }>;
 
 
-export type GetChallengesByIdQuery = { __typename?: 'World__Query', challenges?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+export type GetChallengesByDuelistQuery = { __typename?: 'World__Query', challenges_a?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_b?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
 
 export type GetChallengeDependenciesQueryVariables = Exact<{
   duel_id?: InputMaybe<Scalars['u128']['input']>;
@@ -2236,6 +2244,17 @@ export const CustomEventSubDocument = gql`
   }
 }
     `;
+export const GetChallengesByIdDocument = gql`
+    query getChallengesById($duel_id: u128!) {
+  challenges: challengeModels(where: {duel_id: $duel_id}) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+}
+    ${ChallengeFieldsFragmentDoc}`;
 export const GetChallengesByStateDocument = gql`
     query getChallengesByState($state: u8!) {
   challenges: challengeModels(where: {state: $state}) {
@@ -2247,9 +2266,16 @@ export const GetChallengesByStateDocument = gql`
   }
 }
     ${ChallengeFieldsFragmentDoc}`;
-export const GetChallengesByIdDocument = gql`
-    query getChallengesById($duel_id: u128!) {
-  challenges: challengeModels(where: {duel_id: $duel_id}) {
+export const GetChallengesByDuelistDocument = gql`
+    query getChallengesByDuelist($state: u8!, $address: ContractAddress!) {
+  challenges_a: challengeModels(where: {state: $state, duelist_a: $address}) {
+    edges {
+      node {
+        ...challengeFields
+      }
+    }
+  }
+  challenges_b: challengeModels(where: {state: $state, duelist_b: $address}) {
     edges {
       node {
         ...challengeFields
@@ -2302,8 +2328,9 @@ export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, str
 
 const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
 const CustomEventSubDocumentString = print(CustomEventSubDocument);
-const GetChallengesByStateDocumentString = print(GetChallengesByStateDocument);
 const GetChallengesByIdDocumentString = print(GetChallengesByIdDocument);
+const GetChallengesByStateDocumentString = print(GetChallengesByStateDocument);
+const GetChallengesByDuelistDocumentString = print(GetChallengesByDuelistDocument);
 const GetChallengeDependenciesDocumentString = print(GetChallengeDependenciesDocument);
 const GetDuelistsByAddressDocumentString = print(GetDuelistsByAddressDocument);
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
@@ -2311,11 +2338,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     customEventSub(variables: CustomEventSubSubscriptionVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: CustomEventSubSubscription; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<CustomEventSubSubscription>(CustomEventSubDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'customEventSub', 'subscription', variables);
     },
+    getChallengesById(variables: GetChallengesByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByIdQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesByIdQuery>(GetChallengesByIdDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengesById', 'query', variables);
+    },
     getChallengesByState(variables: GetChallengesByStateQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByStateQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesByStateQuery>(GetChallengesByStateDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengesByState', 'query', variables);
     },
-    getChallengesById(variables: GetChallengesByIdQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByIdQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
-        return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesByIdQuery>(GetChallengesByIdDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengesById', 'query', variables);
+    getChallengesByDuelist(variables: GetChallengesByDuelistQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengesByDuelistQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengesByDuelistQuery>(GetChallengesByDuelistDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengesByDuelist', 'query', variables);
     },
     getChallengeDependencies(variables?: GetChallengeDependenciesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetChallengeDependenciesQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetChallengeDependenciesQuery>(GetChallengeDependenciesDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getChallengeDependencies', 'query', variables);
