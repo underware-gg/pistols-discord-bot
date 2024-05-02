@@ -12,15 +12,14 @@ export class Duels_By_DuelistCommand extends Command {
   }
 
   public override registerApplicationCommands(registry: Command.Registry) {
-    registry.registerChatInputCommand(builder =>
-      builder
-        .setName(this.name)
-        .setDescription(this.description)
-        .addStringOption((opt) => opt
-          .setName("duel_id")
-          .setDescription("duel_id")
-          .setRequired(true)
-        )
+    registry.registerChatInputCommand(builder => builder
+      .setName(this.name)
+      .setDescription(this.description)
+      .addStringOption((opt) => opt
+        .setName("duel_id")
+        .setDescription("duel_id")
+        .setRequired(true)
+      )
     );
   }
 
