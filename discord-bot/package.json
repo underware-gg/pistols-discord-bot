@@ -31,6 +31,7 @@
     "axios": "^1.6.8",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
+    "graphql-tag": "^2.12.6",
     "graphql-ws": "^5.16.0",
     "starknet": "^6.1.5",
     "ws": "^8.12.0"

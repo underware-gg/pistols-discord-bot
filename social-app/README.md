@@ -36,13 +36,13 @@ NEXT_PUBLIC_CLIENT_URL=https://pistols.lootunder.world
 ### Install dependencies
 
 ```bash
-npm install
+pnpminstall
 ```
 
 ### Run development server
 
 ```bash
-bun run dev
+pnpmrun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
