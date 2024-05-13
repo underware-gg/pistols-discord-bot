@@ -1,8 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { Button, Divider } from "semantic-ui-react";
-import App from "@/components/App";
 import Logo from "@/components/Logo";
+import App from "@/components/App";
 
 export default function IndexPage() {
   const router = useRouter();
@@ -35,9 +35,6 @@ export default function IndexPage() {
       <div className="AlignCenter">
         <Logo />
         <h1 className="TitleCase">Pistols at 10 Blocks</h1>
-        <Button onClick={() => _play()}>
-          Play the Game!
-        </Button>
 
         <Divider />
         <h3 className="TitleCase">Discord Users</h3>
@@ -47,6 +44,11 @@ export default function IndexPage() {
         </p>
         <Button onClick={() => _login()}>
           Discord Login
+        </Button>
+
+        <br />
+        <Button onClick={() => _play()}>
+          Go to the Game
         </Button>
 
         <Divider />
