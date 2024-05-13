@@ -16,7 +16,7 @@ export class ButtonHandler extends InteractionHandler {
       const [customId] = options;
       for (const interaction of interactions) {
         if (interaction().customId == customId) {
-          console.log(`Interaction [${this.name}]:`, options);
+          console.log(`/${this.name}:`, options);
           return this.some(options);
         }
       }

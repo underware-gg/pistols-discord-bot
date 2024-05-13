@@ -26,6 +26,7 @@ export class DuelCommand extends Command {
     await interaction.deferReply({ ephemeral: true });
     try {
       const duel_id = interaction.options.getString("duel_id");
+      console.log(`/${this.name}`, duel_id);
       const challenges: ChallengeResponse[] = await getChallengesById(duel_id);
       return interaction.editReply(await formatChallengesPayload({ challenges }));
     } catch (error) {

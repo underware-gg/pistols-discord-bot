@@ -40,6 +40,7 @@ export class DuelsByDuelistCommand extends Command {
     try {
       const address = interaction.options.getString("address");
       const input_states = JSON.parse(interaction.options.getString("state") || "[]");
+      console.log(`/${this.name}`, address, input_states);
       const states = input_states.map((v: string | number) => toChallengeState(v));
       const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist(states, address) : [];
       return interaction.editReply(await formatChallengesPayload({ challenges }));

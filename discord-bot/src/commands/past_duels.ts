@@ -21,6 +21,7 @@ export class PastDuelsCommand extends Command {
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
     await interaction.deferReply({ ephemeral: true });
     try {
+      console.log(`/${this.name}`);
       const challenges: ChallengeResponse[] = await getChallengesByState([ChallengeState.Resolved, ChallengeState.Draw]);
       return interaction.editReply(await formatChallengesPayload({ challenges }));
     } catch (error) {

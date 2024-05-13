@@ -33,6 +33,7 @@ export class ProfileCommand extends Command {
     await interaction.deferReply({ ephemeral: true });
     try {
       const address = interaction.options.getString("address");
+      console.log(`/${this.name}`, address);
       if (address) {
         const duelist: DuelistResponse | null = await getDuelistByAddress(address);
         if (duelist) {

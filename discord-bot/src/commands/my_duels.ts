@@ -47,6 +47,7 @@ export class MyDuelsCommand extends Command {
       const address = await fetchDuelistAddress(interaction.user.id);
       if (address) {
         const input_states = JSON.parse(interaction.options.getString("state") || "[]");
+        console.log(`/${this.name}`, input_states);
         const states = input_states.map((v: string | number) => toChallengeState(v));
         const challenges: ChallengeResponse[] = address ? await getChallengesByDuelist(states, address) : [];
         return interaction.editReply(await formatChallengesPayload({ challenges }));
