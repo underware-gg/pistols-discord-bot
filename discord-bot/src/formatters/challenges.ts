@@ -1,5 +1,5 @@
 import { BaseMessageOptions, EmbedBuilder } from "discord.js";
-import { tagDuelist } from "../utils/social_app.js";
+import { tagDuelist } from "../utils/fetch_accounts.js";
 import { toChallengeState, ChallengeStateDescriptions, Colors, ChallengeState } from "../utils/constants.js";
 import { makeDuelUrl, makeLogoUrl, makeSquareProfilePicUrl } from "../utils/pistols.js";
 import { ChallengeResponse } from "../queries/getChallenges.js";
