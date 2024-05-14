@@ -497,7 +497,7 @@ TextArea::selection {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0;
 }
 
 .form-control {
@@ -557,6 +557,7 @@ input::placeholder {
   background-color: $color-bright !important;
   // color: rgba($color-text, 0.75)!important;
   color: $color-dark !important;
+  font-family: monospace;
 }
 
 .ui.selection.dropdown {
@@ -641,7 +642,7 @@ input::placeholder {
 //
 // <Button>
 ._button_shape {
-  font-size: 1.2rem; // semantic: 1rem;
+  font-size: 1.0rem; // semantic: 1rem;
   padding: 0.5em 1em; // semantic: 0.78571429em 1.5em 0.78571429em;
   margin: 0.15em 0;
   line-height: 1em;

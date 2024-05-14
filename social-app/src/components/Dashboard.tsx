@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const Dashboard = ({ user }) => {
-  console.log(`USER:`, user)
   const [allSet, setAllSet] = useState(false);
   const [busy, setBusy] = useState(false);
 
@@ -33,16 +32,19 @@ const Dashboard = ({ user }) => {
     try {
       setBusy(true);
       const token = parseCookies().token;
+      const userData = {
+        discord_id: user.id,
+        discord_name: user.global_name || user.username || null,
+        duelist_address: inputData.duelist_address,
+      }
+      // console.log(`>>>`, userData)
       const response = await fetch("/api/upsert", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          discord_id: user.id,
-          duelist_address: inputData.duelist_address,
-        }),
+        body: JSON.stringify(userData),
       });
       if (response.ok) {
         const data = await response.json();
@@ -107,7 +109,7 @@ const Dashboard = ({ user }) => {
     <div className="AlignCenter">
       {user ? (
         <>
-          <h1>Welcome, {user.username}</h1>
+          <h1>Welcome, {user.global_name || user.username}</h1>
           {/* <p>Email: {user.email}</p> */}
           <p>Discord ID: {user.id}</p>
           <span className="AlignCenter">
