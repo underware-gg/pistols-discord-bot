@@ -38,7 +38,7 @@ SOCIAL_APP_URL=https://pistols-social-app.vercel.app
 ### Install dependencies
 
 ```bash
-pnpminstall
+pnpm install
 ```
 
 ### Codegen
@@ -46,7 +46,7 @@ pnpminstall
 For every new or updated query in `src/graphql/`, you need to run...
 
 ```bash
-pnpmrun codegen
+pnpm run codegen
 ```
 
 Now you can access the sdk in your app like:
@@ -60,13 +60,13 @@ const { data } = await sdk.getChallenges({ state });
 ### Terminal 1 - Serve the Bot
 
 ```bash
-pnpmrun serve
+pnpm run serve
 ```
 
 ### Terminal 2 - Build and Watch
 
 ```bash
-pnpmrun build --watch
+pnpm run build --watch
 ```
 
 Now, try running it on your server. Remember to restart your bot after making changes.
@@ -106,13 +106,6 @@ Deploying these apps onto [Railway](https://railway.app/) is the easiest.
 1. Create Account
 2. Create a new project and deploy via git
 3. In your project settings
-
-Update the project settings:
-
-**Build Command:**
-`pnpmrun build`
-
-**Start Command:**
-`pnpmrun serve`
+4. Build is [configured](https://nixpacks.com/docs/configuration/file) by `nixpacks.toml`
 
 OHAYO

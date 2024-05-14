@@ -1,0 +1,18 @@
+#
+# build configuration for railway.app
+# https://nixpacks.com/docs/guides/configuring-builds
+#
+# support for pnpm 9:
+# https://github.com/railwayapp/nixpacks/issues/1091
+#
+
+providers = ["node"]
+
+[phases.install]
+cmds = ["npm install -g corepack", "corepack enable", "corepack prepare pnpm@9.1.1 --activate", "pnpm install"]
+
+[phases.build]
+cmds = ["pnpm run build"]
+
+[start]
+cmd = "pnpm run serve"
