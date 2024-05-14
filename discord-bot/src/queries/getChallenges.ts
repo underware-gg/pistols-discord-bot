@@ -2,12 +2,12 @@ import { sdk } from "../config/config.js";
 import { BigNumberish } from "starknet";
 import { DuelistResponse, parseDuelistResponse } from "./getDuelists.js";
 import { ChallengeState, toChallengeState } from "../utils/constants.js";
-import { bigintEquals, feltToString, weiToEth } from "../utils/misc.js";
+import {  feltToString, weiToEth } from "../utils/misc.js";
 import * as ql from "../generated/graphql.js";
 
 const PAGE_SIZE = 10;
 
-export const getChallengesById = async (duel_id: any): Promise<ChallengeResponse[]> => {
+export const getChallengesById = async (duel_id: string): Promise<ChallengeResponse[]> => {
   try {
     const { data } = await sdk.getChallengesById({ duel_id });
     return await parseChallengesResponse(Object.values(data) as ql.ChallengeConnection[])

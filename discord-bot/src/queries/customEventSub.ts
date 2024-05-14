@@ -2,10 +2,13 @@ import { BaseMessageOptions } from "discord.js";
 import { getContractByName } from "@dojoengine/core";
 import { dojoConfig } from "../config/dojoConfig.js";
 import { getDuelistByAddress, DuelistResponse } from "./getDuelists.js";
-import { feltToString } from "../utils/misc.js";
-import { EventName, EventKeys } from "../utils/constants.js";
+import { ChallengeResponse, getChallengesById } from "./getChallenges.js";
+import { formatChallengesPayload } from "../formatters/challenges.js";
 import { formatDuelistPayload } from "../formatters/duelists.js";
+import { EventName, EventKeys, EventTitles } from "../utils/constants.js";
+import { bigintToHex, feltToString } from "../utils/misc.js";
 import { sdk_ws } from "../config/config.js";
+import { BigNumberish } from "starknet";
 import EventEmitter from "node:events";
 import * as ql from "../generated/graphql.js";
 
@@ -21,6 +24,10 @@ export const customEventSub = async (eventName: EventName, settingsFlag: string)
       console.log(`+++++++ [${eventName}]:`, eventData);
 
       let payload: BaseMessageOptions | undefined;
+
+      //
+      // build event messages
+      //
       if (eventName == EventName.DuelistRegistered) {
         const duelist: DuelistResponse | null = await getDuelistByAddress(eventData.address);
         // console.log(`+++++++ Duelist:`, duelist);
@@ -31,8 +38,22 @@ export const customEventSub = async (eventName: EventName, settingsFlag: string)
             full: false,
           })
         }
+      } else if (eventName == EventName.NewChallengeEvent || eventName == EventName.ChallengeAcceptedEvent || eventName == EventName.ChallengeResolvedEvent) {
+        const duel_id: BigNumberish = eventData.duel_id;
+        if (duel_id) {
+          const challenges: ChallengeResponse[] = await getChallengesById(bigintToHex(duel_id));
+          if (challenges.length > 0) {
+            payload = await formatChallengesPayload({
+              title: EventTitles[eventName],
+              challenges,
+            });
+          }
+        }
       }
 
+      //
+      // ship!
+      //
       if (payload) {
         customEventEmitter.emit('custom_event', {
           eventName,

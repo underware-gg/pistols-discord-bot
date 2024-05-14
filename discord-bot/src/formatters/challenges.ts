@@ -33,8 +33,10 @@ export const formatChallengesAsText = (challenges: ChallengeResponse[]): string 
 //
 
 export const formatChallengesPayload = async ({
+  title,
   challenges,
 }: {
+  title?: string,
   challenges: ChallengeResponse[],
 }): Promise<BaseMessageOptions> => {
   if (!challenges || challenges.length == 0) {
@@ -48,10 +50,7 @@ export const formatChallengesPayload = async ({
     const wager = challenge.wager.value_eth;
     // const duel_time = new Date(challenge.timestamp_start * 1000);
 
-    const title = ` ` + (
-      winner ? `${winner.name} won!`
-        : ChallengeStateDescriptions[state]
-    )
+    const _title = title ?? (` ` + (winner ? `${winner.name} won!` : ChallengeStateDescriptions[state]));
 
     const thumbnail = state == ChallengeState.Resolved ? makeSquareProfilePicUrl(winner?.profile_pic ?? 0)
       : [ChallengeState.Awaiting, ChallengeState.InProgress].includes(state) ? makeSquareProfilePicUrl(0)
@@ -65,10 +64,10 @@ export const formatChallengesPayload = async ({
         descriptions.push(`💰 ~~${wager}~~`);
       }
     }
-    descriptions.push(`\`${challenge.duel_id}\``);
     if ([ChallengeState.InProgress, ChallengeState.Resolved, ChallengeState.Draw].includes(state)) {
-      descriptions.push(`[replay duel](${makeDuelUrl(challenge.duel_id)})`);
+      descriptions.push(`🍿 [Replay Duel](${makeDuelUrl(challenge.duel_id)})`);
     }
+    descriptions.push(`\`${challenge.duel_id}\``);
 
     const footerText = `#${index + 1} / ${formatTimestamp(challenge.timestamp_end ? challenge.timestamp_end : challenge.timestamp_start)}`;
 
@@ -99,7 +98,7 @@ export const formatChallengesPayload = async ({
 
     const embed = new EmbedBuilder()
       .setColor(color)
-      .setTitle(title)
+      .setTitle(_title)
       .setAuthor({
         name: challenge.message,
         iconURL: makeSquareProfilePicUrl(challenge.duelist_a.profile_pic),

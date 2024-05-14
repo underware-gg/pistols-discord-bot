@@ -4,6 +4,9 @@ import { fetchGuilds } from "../utils/db_guilds.js";
 import { EventName } from "../utils/constants.js";
 import { BaseMessageOptions } from 'discord.js';
 
+customEventSub(EventName.NewChallengeEvent, 'challenges_notifications');
+customEventSub(EventName.ChallengeAcceptedEvent, 'challenges_notifications');
+customEventSub(EventName.ChallengeResolvedEvent, 'challenges_notifications');
 customEventSub(EventName.DuelistRegistered, 'new_duelist_notifications');
 
 export class CustomEventsListener extends Listener {

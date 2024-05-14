@@ -27,6 +27,9 @@ export class DuelCommand extends Command {
     try {
       const duel_id = interaction.options.getString("duel_id");
       console.log(`/${this.name}`, duel_id);
+      if (!duel_id || duel_id == '0x0') {
+        return interaction.editReply({ content: `Duel not found:\n\`${duel_id}\`` });
+      }
       const challenges: ChallengeResponse[] = await getChallengesById(duel_id);
       return interaction.editReply(await formatChallengesPayload({ challenges }));
     } catch (error) {
