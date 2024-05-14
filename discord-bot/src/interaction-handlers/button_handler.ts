@@ -28,6 +28,7 @@ export class ButtonHandler extends InteractionHandler {
   }
 
   public async run(interaction: ButtonInteraction, options: string[]) {
+    await interaction.deferReply({ ephemeral: true });
     try {
       const [customId] = options;
       let reply: InteractionReplyOptions | null = null;
@@ -41,15 +42,15 @@ export class ButtonHandler extends InteractionHandler {
         }
       }
       if (reply) {
-        await interaction.reply(reply);
+        await interaction.editReply(reply);
       } else {
-        await interaction.reply({
+        await interaction.editReply({
           content: `Interaction [${this.name}] is invalid: ${interaction.customId}`,
         });
       }
     } catch (error) {
       console.error(`Interaction [${this.name}] ERROR:`, error);
-      await interaction.reply({ content: `Interaction [${this.name}] ERROR:` });
+      await interaction.editReply({ content: `Interaction [${this.name}] ERROR:` });
     }
   }
 }
