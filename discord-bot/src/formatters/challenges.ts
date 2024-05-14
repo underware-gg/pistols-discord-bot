@@ -4,7 +4,8 @@ import { toChallengeState, ChallengeStateDescriptions, Colors, ChallengeState } 
 import { makeDuelUrl, makeLogoUrl, makeSquareProfilePicUrl } from "../utils/pistols.js";
 import { ChallengeResponse } from "../queries/getChallenges.js";
 import { formatNoDuelsFound } from "./messages.js";
-import { formatTimestamp } from "../utils/misc.js";
+import { bigintEquals, formatTimestamp } from "../utils/misc.js";
+import { BigNumberish } from "starknet";
 
 //
 // Format Challenges as text message
@@ -119,5 +120,23 @@ export const formatChallengesPayload = async ({
   }));
   return {
     embeds
+  }
+}
+
+
+export const formatDuelistsTurnPayload = async (address: BigNumberish, challenge: ChallengeResponse): Promise<BaseMessageOptions | null> => {
+  const { tag } = await tagDuelist(address)
+  if (!tag) {
+    return null;
+  }
+
+  const opponentName = bigintEquals(address, challenge.duelist_a.address) ? challenge.duelist_b.name : challenge.duelist_a.name
+
+  let descriptions: string[] = []
+  descriptions.push(`Hey ${tag}, it's your turn against **${opponentName}**!`);
+  descriptions.push(`⚔️ [Act now!](<${makeDuelUrl(challenge.duel_id)}>)`);
+
+  return {
+    content: descriptions.join('\n'),
   }
 }

@@ -54,12 +54,6 @@ export enum EventName {
   DuelistTurnEvent = 'DuelistTurnEvent',
 }
 
-export const EventTitles = {
-  [EventName.NewChallengeEvent]: 'New Challenge issued!',
-  [EventName.ChallengeAcceptedEvent]: 'Challenge accepted!',
-  [EventName.ChallengeResolvedEvent]: 'Challenge resolved!',
-}
-
 export const EventKeys = {
   [EventName.DuelistRegistered]: '0x1afe932323a4032d23a471be00bb333912509b20609983ac2159aa2394f9e5f',
   [EventName.NewChallengeEvent]: '0x14a0df74df51e02ef8dedabfd1ea9684ea2087bed6370e881b156d7e2e56975',

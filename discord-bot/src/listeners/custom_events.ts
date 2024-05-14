@@ -8,6 +8,7 @@ customEventSub(EventName.NewChallengeEvent, 'challenges_notifications');
 customEventSub(EventName.ChallengeAcceptedEvent, 'challenges_notifications');
 customEventSub(EventName.ChallengeResolvedEvent, 'challenges_notifications');
 customEventSub(EventName.DuelistRegistered, 'new_duelist_notifications');
+customEventSub(EventName.DuelistTurnEvent, 'duelists_turn_notifications');
 
 export class CustomEventsListener extends Listener {
   public constructor(context: Listener.LoaderContext, options: Listener.Options) {

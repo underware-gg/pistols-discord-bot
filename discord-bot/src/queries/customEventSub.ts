@@ -3,9 +3,9 @@ import { getContractByName } from "@dojoengine/core";
 import { dojoConfig } from "../config/dojoConfig.js";
 import { getDuelistByAddress, DuelistResponse } from "./getDuelists.js";
 import { ChallengeResponse, getChallengesById } from "./getChallenges.js";
-import { formatChallengesPayload } from "../formatters/challenges.js";
+import { formatChallengesPayload, formatDuelistsTurnPayload } from "../formatters/challenges.js";
 import { formatDuelistPayload } from "../formatters/duelists.js";
-import { EventName, EventKeys, EventTitles } from "../utils/constants.js";
+import { EventName, EventKeys } from "../utils/constants.js";
 import { bigintToHex, feltToString } from "../utils/misc.js";
 import { sdk_ws } from "../config/config.js";
 import { BigNumberish } from "starknet";
@@ -23,7 +23,7 @@ export const customEventSub = async (eventName: EventName, settingsFlag: string)
       const { eventData } = parseCustomEventResponse(event, eventName);
       console.log(`+++++++ [${eventName}]:`, eventData);
 
-      let payload: BaseMessageOptions | undefined;
+      let payload: BaseMessageOptions | undefined | null;
 
       //
       // build event messages
@@ -39,14 +39,28 @@ export const customEventSub = async (eventName: EventName, settingsFlag: string)
           })
         }
       } else if (eventName == EventName.NewChallengeEvent || eventName == EventName.ChallengeAcceptedEvent || eventName == EventName.ChallengeResolvedEvent) {
+        const _titles = {
+          [EventName.NewChallengeEvent]: 'New Challenge issued!',
+          [EventName.ChallengeAcceptedEvent]: 'Challenge accepted!',
+          [EventName.ChallengeResolvedEvent]: 'Challenge resolved!',
+        }
         const duel_id: BigNumberish = eventData.duel_id;
         if (duel_id) {
           const challenges: ChallengeResponse[] = await getChallengesById(bigintToHex(duel_id));
           if (challenges.length > 0) {
             payload = await formatChallengesPayload({
-              title: EventTitles[eventName],
+              title: _titles[eventName],
               challenges,
             });
+          }
+        }
+      } else if (eventName == EventName.DuelistTurnEvent) {
+        const duel_id: BigNumberish = eventData.duel_id;
+        const address: BigNumberish = eventData.address;
+        if (duel_id && address) {
+          const challenges: ChallengeResponse[] = await getChallengesById(bigintToHex(duel_id));
+          if (challenges.length > 0) {
+            payload = await formatDuelistsTurnPayload(address, challenges[0]);
           }
         }
       }
