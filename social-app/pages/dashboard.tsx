@@ -4,11 +4,13 @@ import { parseCookies } from "nookies";
 import Dashboard from "@/components/dashboard";
 import App from "@/components/App";
 
+const JWT_SECRET = process.env.JWT_SECRET || 'thisisasecret';
+
 export async function getServerSideProps(context) {
   const cookies = parseCookies(context);
   const token = cookies.token;
   try {
-    const decoded = verify(token, "thisisasecret") as JwtPayload;
+    const decoded = verify(token, JWT_SECRET) as JwtPayload;
     return { props: { user: decoded.user } };
   } catch (err) {
     return {
@@ -21,6 +23,7 @@ export async function getServerSideProps(context) {
 }
 
 const DashboardPage = ({ user }) => {
+  // console.log(`Discord user:`, user)
   return (
     <App>
       <Dashboard user={user} />

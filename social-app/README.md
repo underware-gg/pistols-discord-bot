@@ -20,6 +20,8 @@ Contact us to get the test server invite and roles.
 Copy `.env.example` to `.env` and edit it. Replace the tokens for your own on `.env`.
 
 ```
+# App
+JWT_SECRET=thisisasecret
 # Discord
 DISCORD_CLIENT_SECRET=<AUTH2_SECRET>
 NEXT_PUBLIC_DISCORD_CLIENT_ID=<OAUTH2_CLIENT_ID>

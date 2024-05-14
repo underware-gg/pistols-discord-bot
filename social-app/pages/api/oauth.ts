@@ -10,7 +10,7 @@ import axios from 'axios';
 // TODO: Add these to environment variables
 const CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
 const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
-const JWT_SECRET = 'thisisasecret';
+const JWT_SECRET = process.env.JWT_SECRET || 'thisisasecret';
 
 // The URL that we will redirect to
 // note: this should be an environment variable
