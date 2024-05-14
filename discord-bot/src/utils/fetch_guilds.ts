@@ -40,11 +40,22 @@ class GuildCache extends Cache<Guild> {
 
 const _cache = new GuildCache()
 
+export const fetchGuilds = async (): Promise<Array<Guild>> => {
+  return await _cache.getAll();
+}
+
 export const fetchGuild = async (id: number | string): Promise<Guild | null> => {
   const guild_id = id.toString();
   const guild = await _cache.get({ guild_id });
   // console.log(`FETCH [${guild_id}]`, guild)
   return guild ?? null;
+}
+
+export const fetchGuildChannelId = async (id: number | string): Promise<string | null> => {
+  const guild_id = id.toString();
+  const guild = await _cache.get({ guild_id });
+  // console.log(`FETCH [${guild_id}]`, guild)
+  return guild?.notifications_channel_id || null;
 }
 
 export const setGuild = async (params: any): Promise<boolean> => {

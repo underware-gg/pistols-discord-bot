@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       new_duelist_notifications,
       duelists_turn_notifications,
     } = req.body;
-    console.log(`settings [${guild_id}]:`, req.body);
+    // console.log(`settings [${guild_id}]:`, req.body);
 
     // Input validation (optional): You can add checks here to ensure data meets your requirements
 
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
         duelists_turn_notifications,
       })
     };
-    console.log(`FIELDS`, fields)
+    // console.log(`FIELDS`, fields)
 
     const { data, error } = await supabase
       .from("pistols_guilds")

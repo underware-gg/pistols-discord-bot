@@ -6,10 +6,12 @@ import { feltToString } from "../utils/misc.js";
 import { EventName, EventKeys } from "../utils/constants.js";
 import { formatDuelistPayload } from "../formatters/duelists.js";
 import { sdk_ws } from "../config/config.js";
-import { client } from "../index.js";
+import EventEmitter from "node:events";
 import * as ql from "../generated/graphql.js";
 
-export const customEventSub = async (eventName: EventName): Promise<boolean> => {
+export const customEventEmitter = new EventEmitter();
+
+export const customEventSub = async (eventName: EventName, settingsFlag: string): Promise<boolean> => {
   const eventId = EventKeys[eventName];
   try {
     await sdk_ws.customEventSub({ eventId }, async (event: ql.World__Event) => {
@@ -32,20 +34,18 @@ export const customEventSub = async (eventName: EventName): Promise<boolean> => 
       }
 
       if (payload) {
-        client.channels.fetch(process.env.DISCORD_CHANNEL_ID || "").then((channel) => {
-          if (channel?.isTextBased()) {
-            channel.send(payload);
-          }
-        }
-        );
+        customEventEmitter.emit('custom_event', {
+          eventName,
+          settingsFlag,
+          payload,
+        });
       }
-
     });
   } catch (error) {
     console.error(`customEventSub(${eventName}) fetching error:`, error);
     console.error(`customEventSub(${eventName}) is ABORTING`);
     // throw error;
-    return false;
+    return false; 
   }
   return true;
 }

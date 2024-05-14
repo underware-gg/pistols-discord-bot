@@ -28,22 +28,32 @@ export abstract class Cache<T> {
     }
   }
   // cache validator
-  is_valid(): boolean {
+  private is_valid(): boolean {
     return (Date.now() - this.cache.timestamp) < this.timeout;
   }
-  async get(key: Partial<T>): Promise<T | null> {
-    if (!this.is_valid()) {
-      console.log(`[cache_${this.name}] expired, fetching...`)
-      // fetch new
-      try {
-        const data = await this.fetch();
-        this.set(data);
-        console.log(`[cache_${this.name}] fetched ${data.length} items.`)
-      } catch (error) {
-        console.warn(`[cache_${this.name}] fetch error!`, error);
-        return null;
-      }
+  private async validate() {
+    if (this.is_valid()) {
+      return;
     }
+    console.log(`[cache_${this.name}] expired, fetching...`)
+    // fetch new
+    try {
+      const data = await this.fetch();
+      this.set(data);
+      console.log(`[cache_${this.name}] fetched ${data.length} items.`)
+    } catch (error) {
+      console.warn(`[cache_${this.name}] fetch error!`, error);
+      return null;
+    }
+  }
+  // Get all data
+  async getAll(): Promise<Array<T>> {
+    await this.validate();
+    return this.cache.data;
+  }
+  // Get single entry
+  async get(key: Partial<T>): Promise<T | null> {
+    await this.validate();
     return this.find(key);
   }
   abstract fetch(): Promise<Array<T>>;
