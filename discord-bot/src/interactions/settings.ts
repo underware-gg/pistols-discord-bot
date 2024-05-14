@@ -1,5 +1,5 @@
 import type { AnySelectMenuInteraction, ButtonInteraction, InteractionReplyOptions } from 'discord.js';
-import { setGuild } from '../utils/fetch_guilds.js';
+import { setGuild } from '../utils/db_guilds.js';
 import { formatSettingsMessage } from '../formatters/admin.js';
 // import { sign } from 'jsonwebtoken';
 

@@ -2,7 +2,7 @@ import { EmbedBuilder, BaseMessageOptions, ButtonBuilder, ButtonStyle, MessageAc
 import { Colors } from "../utils/constants.js";
 import { makeButtonsComponentsRow } from "./messages.js";
 import * as settings from "../interactions/settings.js";
-import { Guild, fetchGuild } from "../utils/fetch_guilds.js";
+import { Guild, fetchGuild } from "../utils/db_guilds.js";
 
 const _setting_button = (label: string, builder: (enabled: number) => string, enabled: boolean | null): ButtonBuilder => {
   return new ButtonBuilder()

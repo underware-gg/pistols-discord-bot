@@ -1,7 +1,7 @@
 import { Command } from "@sapphire/framework";
 import { getChallengesByDuelist, ChallengeResponse } from "../queries/getChallenges.js";
 import { formatAccountNotLinked } from "../formatters/messages.js";
-import { fetchDuelistAddress } from "../utils/fetch_accounts.js";
+import { fetchDuelistAddress } from "../utils/db_accounts.js";
 import { formatChallengesPayload } from "../formatters/challenges.js";
 import { ChallengeState, toChallengeState } from "../utils/constants.js";
 

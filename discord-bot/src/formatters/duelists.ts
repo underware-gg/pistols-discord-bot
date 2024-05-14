@@ -3,7 +3,7 @@ import { ChallengeState, Colors } from "../utils/constants.js";
 import { formatTimestamp } from "../utils/misc.js";
 import { duelist_duels, past_duels } from "../interactions/duels.js";
 import { DuelistResponse } from "../queries/getDuelists.js";
-import { tagDuelist } from "../utils/fetch_accounts.js";
+import { tagDuelist } from "../utils/db_accounts.js";
 import { makeSquareProfilePicUrl } from "../utils/pistols.js";
 import { makeButtonsComponentsRow } from "./messages.js";
 

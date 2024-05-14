@@ -1,6 +1,6 @@
 import { Listener, container } from '@sapphire/framework';
 import { customEventSub, customEventEmitter } from "../queries/customEventSub.js";
-import { fetchGuilds } from "../utils/fetch_guilds.js";
+import { fetchGuilds } from "../utils/db_guilds.js";
 import { EventName } from "../utils/constants.js";
 import { BaseMessageOptions } from 'discord.js';
 

@@ -1,6 +1,6 @@
 import { Command } from "@sapphire/framework";
 import { getDuelistByAddress, DuelistResponse } from "../queries/getDuelists.js";
-import { fetchDuelistAddress } from "../utils/fetch_accounts.js";
+import { fetchDuelistAddress } from "../utils/db_accounts.js";
 import { formatDuelistPayload } from "../formatters/duelists.js";
 import { formatAccountNotLinked } from "../formatters/messages.js";
 
