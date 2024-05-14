@@ -1,7 +1,10 @@
 import { removeEmpty } from '@/utils/misc';
+import { JwtPayload, verify } from "jsonwebtoken";
 import { createSupabaseClient } from '@/utils/supabase';
 
 const supabase = createSupabaseClient();
+
+const JWT_SECRET = process.env.JWT_SECRET || 'thisisasecret';
 
 export default async function handler(req, res) {
 
@@ -20,7 +23,13 @@ export default async function handler(req, res) {
     } = req.body;
     // console.log(`settings [${guild_id}]:`, req.body);
 
-    // Input validation (optional): You can add checks here to ensure data meets your requirements
+    // TODO: Verify if user is admin of guild?
+    // maybe it's not necessary, sice we already validated that the message came from the bot
+    const decoded_user_id = verify(user_id, JWT_SECRET) as JwtPayload;
+    if (!decoded_user_id || !decoded_user_id.user_id) {
+      console.error("Bad Request: Unable to verify user");
+      return res.status(400).json({ message: "Bad Request: Unable to verify user" });
+    }
 
     if (!guild_id) {
       return res.status(400).json({ message: "Bad Request: Guild Id is required" });

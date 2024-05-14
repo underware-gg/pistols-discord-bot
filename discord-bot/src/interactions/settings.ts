@@ -1,15 +1,16 @@
 import type { AnySelectMenuInteraction, ButtonInteraction, InteractionReplyOptions } from 'discord.js';
 import { setGuild } from '../utils/db_guilds.js';
 import { formatSettingsMessage } from '../formatters/admin.js';
-// import { sign } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
+const JWT_SECRET = process.env.JWT_SECRET || 'thisisasecret';
 
 const _set = async (interaction: ButtonInteraction | AnySelectMenuInteraction, params: any) => {
   const user_id = interaction.user.id;
   const guild_id = interaction.guild?.id ?? '';
   const response = await setGuild({
     ...params,
-    user_id,
+    user_id: jwt.sign({ user_id }, JWT_SECRET, { expiresIn: '24h' }),
     guild_id,
   })
   if (!response) {
