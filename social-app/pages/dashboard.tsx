@@ -1,7 +1,7 @@
 import React from "react";
 import { JwtPayload, verify } from "jsonwebtoken";
 import { parseCookies } from "nookies";
-import Dashboard from "@/components/dashboard";
+import Dashboard from "@/components/Dashboard";
 import App from "@/components/App";
 
 const JWT_SECRET = process.env.JWT_SECRET || 'thisisasecret';
