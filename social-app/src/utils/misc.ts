@@ -5,3 +5,5 @@ export const feltToString = (v: BigNumberish): string => (BigInt(v) > 0n ? short
 
 export const bigintEquals = (a: BigNumberish | null, b: BigNumberish | null): boolean => (a != null && b != null && BigInt(a) == BigInt(b))
 export const bigintToHex = (v: BigNumberish): string => (!v ? '0x0' : `0x${BigInt(v).toString(16)}`)
+
+export const removeEmpty = (obj) => Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null))

@@ -1,12 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseClient } from '@/utils/supabase';
 import { bigintToHex } from '@/utils/misc';
 
-export default async function handler(req, res) {
+const supabase = createSupabaseClient();
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_KEY
-  );
+export default async function handler(req, res) {
 
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
@@ -18,13 +15,15 @@ export default async function handler(req, res) {
 
     // Input validation (optional): You can add checks here to ensure data meets your requirements
 
-    const { data, error } = await supabase.from("pistols_accounts").upsert([
-      {
-        discord_id,
-        discord_name,
-        duelist_address: duelist_address ? bigintToHex(duelist_address) : null,
-      },
-    ]);
+    const fields = {
+      discord_id,
+      discord_name,
+      duelist_address: duelist_address ? bigintToHex(duelist_address) : null,
+    };
+
+    const { data, error } = await supabase
+      .from("pistols_accounts")
+      .upsert([fields]);
 
     if (error) {
       console.error("Error saving data:", error.message);

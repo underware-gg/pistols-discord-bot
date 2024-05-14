@@ -1,10 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
-import { bigintToHex } from '@/utils/misc';
+import { createSupabaseClient } from '@/utils/supabase';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
+const supabase = createSupabaseClient();
 
 // usage:
 // http://localhost:3000/api/fetch_accounts

@@ -1,10 +1,7 @@
-import { createClient } from '@supabase/supabase-js';
+import { createSupabaseClient } from '@/utils/supabase';
 import { bigintToHex } from '@/utils/misc';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
+const supabase = createSupabaseClient();
 
 // usage:
 // http://localhost:3000/api/fetch_address?duelist_address=0x10071d15a0adc1b8e02d1a77d5fde334a5272a799adda2fc21c67041faa2151

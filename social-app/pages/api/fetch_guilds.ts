@@ -1,9 +1,10 @@
 import { createSupabaseClient } from '@/utils/supabase';
+import { bigintToHex } from '@/utils/misc';
 
 const supabase = createSupabaseClient();
 
 // usage:
-// http://localhost:3000/api/fetch_id?discord_id=343964917034123265
+// http://localhost:3000/api/fetch_guilds
 
 export default async function handler(req, res) {
 
@@ -12,18 +13,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { discord_id } = req.query;
-
-    // console.log(`discord_id:`, discord_id, req.query);
-
-    if (!discord_id) {
-      return res.status(400).json({ message: "Bad Request: discord_id is required" });
-    }
 
     const { data, error } = await supabase
-      .from('pistols_accounts')
+      .from('pistols_guilds')
       .select('*')
-      .eq('discord_id', discord_id);
+      .order('created_at', { ascending: true });
 
     if (error) {
       console.error("Error fetching data:", error.message);
@@ -31,10 +25,10 @@ export default async function handler(req, res) {
     }
 
     if (!data || data.length === 0) {
-      return res.status(404).json({ message: "user not found, maybe not registered" });
+      return res.status(404).json({ message: "Guilds not found" });
     }
 
-    return res.status(200).json(data[0]);
+    return res.status(200).json(data);
   } catch (error) {
     console.error("Error in processing request:", error.message);
     return res.status(500).json({ message: "Internal Server Error" });

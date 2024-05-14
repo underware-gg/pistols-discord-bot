@@ -1,9 +1,10 @@
 import { createSupabaseClient } from '@/utils/supabase';
+import { bigintToHex } from '@/utils/misc';
 
 const supabase = createSupabaseClient();
 
 // usage:
-// http://localhost:3000/api/fetch_id?discord_id=343964917034123265
+// http://localhost:3000/api/fetch_guild?guild_id=1232006088765739049
 
 export default async function handler(req, res) {
 
@@ -12,18 +13,18 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { discord_id } = req.query;
+    const { guild_id } = req.query;
 
-    // console.log(`discord_id:`, discord_id, req.query);
+    // console.log(`duelist_address:`, duelist_address, req.query);
 
-    if (!discord_id) {
-      return res.status(400).json({ message: "Bad Request: discord_id is required" });
+    if (!guild_id) {
+      return res.status(400).json({ message: "Bad Request: Guild Id is required" });
     }
 
     const { data, error } = await supabase
-      .from('pistols_accounts')
+      .from('pistols_guilds')
       .select('*')
-      .eq('discord_id', discord_id);
+      .eq('guild_id', guild_id);
 
     if (error) {
       console.error("Error fetching data:", error.message);
@@ -31,7 +32,7 @@ export default async function handler(req, res) {
     }
 
     if (!data || data.length === 0) {
-      return res.status(404).json({ message: "user not found, maybe not registered" });
+      return res.status(404).json({ message: "Guild not found" });
     }
 
     return res.status(200).json(data[0]);
