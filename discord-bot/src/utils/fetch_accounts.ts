@@ -1,56 +1,29 @@
 import { BigNumberish } from 'starknet';
 import { bigintToHex } from './misc.js';
+import { Cache } from './cache.js';
 import axios from 'axios';
 
-// refresh cache every 30 seconds
 const TIMEOUT_MILLIS = 30 * 1000;
 
 type Account = {
   discord_id: string
   duelist_address: string
 };
-type RemoteData = Array<Account>;
-type CachedValue = {
-  data: RemoteData
-  timestamp: number
-};
-class Cache {
-  private cache: CachedValue;
-  private timeout: number;
+
+class AccountCache extends Cache<Account> {
   constructor() {
-    this.cache = {
-      data: [],
-      timestamp: 0,
-    };
-    this.timeout = TIMEOUT_MILLIS;
+    super('accounts', TIMEOUT_MILLIS);
   }
-  // set new cached value
-  set(data: RemoteData) {
-    // console.log(`[accounts_cache] SET:`, data)
-    this.cache = {
-      data,
-      timestamp: Date.now(),
+  async fetch(): Promise<Array<Account>> {
+    try {
+      const url = process.env.SOCIAL_APP_URL + '/api/fetch_accounts';
+      const response = await axios.get(url);
+      return response?.data ?? [];
+    } catch(error) {
+      return []
     }
   }
-  // cache validator
-  is_valid(): boolean {
-    return (Date.now() - this.cache.timestamp) < this.timeout;
-  }
-  async find(key: Partial<Account>): Promise<Account | null> {
-    if (!this.is_valid()) {
-      console.log(`[accounts_cache] expired, fetch new...`)
-      // fetch new
-      try {
-        const url = process.env.SOCIAL_APP_URL + '/api/fetch_accounts';
-        const response = await axios.get(url);
-        const data = response?.data ?? [];
-        this.set(data);
-        console.log(`[accounts_cache] fetched ${data.length} accounts.`)
-      } catch (error) {
-        console.warn(`[accounts_cache] fetch error!`, error);
-        return null;
-      }
-    }
+  find(key: Partial<Account>): Account | null {
     for (const account of this.cache.data) {
       if (
         (key.discord_id && key.discord_id == account.discord_id) ||
@@ -65,17 +38,17 @@ class Cache {
   }
 }
 
-const _cache = new Cache()
+const _cache = new AccountCache()
 
 export const fetchDuelistAddress = async (id: number | string): Promise<string | null> => {
   const discord_id = id.toString()
-  const account = await _cache.find({ discord_id });
+  const account = await _cache.get({ discord_id });
   return account?.duelist_address ?? null;
 }
 
 export const fetchDiscordId = async (address: BigNumberish): Promise<string | null> => {
   const duelist_address = bigintToHex(address);
-  const account = await _cache.find({ duelist_address });
+  const account = await _cache.get({ duelist_address });
   return account?.discord_id ?? null;
 }
 

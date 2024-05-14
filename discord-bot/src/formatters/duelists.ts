@@ -1,11 +1,11 @@
-import { EmbedBuilder, BaseMessageOptions, ButtonBuilder, ButtonStyle, ActionRowBuilder } from "discord.js";
+import { EmbedBuilder, BaseMessageOptions, ButtonBuilder, ButtonStyle, MessageActionRowComponentBuilder } from "discord.js";
 import { ChallengeState, Colors } from "../utils/constants.js";
 import { formatTimestamp } from "../utils/misc.js";
 import { duelist_duels, past_duels } from "../interactions/duels.js";
 import { DuelistResponse } from "../queries/getDuelists.js";
 import { tagDuelist } from "../utils/fetch_accounts.js";
 import { makeSquareProfilePicUrl } from "../utils/pistols.js";
-import { makeButtonsComponents } from "./messages.js";
+import { makeButtonsComponentsRow } from "./messages.js";
 
 //
 // reference:
@@ -40,7 +40,7 @@ export async function formatDuelistPayload({
     .setDescription(contents.join('\n'))
     .setFooter({ text: `Since: ${formatTimestamp(duelist.timestamp)}` })
 
-  const buttons: ButtonBuilder[] = [];
+  const buttons: MessageActionRowComponentBuilder[] = [];
 
   if (full) {
     const winRatio = (duelist.total_duels > 0 ? Math.floor((duelist.total_wins / duelist.total_duels) * 100) : null);
@@ -100,7 +100,7 @@ export async function formatDuelistPayload({
 
   return {
     embeds: [embed],
-    components: makeButtonsComponents(...buttons),
+    components: makeButtonsComponentsRow(...buttons),
   }
 }
 

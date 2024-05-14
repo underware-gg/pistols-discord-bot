@@ -1,4 +1,4 @@
-import type { InteractionReplyOptions } from 'discord.js';
+import type { ButtonInteraction, InteractionReplyOptions } from 'discord.js';
 import { BigNumberish } from 'starknet';
 import { getChallengesByDuelist, ChallengeResponse } from '../queries/getChallenges.js';
 import { ChallengeState, toChallengeState } from '../utils/constants.js';
@@ -13,7 +13,7 @@ export const duelist_duels = () => {
   const builder = (address: BigNumberish, state: ChallengeState) => {
     return `${customId};${bigintToHex(address)};${state}`;
   }
-  const run = async (options: string[]): Promise<InteractionReplyOptions> => {
+  const run = async (interaction: ButtonInteraction, options: string[]): Promise<InteractionReplyOptions> => {
     const [customId, address, state] = options;
     const challenges: ChallengeResponse[] = await getChallengesByDuelist([toChallengeState(state)], address);
     return await formatChallengesPayload({ challenges });
@@ -34,7 +34,7 @@ export const past_duels = () => {
   const builder = (address: BigNumberish) => {
     return `${customId};${bigintToHex(address)}`;
   }
-  const run = async (options: string[]): Promise<InteractionReplyOptions> => {
+  const run = async (interaction: ButtonInteraction, options: string[]): Promise<InteractionReplyOptions> => {
     const [customId, address] = options;
     const challenges: ChallengeResponse[] = await getChallengesByDuelist([ChallengeState.Refused, ChallengeState.Draw], address);
     return await formatChallengesPayload({ challenges });

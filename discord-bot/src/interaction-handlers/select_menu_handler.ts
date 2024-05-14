@@ -1,37 +1,40 @@
 import { InteractionHandler, InteractionHandlerTypes } from '@sapphire/framework';
-import type { ButtonInteraction, InteractionReplyOptions } from 'discord.js';
-import { button_interactions } from '../interactions/index.js';
+import type { AnySelectMenuInteraction, InteractionReplyOptions } from 'discord.js';
+import { select_menu_interactions } from '../interactions/index.js';
 
-export class ButtonHandler extends InteractionHandler {
+export class SelectMenuHandler extends InteractionHandler {
   public constructor(ctx: InteractionHandler.LoaderContext, options: InteractionHandler.Options) {
     super(ctx, {
       ...options,
-      interactionHandlerType: InteractionHandlerTypes.Button
+      interactionHandlerType: InteractionHandlerTypes.SelectMenu
     });
   }
 
-  public override parse(interaction: ButtonInteraction) {
+  public override parse(interaction: AnySelectMenuInteraction) {
     try {
       const options = interaction.customId.split(';');
       const [customId] = options;
-      for (const inter of button_interactions) {
+      for (const inter of select_menu_interactions) {
         if (inter().customId == customId) {
           console.log(`/${this.name}:`, options);
-          return this.some(options);
+          return this.some([
+            ...options,
+            ...interaction.values,
+          ]);
         }
       }
-    } catch(error) {
+    } catch (error) {
       console.log(`/${this.name}: ERROR:`, error);
     }
     console.log(`/${this.name}: Unknown interaction:`, interaction.customId);
     return this.none();
   }
 
-  public async run(interaction: ButtonInteraction, options: string[]) {
+  public async run(interaction: AnySelectMenuInteraction, options: string[]) {
     try {
       const [customId] = options;
       let reply: InteractionReplyOptions | null = null;
-      for (const inter of button_interactions) {
+      for (const inter of select_menu_interactions) {
         if (inter().customId == customId) {
           reply = {
             ...await inter().run(interaction, options),

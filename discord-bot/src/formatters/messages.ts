@@ -1,9 +1,9 @@
-import { EmbedBuilder, BaseMessageOptions, ButtonBuilder, ButtonStyle, ActionRowBuilder, ComponentType } from "discord.js";
+import { EmbedBuilder, BaseMessageOptions, ButtonBuilder, ButtonStyle, ActionRowBuilder, MessageActionRowComponentBuilder } from "discord.js";
 import { Colors } from "../utils/constants.js";
 
-export const makeButtonsComponents = (...buttons: ButtonBuilder[]) => {
+export const makeButtonsComponentsRow = (...buttons: MessageActionRowComponentBuilder[]) => {
   if (buttons.length == 0) return [];
-  const row = new ActionRowBuilder<ButtonBuilder>().addComponents(...buttons);
+  const row = new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(...buttons);
   return [row]
 }
 
@@ -18,7 +18,7 @@ export function formatNoDuelsFound(): BaseMessageOptions {
     .setStyle(ButtonStyle.Link);
   return {
     embeds: [embed],
-    components: makeButtonsComponents(button1),
+    components: makeButtonsComponentsRow(button1),
   }
 }
 
@@ -40,7 +40,7 @@ export function formatAccountNotLinked(): BaseMessageOptions {
     .setStyle(ButtonStyle.Link);
   return {
     embeds: [embed],
-    components: makeButtonsComponents(button1),
+    components: makeButtonsComponentsRow(button1),
   }
 }
 

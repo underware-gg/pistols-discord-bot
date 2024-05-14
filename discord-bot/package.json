@@ -33,6 +33,7 @@
     "dotenv": "^16.4.5",
     "graphql-tag": "^2.12.6",
     "graphql-ws": "^5.16.0",
+    "jsonwebtoken": "^9.0.2",
     "starknet": "^6.1.5",
     "ws": "^8.12.0"
   }
