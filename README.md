@@ -23,7 +23,7 @@ graph TD;
   A[✅ #1 Bot Setup];
   C[✅ #3 Duelist Commands];
   B[✅ #2 Duel Commands];
-  D[#4 Duel Notifications];
+  D[✅ #4 Duel Notifications];
   E[✅ #5 Social Link App];
   F[#6 Discord Users Notifications];
   G[✅ #7 Discord Users Commands];
@@ -31,7 +31,7 @@ graph TD;
   I[#9 Player Moves];
   J[✅ #14 New Duelists notification];
   K[#15 /my_turn command];
-  L[#17 /settings command];
+  L[✅ #17 /settings command];
 
   A-->C;
   A-->B;
