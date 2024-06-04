@@ -45,8 +45,8 @@ export const formatChallengesPayload = async ({
   }
   const embeds = await Promise.all(challenges.map(async (challenge, index) => {
     const state = toChallengeState(challenge.state);
-    const honour_a = challenge.duelist_a.honour;
-    const honour_b = challenge.duelist_b.honour;
+    const honour_a = challenge.duelist_a.score.honour;
+    const honour_b = challenge.duelist_b.score.honour;
     const winner = (challenge.winner == 1 ? challenge.duelist_a : challenge.winner == 2 ? challenge.duelist_b : null)
     const wager = challenge.wager.value_eth;
     // const duel_time = new Date(challenge.timestamp_start * 1000);

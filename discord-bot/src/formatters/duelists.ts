@@ -32,7 +32,7 @@ export async function formatDuelistPayload({
   if (tag) contents.push(tag);
   contents.push(`\`${duelist.address}\``)
 
-  const badge = duelist.honour > 90 ? "👑" : "";
+  const badge = duelist.score?.honour > 90 ? "👑" : "";
   const embed = new EmbedBuilder()
     .setTitle(`${title}: ${duelist.name}`)
     .setColor(Colors.Medium)
@@ -43,31 +43,31 @@ export async function formatDuelistPayload({
   const buttons: MessageActionRowComponentBuilder[] = [];
 
   if (full) {
-    const winRatio = (duelist.total_duels > 0 ? Math.floor((duelist.total_wins / duelist.total_duels) * 100) : null);
+    const winRatio = (duelist.score?.total_duels > 0 ? Math.floor((duelist.score?.total_wins / duelist.score?.total_duels) * 100) : null);
     embed.addFields(
       {
         name: "Honour",
-        value: `${duelist.honour / 10} ${badge}`,
+        value: `${duelist.score?.honour / 10} ${badge}`,
         inline: true,
       },
       {
         name: "Duels",
-        value: `${duelist.total_duels}`,
+        value: `${duelist.score?.total_duels}`,
         inline: true,
       },
       {
         name: "Wins",
-        value: `${duelist.total_wins}`,
+        value: `${duelist.score?.total_wins}`,
         inline: true,
       },
       {
         name: "Losses",
-        value: `${duelist.total_losses}`,
+        value: `${duelist.score?.total_losses}`,
         inline: true,
       },
       {
         name: "Draws",
-        value: `${duelist.total_draws}`,
+        value: `${duelist.score?.total_draws}`,
         inline: true,
       },
       {

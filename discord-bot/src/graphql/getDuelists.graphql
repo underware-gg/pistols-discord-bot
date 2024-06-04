@@ -2,13 +2,18 @@ fragment duelistFields on Duelist {
   address
   name
   profile_pic
-  total_duels
-  total_wins
-  total_losses
-  total_draws
-  total_honour
-  honour
   timestamp
+  score {
+    honour
+    level_villain
+    level_trickster
+    level_lord
+    total_duels
+    total_wins
+    total_losses
+    total_draws
+    total_honour
+  }
 }
 
 query getDuelistsByAddress($address: ContractAddress) {

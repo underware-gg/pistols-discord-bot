@@ -38,6 +38,7 @@ export type Challenge = {
   message?: Maybe<Scalars['felt252']['output']>;
   round_number?: Maybe<Scalars['u8']['output']>;
   state?: Maybe<Scalars['u8']['output']>;
+  table_id?: Maybe<Scalars['felt252']['output']>;
   timestamp_end?: Maybe<Scalars['u64']['output']>;
   timestamp_start?: Maybe<Scalars['u64']['output']>;
   winner?: Maybe<Scalars['u8']['output']>;
@@ -68,6 +69,7 @@ export enum ChallengeOrderField {
   Message = 'MESSAGE',
   RoundNumber = 'ROUND_NUMBER',
   State = 'STATE',
+  TableId = 'TABLE_ID',
   TimestampEnd = 'TIMESTAMP_END',
   TimestampStart = 'TIMESTAMP_START',
   Winner = 'WINNER'
@@ -78,142 +80,232 @@ export type ChallengeWhereInput = {
   duel_idEQ?: InputMaybe<Scalars['u128']['input']>;
   duel_idGT?: InputMaybe<Scalars['u128']['input']>;
   duel_idGTE?: InputMaybe<Scalars['u128']['input']>;
+  duel_idIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idLIKE?: InputMaybe<Scalars['u128']['input']>;
   duel_idLT?: InputMaybe<Scalars['u128']['input']>;
   duel_idLTE?: InputMaybe<Scalars['u128']['input']>;
   duel_idNEQ?: InputMaybe<Scalars['u128']['input']>;
+  duel_idNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idNOTLIKE?: InputMaybe<Scalars['u128']['input']>;
   duelist_a?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_aEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_aGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_aGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  duelist_aIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  duelist_aLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_aLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_aLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_aNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  duelist_aNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  duelist_aNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_b?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_bEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_bGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_bGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  duelist_bIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  duelist_bLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_bLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_bLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_bNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  duelist_bNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  duelist_bNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   message?: InputMaybe<Scalars['felt252']['input']>;
   messageEQ?: InputMaybe<Scalars['felt252']['input']>;
   messageGT?: InputMaybe<Scalars['felt252']['input']>;
   messageGTE?: InputMaybe<Scalars['felt252']['input']>;
+  messageIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  messageLIKE?: InputMaybe<Scalars['felt252']['input']>;
   messageLT?: InputMaybe<Scalars['felt252']['input']>;
   messageLTE?: InputMaybe<Scalars['felt252']['input']>;
   messageNEQ?: InputMaybe<Scalars['felt252']['input']>;
+  messageNOTIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  messageNOTLIKE?: InputMaybe<Scalars['felt252']['input']>;
   round_number?: InputMaybe<Scalars['u8']['input']>;
   round_numberEQ?: InputMaybe<Scalars['u8']['input']>;
   round_numberGT?: InputMaybe<Scalars['u8']['input']>;
   round_numberGTE?: InputMaybe<Scalars['u8']['input']>;
+  round_numberIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  round_numberLIKE?: InputMaybe<Scalars['u8']['input']>;
   round_numberLT?: InputMaybe<Scalars['u8']['input']>;
   round_numberLTE?: InputMaybe<Scalars['u8']['input']>;
   round_numberNEQ?: InputMaybe<Scalars['u8']['input']>;
+  round_numberNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  round_numberNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
   state?: InputMaybe<Scalars['u8']['input']>;
   stateEQ?: InputMaybe<Scalars['u8']['input']>;
   stateGT?: InputMaybe<Scalars['u8']['input']>;
   stateGTE?: InputMaybe<Scalars['u8']['input']>;
+  stateIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  stateLIKE?: InputMaybe<Scalars['u8']['input']>;
   stateLT?: InputMaybe<Scalars['u8']['input']>;
   stateLTE?: InputMaybe<Scalars['u8']['input']>;
   stateNEQ?: InputMaybe<Scalars['u8']['input']>;
+  stateNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  stateNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
+  table_id?: InputMaybe<Scalars['felt252']['input']>;
+  table_idEQ?: InputMaybe<Scalars['felt252']['input']>;
+  table_idGT?: InputMaybe<Scalars['felt252']['input']>;
+  table_idGTE?: InputMaybe<Scalars['felt252']['input']>;
+  table_idIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  table_idLIKE?: InputMaybe<Scalars['felt252']['input']>;
+  table_idLT?: InputMaybe<Scalars['felt252']['input']>;
+  table_idLTE?: InputMaybe<Scalars['felt252']['input']>;
+  table_idNEQ?: InputMaybe<Scalars['felt252']['input']>;
+  table_idNOTIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  table_idNOTLIKE?: InputMaybe<Scalars['felt252']['input']>;
   timestamp_end?: InputMaybe<Scalars['u64']['input']>;
   timestamp_endEQ?: InputMaybe<Scalars['u64']['input']>;
   timestamp_endGT?: InputMaybe<Scalars['u64']['input']>;
   timestamp_endGTE?: InputMaybe<Scalars['u64']['input']>;
+  timestamp_endIN?: InputMaybe<Array<InputMaybe<Scalars['u64']['input']>>>;
+  timestamp_endLIKE?: InputMaybe<Scalars['u64']['input']>;
   timestamp_endLT?: InputMaybe<Scalars['u64']['input']>;
   timestamp_endLTE?: InputMaybe<Scalars['u64']['input']>;
   timestamp_endNEQ?: InputMaybe<Scalars['u64']['input']>;
+  timestamp_endNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u64']['input']>>>;
+  timestamp_endNOTLIKE?: InputMaybe<Scalars['u64']['input']>;
   timestamp_start?: InputMaybe<Scalars['u64']['input']>;
   timestamp_startEQ?: InputMaybe<Scalars['u64']['input']>;
   timestamp_startGT?: InputMaybe<Scalars['u64']['input']>;
   timestamp_startGTE?: InputMaybe<Scalars['u64']['input']>;
+  timestamp_startIN?: InputMaybe<Array<InputMaybe<Scalars['u64']['input']>>>;
+  timestamp_startLIKE?: InputMaybe<Scalars['u64']['input']>;
   timestamp_startLT?: InputMaybe<Scalars['u64']['input']>;
   timestamp_startLTE?: InputMaybe<Scalars['u64']['input']>;
   timestamp_startNEQ?: InputMaybe<Scalars['u64']['input']>;
+  timestamp_startNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u64']['input']>>>;
+  timestamp_startNOTLIKE?: InputMaybe<Scalars['u64']['input']>;
   winner?: InputMaybe<Scalars['u8']['input']>;
   winnerEQ?: InputMaybe<Scalars['u8']['input']>;
   winnerGT?: InputMaybe<Scalars['u8']['input']>;
   winnerGTE?: InputMaybe<Scalars['u8']['input']>;
+  winnerIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  winnerLIKE?: InputMaybe<Scalars['u8']['input']>;
   winnerLT?: InputMaybe<Scalars['u8']['input']>;
   winnerLTE?: InputMaybe<Scalars['u8']['input']>;
   winnerNEQ?: InputMaybe<Scalars['u8']['input']>;
+  winnerNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  winnerNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
 };
 
-export type Coin = {
-  __typename?: 'Coin';
-  contract_address?: Maybe<Scalars['ContractAddress']['output']>;
-  description?: Maybe<Scalars['felt252']['output']>;
-  enabled?: Maybe<Scalars['bool']['output']>;
+export type Chances = {
+  __typename?: 'Chances';
+  crit_bonus?: Maybe<Scalars['u8']['output']>;
+  crit_chances?: Maybe<Scalars['u8']['output']>;
   entity?: Maybe<World__Entity>;
-  fee_min?: Maybe<Scalars['u256']['output']>;
-  fee_pct?: Maybe<Scalars['u8']['output']>;
-  key?: Maybe<Scalars['u8']['output']>;
+  hit_bonus?: Maybe<Scalars['u8']['output']>;
+  hit_chances?: Maybe<Scalars['u8']['output']>;
+  key?: Maybe<Scalars['felt252']['output']>;
+  lethal_bonus?: Maybe<Scalars['u8']['output']>;
+  lethal_chances?: Maybe<Scalars['u8']['output']>;
 };
 
-export type CoinConnection = {
-  __typename?: 'CoinConnection';
-  edges?: Maybe<Array<Maybe<CoinEdge>>>;
+export type ChancesConnection = {
+  __typename?: 'ChancesConnection';
+  edges?: Maybe<Array<Maybe<ChancesEdge>>>;
   pageInfo: World__PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
-export type CoinEdge = {
-  __typename?: 'CoinEdge';
+export type ChancesEdge = {
+  __typename?: 'ChancesEdge';
   cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Coin>;
+  node?: Maybe<Chances>;
 };
 
-export type CoinOrder = {
+export type ChancesOrder = {
   direction: OrderDirection;
-  field: CoinOrderField;
+  field: ChancesOrderField;
 };
 
-export enum CoinOrderField {
-  ContractAddress = 'CONTRACT_ADDRESS',
-  Description = 'DESCRIPTION',
-  Enabled = 'ENABLED',
-  FeeMin = 'FEE_MIN',
-  FeePct = 'FEE_PCT',
-  Key = 'KEY'
+export enum ChancesOrderField {
+  CritBonus = 'CRIT_BONUS',
+  CritChances = 'CRIT_CHANCES',
+  HitBonus = 'HIT_BONUS',
+  HitChances = 'HIT_CHANCES',
+  Key = 'KEY',
+  LethalBonus = 'LETHAL_BONUS',
+  LethalChances = 'LETHAL_CHANCES'
 }
 
-export type CoinWhereInput = {
-  contract_address?: InputMaybe<Scalars['ContractAddress']['input']>;
-  contract_addressEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  contract_addressGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  contract_addressGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  contract_addressLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  contract_addressLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  contract_addressNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  description?: InputMaybe<Scalars['felt252']['input']>;
-  descriptionEQ?: InputMaybe<Scalars['felt252']['input']>;
-  descriptionGT?: InputMaybe<Scalars['felt252']['input']>;
-  descriptionGTE?: InputMaybe<Scalars['felt252']['input']>;
-  descriptionLT?: InputMaybe<Scalars['felt252']['input']>;
-  descriptionLTE?: InputMaybe<Scalars['felt252']['input']>;
-  descriptionNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  enabled?: InputMaybe<Scalars['bool']['input']>;
-  fee_min?: InputMaybe<Scalars['u256']['input']>;
-  fee_minEQ?: InputMaybe<Scalars['u256']['input']>;
-  fee_minGT?: InputMaybe<Scalars['u256']['input']>;
-  fee_minGTE?: InputMaybe<Scalars['u256']['input']>;
-  fee_minLT?: InputMaybe<Scalars['u256']['input']>;
-  fee_minLTE?: InputMaybe<Scalars['u256']['input']>;
-  fee_minNEQ?: InputMaybe<Scalars['u256']['input']>;
-  fee_pct?: InputMaybe<Scalars['u8']['input']>;
-  fee_pctEQ?: InputMaybe<Scalars['u8']['input']>;
-  fee_pctGT?: InputMaybe<Scalars['u8']['input']>;
-  fee_pctGTE?: InputMaybe<Scalars['u8']['input']>;
-  fee_pctLT?: InputMaybe<Scalars['u8']['input']>;
-  fee_pctLTE?: InputMaybe<Scalars['u8']['input']>;
-  fee_pctNEQ?: InputMaybe<Scalars['u8']['input']>;
-  key?: InputMaybe<Scalars['u8']['input']>;
-  keyEQ?: InputMaybe<Scalars['u8']['input']>;
-  keyGT?: InputMaybe<Scalars['u8']['input']>;
-  keyGTE?: InputMaybe<Scalars['u8']['input']>;
-  keyLT?: InputMaybe<Scalars['u8']['input']>;
-  keyLTE?: InputMaybe<Scalars['u8']['input']>;
-  keyNEQ?: InputMaybe<Scalars['u8']['input']>;
+export type ChancesWhereInput = {
+  crit_bonus?: InputMaybe<Scalars['u8']['input']>;
+  crit_bonusEQ?: InputMaybe<Scalars['u8']['input']>;
+  crit_bonusGT?: InputMaybe<Scalars['u8']['input']>;
+  crit_bonusGTE?: InputMaybe<Scalars['u8']['input']>;
+  crit_bonusIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  crit_bonusLIKE?: InputMaybe<Scalars['u8']['input']>;
+  crit_bonusLT?: InputMaybe<Scalars['u8']['input']>;
+  crit_bonusLTE?: InputMaybe<Scalars['u8']['input']>;
+  crit_bonusNEQ?: InputMaybe<Scalars['u8']['input']>;
+  crit_bonusNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  crit_bonusNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
+  crit_chances?: InputMaybe<Scalars['u8']['input']>;
+  crit_chancesEQ?: InputMaybe<Scalars['u8']['input']>;
+  crit_chancesGT?: InputMaybe<Scalars['u8']['input']>;
+  crit_chancesGTE?: InputMaybe<Scalars['u8']['input']>;
+  crit_chancesIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  crit_chancesLIKE?: InputMaybe<Scalars['u8']['input']>;
+  crit_chancesLT?: InputMaybe<Scalars['u8']['input']>;
+  crit_chancesLTE?: InputMaybe<Scalars['u8']['input']>;
+  crit_chancesNEQ?: InputMaybe<Scalars['u8']['input']>;
+  crit_chancesNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  crit_chancesNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
+  hit_bonus?: InputMaybe<Scalars['u8']['input']>;
+  hit_bonusEQ?: InputMaybe<Scalars['u8']['input']>;
+  hit_bonusGT?: InputMaybe<Scalars['u8']['input']>;
+  hit_bonusGTE?: InputMaybe<Scalars['u8']['input']>;
+  hit_bonusIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  hit_bonusLIKE?: InputMaybe<Scalars['u8']['input']>;
+  hit_bonusLT?: InputMaybe<Scalars['u8']['input']>;
+  hit_bonusLTE?: InputMaybe<Scalars['u8']['input']>;
+  hit_bonusNEQ?: InputMaybe<Scalars['u8']['input']>;
+  hit_bonusNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  hit_bonusNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
+  hit_chances?: InputMaybe<Scalars['u8']['input']>;
+  hit_chancesEQ?: InputMaybe<Scalars['u8']['input']>;
+  hit_chancesGT?: InputMaybe<Scalars['u8']['input']>;
+  hit_chancesGTE?: InputMaybe<Scalars['u8']['input']>;
+  hit_chancesIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  hit_chancesLIKE?: InputMaybe<Scalars['u8']['input']>;
+  hit_chancesLT?: InputMaybe<Scalars['u8']['input']>;
+  hit_chancesLTE?: InputMaybe<Scalars['u8']['input']>;
+  hit_chancesNEQ?: InputMaybe<Scalars['u8']['input']>;
+  hit_chancesNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  hit_chancesNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
+  key?: InputMaybe<Scalars['felt252']['input']>;
+  keyEQ?: InputMaybe<Scalars['felt252']['input']>;
+  keyGT?: InputMaybe<Scalars['felt252']['input']>;
+  keyGTE?: InputMaybe<Scalars['felt252']['input']>;
+  keyIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  keyLIKE?: InputMaybe<Scalars['felt252']['input']>;
+  keyLT?: InputMaybe<Scalars['felt252']['input']>;
+  keyLTE?: InputMaybe<Scalars['felt252']['input']>;
+  keyNEQ?: InputMaybe<Scalars['felt252']['input']>;
+  keyNOTIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  keyNOTLIKE?: InputMaybe<Scalars['felt252']['input']>;
+  lethal_bonus?: InputMaybe<Scalars['u8']['input']>;
+  lethal_bonusEQ?: InputMaybe<Scalars['u8']['input']>;
+  lethal_bonusGT?: InputMaybe<Scalars['u8']['input']>;
+  lethal_bonusGTE?: InputMaybe<Scalars['u8']['input']>;
+  lethal_bonusIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  lethal_bonusLIKE?: InputMaybe<Scalars['u8']['input']>;
+  lethal_bonusLT?: InputMaybe<Scalars['u8']['input']>;
+  lethal_bonusLTE?: InputMaybe<Scalars['u8']['input']>;
+  lethal_bonusNEQ?: InputMaybe<Scalars['u8']['input']>;
+  lethal_bonusNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  lethal_bonusNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
+  lethal_chances?: InputMaybe<Scalars['u8']['input']>;
+  lethal_chancesEQ?: InputMaybe<Scalars['u8']['input']>;
+  lethal_chancesGT?: InputMaybe<Scalars['u8']['input']>;
+  lethal_chancesGTE?: InputMaybe<Scalars['u8']['input']>;
+  lethal_chancesIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  lethal_chancesLIKE?: InputMaybe<Scalars['u8']['input']>;
+  lethal_chancesLT?: InputMaybe<Scalars['u8']['input']>;
+  lethal_chancesLTE?: InputMaybe<Scalars['u8']['input']>;
+  lethal_chancesNEQ?: InputMaybe<Scalars['u8']['input']>;
+  lethal_chancesNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  lethal_chancesNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
 };
 
 export type Config = {
@@ -258,39 +350,46 @@ export type ConfigWhereInput = {
   keyEQ?: InputMaybe<Scalars['u8']['input']>;
   keyGT?: InputMaybe<Scalars['u8']['input']>;
   keyGTE?: InputMaybe<Scalars['u8']['input']>;
+  keyIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  keyLIKE?: InputMaybe<Scalars['u8']['input']>;
   keyLT?: InputMaybe<Scalars['u8']['input']>;
   keyLTE?: InputMaybe<Scalars['u8']['input']>;
   keyNEQ?: InputMaybe<Scalars['u8']['input']>;
+  keyNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  keyNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
   owner_address?: InputMaybe<Scalars['ContractAddress']['input']>;
   owner_addressEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   owner_addressGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   owner_addressGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  owner_addressIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  owner_addressLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   owner_addressLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   owner_addressLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   owner_addressNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  owner_addressNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  owner_addressNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   paused?: InputMaybe<Scalars['bool']['input']>;
   treasury_address?: InputMaybe<Scalars['ContractAddress']['input']>;
   treasury_addressEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   treasury_addressGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   treasury_addressGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  treasury_addressIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  treasury_addressLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   treasury_addressLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   treasury_addressLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   treasury_addressNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  treasury_addressNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  treasury_addressNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
 };
 
 export type Duelist = {
   __typename?: 'Duelist';
   address?: Maybe<Scalars['ContractAddress']['output']>;
   entity?: Maybe<World__Entity>;
-  honour?: Maybe<Scalars['u8']['output']>;
   name?: Maybe<Scalars['felt252']['output']>;
   profile_pic?: Maybe<Scalars['u8']['output']>;
+  score?: Maybe<Duelist_Score>;
   timestamp?: Maybe<Scalars['u64']['output']>;
-  total_draws?: Maybe<Scalars['u16']['output']>;
-  total_duels?: Maybe<Scalars['u16']['output']>;
-  total_honour?: Maybe<Scalars['u32']['output']>;
-  total_losses?: Maybe<Scalars['u16']['output']>;
-  total_wins?: Maybe<Scalars['u16']['output']>;
 };
 
 export type DuelistConnection = {
@@ -313,15 +412,10 @@ export type DuelistOrder = {
 
 export enum DuelistOrderField {
   Address = 'ADDRESS',
-  Honour = 'HONOUR',
   Name = 'NAME',
   ProfilePic = 'PROFILE_PIC',
-  Timestamp = 'TIMESTAMP',
-  TotalDraws = 'TOTAL_DRAWS',
-  TotalDuels = 'TOTAL_DUELS',
-  TotalHonour = 'TOTAL_HONOUR',
-  TotalLosses = 'TOTAL_LOSSES',
-  TotalWins = 'TOTAL_WINS'
+  Score = 'SCORE',
+  Timestamp = 'TIMESTAMP'
 }
 
 export type DuelistWhereInput = {
@@ -329,94 +423,59 @@ export type DuelistWhereInput = {
   addressEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   addressGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   addressGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  addressIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  addressLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   addressLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   addressLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   addressNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  honour?: InputMaybe<Scalars['u8']['input']>;
-  honourEQ?: InputMaybe<Scalars['u8']['input']>;
-  honourGT?: InputMaybe<Scalars['u8']['input']>;
-  honourGTE?: InputMaybe<Scalars['u8']['input']>;
-  honourLT?: InputMaybe<Scalars['u8']['input']>;
-  honourLTE?: InputMaybe<Scalars['u8']['input']>;
-  honourNEQ?: InputMaybe<Scalars['u8']['input']>;
+  addressNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  addressNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   name?: InputMaybe<Scalars['felt252']['input']>;
   nameEQ?: InputMaybe<Scalars['felt252']['input']>;
   nameGT?: InputMaybe<Scalars['felt252']['input']>;
   nameGTE?: InputMaybe<Scalars['felt252']['input']>;
+  nameIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  nameLIKE?: InputMaybe<Scalars['felt252']['input']>;
   nameLT?: InputMaybe<Scalars['felt252']['input']>;
   nameLTE?: InputMaybe<Scalars['felt252']['input']>;
   nameNEQ?: InputMaybe<Scalars['felt252']['input']>;
+  nameNOTIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  nameNOTLIKE?: InputMaybe<Scalars['felt252']['input']>;
   profile_pic?: InputMaybe<Scalars['u8']['input']>;
   profile_picEQ?: InputMaybe<Scalars['u8']['input']>;
   profile_picGT?: InputMaybe<Scalars['u8']['input']>;
   profile_picGTE?: InputMaybe<Scalars['u8']['input']>;
+  profile_picIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  profile_picLIKE?: InputMaybe<Scalars['u8']['input']>;
   profile_picLT?: InputMaybe<Scalars['u8']['input']>;
   profile_picLTE?: InputMaybe<Scalars['u8']['input']>;
   profile_picNEQ?: InputMaybe<Scalars['u8']['input']>;
+  profile_picNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  profile_picNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
   timestamp?: InputMaybe<Scalars['u64']['input']>;
   timestampEQ?: InputMaybe<Scalars['u64']['input']>;
   timestampGT?: InputMaybe<Scalars['u64']['input']>;
   timestampGTE?: InputMaybe<Scalars['u64']['input']>;
+  timestampIN?: InputMaybe<Array<InputMaybe<Scalars['u64']['input']>>>;
+  timestampLIKE?: InputMaybe<Scalars['u64']['input']>;
   timestampLT?: InputMaybe<Scalars['u64']['input']>;
   timestampLTE?: InputMaybe<Scalars['u64']['input']>;
   timestampNEQ?: InputMaybe<Scalars['u64']['input']>;
-  total_draws?: InputMaybe<Scalars['u16']['input']>;
-  total_drawsEQ?: InputMaybe<Scalars['u16']['input']>;
-  total_drawsGT?: InputMaybe<Scalars['u16']['input']>;
-  total_drawsGTE?: InputMaybe<Scalars['u16']['input']>;
-  total_drawsLT?: InputMaybe<Scalars['u16']['input']>;
-  total_drawsLTE?: InputMaybe<Scalars['u16']['input']>;
-  total_drawsNEQ?: InputMaybe<Scalars['u16']['input']>;
-  total_duels?: InputMaybe<Scalars['u16']['input']>;
-  total_duelsEQ?: InputMaybe<Scalars['u16']['input']>;
-  total_duelsGT?: InputMaybe<Scalars['u16']['input']>;
-  total_duelsGTE?: InputMaybe<Scalars['u16']['input']>;
-  total_duelsLT?: InputMaybe<Scalars['u16']['input']>;
-  total_duelsLTE?: InputMaybe<Scalars['u16']['input']>;
-  total_duelsNEQ?: InputMaybe<Scalars['u16']['input']>;
-  total_honour?: InputMaybe<Scalars['u32']['input']>;
-  total_honourEQ?: InputMaybe<Scalars['u32']['input']>;
-  total_honourGT?: InputMaybe<Scalars['u32']['input']>;
-  total_honourGTE?: InputMaybe<Scalars['u32']['input']>;
-  total_honourLT?: InputMaybe<Scalars['u32']['input']>;
-  total_honourLTE?: InputMaybe<Scalars['u32']['input']>;
-  total_honourNEQ?: InputMaybe<Scalars['u32']['input']>;
-  total_losses?: InputMaybe<Scalars['u16']['input']>;
-  total_lossesEQ?: InputMaybe<Scalars['u16']['input']>;
-  total_lossesGT?: InputMaybe<Scalars['u16']['input']>;
-  total_lossesGTE?: InputMaybe<Scalars['u16']['input']>;
-  total_lossesLT?: InputMaybe<Scalars['u16']['input']>;
-  total_lossesLTE?: InputMaybe<Scalars['u16']['input']>;
-  total_lossesNEQ?: InputMaybe<Scalars['u16']['input']>;
-  total_wins?: InputMaybe<Scalars['u16']['input']>;
-  total_winsEQ?: InputMaybe<Scalars['u16']['input']>;
-  total_winsGT?: InputMaybe<Scalars['u16']['input']>;
-  total_winsGTE?: InputMaybe<Scalars['u16']['input']>;
-  total_winsLT?: InputMaybe<Scalars['u16']['input']>;
-  total_winsLTE?: InputMaybe<Scalars['u16']['input']>;
-  total_winsNEQ?: InputMaybe<Scalars['u16']['input']>;
+  timestampNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u64']['input']>>>;
+  timestampNOTLIKE?: InputMaybe<Scalars['u64']['input']>;
 };
 
-export type Erc20Allowance = {
-  __typename?: 'ERC20Allowance';
-  amount?: Maybe<Scalars['u256']['output']>;
-  entity?: Maybe<World__Entity>;
-  owner?: Maybe<Scalars['ContractAddress']['output']>;
-  spender?: Maybe<Scalars['ContractAddress']['output']>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-};
-
-export type Erc20AllowanceConnection = {
-  __typename?: 'ERC20AllowanceConnection';
-  edges?: Maybe<Array<Maybe<Erc20AllowanceEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc20AllowanceEdge = {
-  __typename?: 'ERC20AllowanceEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc20Allowance>;
+export type Duelist_Score = {
+  __typename?: 'Duelist_Score';
+  honour?: Maybe<Scalars['u8']['output']>;
+  level_lord?: Maybe<Scalars['u8']['output']>;
+  level_trickster?: Maybe<Scalars['u8']['output']>;
+  level_villain?: Maybe<Scalars['u8']['output']>;
+  total_draws?: Maybe<Scalars['u16']['output']>;
+  total_duels?: Maybe<Scalars['u16']['output']>;
+  total_honour?: Maybe<Scalars['u32']['output']>;
+  total_losses?: Maybe<Scalars['u16']['output']>;
+  total_wins?: Maybe<Scalars['u16']['output']>;
 };
 
 export type Erc20AllowanceModel = {
@@ -458,94 +517,46 @@ export type Erc20AllowanceModelWhereInput = {
   amountEQ?: InputMaybe<Scalars['u256']['input']>;
   amountGT?: InputMaybe<Scalars['u256']['input']>;
   amountGTE?: InputMaybe<Scalars['u256']['input']>;
+  amountIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  amountLIKE?: InputMaybe<Scalars['u256']['input']>;
   amountLT?: InputMaybe<Scalars['u256']['input']>;
   amountLTE?: InputMaybe<Scalars['u256']['input']>;
   amountNEQ?: InputMaybe<Scalars['u256']['input']>;
+  amountNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  amountNOTLIKE?: InputMaybe<Scalars['u256']['input']>;
   owner?: InputMaybe<Scalars['ContractAddress']['input']>;
   ownerEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   ownerGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   ownerGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  ownerIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  ownerLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   ownerLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   ownerLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   ownerNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  ownerNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  ownerNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   spender?: InputMaybe<Scalars['ContractAddress']['input']>;
   spenderEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   spenderGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   spenderGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  spenderIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  spenderLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   spenderLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   spenderLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   spenderNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  spenderNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  spenderNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   token?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  tokenIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  tokenLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc20AllowanceOrder = {
-  direction: OrderDirection;
-  field: Erc20AllowanceOrderField;
-};
-
-export enum Erc20AllowanceOrderField {
-  Amount = 'AMOUNT',
-  Owner = 'OWNER',
-  Spender = 'SPENDER',
-  Token = 'TOKEN'
-}
-
-export type Erc20AllowanceWhereInput = {
-  amount?: InputMaybe<Scalars['u256']['input']>;
-  amountEQ?: InputMaybe<Scalars['u256']['input']>;
-  amountGT?: InputMaybe<Scalars['u256']['input']>;
-  amountGTE?: InputMaybe<Scalars['u256']['input']>;
-  amountLT?: InputMaybe<Scalars['u256']['input']>;
-  amountLTE?: InputMaybe<Scalars['u256']['input']>;
-  amountNEQ?: InputMaybe<Scalars['u256']['input']>;
-  owner?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  spender?: InputMaybe<Scalars['ContractAddress']['input']>;
-  spenderEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  spenderGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  spenderGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  spenderLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  spenderLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  spenderNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc20Balance = {
-  __typename?: 'ERC20Balance';
-  account?: Maybe<Scalars['ContractAddress']['output']>;
-  amount?: Maybe<Scalars['u256']['output']>;
-  entity?: Maybe<World__Entity>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-};
-
-export type Erc20BalanceConnection = {
-  __typename?: 'ERC20BalanceConnection';
-  edges?: Maybe<Array<Maybe<Erc20BalanceEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc20BalanceEdge = {
-  __typename?: 'ERC20BalanceEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc20Balance>;
+  tokenNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  tokenNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
 };
 
 export type Erc20BalanceModel = {
@@ -585,170 +596,35 @@ export type Erc20BalanceModelWhereInput = {
   accountEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   accountGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   accountGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  accountIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  accountLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   accountLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   accountLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   accountNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  accountNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  accountNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   amount?: InputMaybe<Scalars['u256']['input']>;
   amountEQ?: InputMaybe<Scalars['u256']['input']>;
   amountGT?: InputMaybe<Scalars['u256']['input']>;
   amountGTE?: InputMaybe<Scalars['u256']['input']>;
+  amountIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  amountLIKE?: InputMaybe<Scalars['u256']['input']>;
   amountLT?: InputMaybe<Scalars['u256']['input']>;
   amountLTE?: InputMaybe<Scalars['u256']['input']>;
   amountNEQ?: InputMaybe<Scalars['u256']['input']>;
+  amountNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  amountNOTLIKE?: InputMaybe<Scalars['u256']['input']>;
   token?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  tokenIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  tokenLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc20BalanceOrder = {
-  direction: OrderDirection;
-  field: Erc20BalanceOrderField;
-};
-
-export enum Erc20BalanceOrderField {
-  Account = 'ACCOUNT',
-  Amount = 'AMOUNT',
-  Token = 'TOKEN'
-}
-
-export type Erc20BalanceWhereInput = {
-  account?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  amount?: InputMaybe<Scalars['u256']['input']>;
-  amountEQ?: InputMaybe<Scalars['u256']['input']>;
-  amountGT?: InputMaybe<Scalars['u256']['input']>;
-  amountGTE?: InputMaybe<Scalars['u256']['input']>;
-  amountLT?: InputMaybe<Scalars['u256']['input']>;
-  amountLTE?: InputMaybe<Scalars['u256']['input']>;
-  amountNEQ?: InputMaybe<Scalars['u256']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc20BridgeableModel = {
-  __typename?: 'ERC20BridgeableModel';
-  entity?: Maybe<World__Entity>;
-  l2_bridge_address?: Maybe<Scalars['ContractAddress']['output']>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-};
-
-export type Erc20BridgeableModelConnection = {
-  __typename?: 'ERC20BridgeableModelConnection';
-  edges?: Maybe<Array<Maybe<Erc20BridgeableModelEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc20BridgeableModelEdge = {
-  __typename?: 'ERC20BridgeableModelEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc20BridgeableModel>;
-};
-
-export type Erc20BridgeableModelOrder = {
-  direction: OrderDirection;
-  field: Erc20BridgeableModelOrderField;
-};
-
-export enum Erc20BridgeableModelOrderField {
-  L2BridgeAddress = 'L2_BRIDGE_ADDRESS',
-  Token = 'TOKEN'
-}
-
-export type Erc20BridgeableModelWhereInput = {
-  l2_bridge_address?: InputMaybe<Scalars['ContractAddress']['input']>;
-  l2_bridge_addressEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  l2_bridge_addressGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  l2_bridge_addressGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  l2_bridge_addressLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  l2_bridge_addressLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  l2_bridge_addressNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc20Meta = {
-  __typename?: 'ERC20Meta';
-  entity?: Maybe<World__Entity>;
-  name?: Maybe<Scalars['felt252']['output']>;
-  symbol?: Maybe<Scalars['felt252']['output']>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-  total_supply?: Maybe<Scalars['u256']['output']>;
-};
-
-export type Erc20MetaConnection = {
-  __typename?: 'ERC20MetaConnection';
-  edges?: Maybe<Array<Maybe<Erc20MetaEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc20MetaEdge = {
-  __typename?: 'ERC20MetaEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc20Meta>;
-};
-
-export type Erc20MetaOrder = {
-  direction: OrderDirection;
-  field: Erc20MetaOrderField;
-};
-
-export enum Erc20MetaOrderField {
-  Name = 'NAME',
-  Symbol = 'SYMBOL',
-  Token = 'TOKEN',
-  TotalSupply = 'TOTAL_SUPPLY'
-}
-
-export type Erc20MetaWhereInput = {
-  name?: InputMaybe<Scalars['felt252']['input']>;
-  nameEQ?: InputMaybe<Scalars['felt252']['input']>;
-  nameGT?: InputMaybe<Scalars['felt252']['input']>;
-  nameGTE?: InputMaybe<Scalars['felt252']['input']>;
-  nameLT?: InputMaybe<Scalars['felt252']['input']>;
-  nameLTE?: InputMaybe<Scalars['felt252']['input']>;
-  nameNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  symbol?: InputMaybe<Scalars['felt252']['input']>;
-  symbolEQ?: InputMaybe<Scalars['felt252']['input']>;
-  symbolGT?: InputMaybe<Scalars['felt252']['input']>;
-  symbolGTE?: InputMaybe<Scalars['felt252']['input']>;
-  symbolLT?: InputMaybe<Scalars['felt252']['input']>;
-  symbolLTE?: InputMaybe<Scalars['felt252']['input']>;
-  symbolNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  total_supply?: InputMaybe<Scalars['u256']['input']>;
-  total_supplyEQ?: InputMaybe<Scalars['u256']['input']>;
-  total_supplyGT?: InputMaybe<Scalars['u256']['input']>;
-  total_supplyGTE?: InputMaybe<Scalars['u256']['input']>;
-  total_supplyLT?: InputMaybe<Scalars['u256']['input']>;
-  total_supplyLTE?: InputMaybe<Scalars['u256']['input']>;
-  total_supplyNEQ?: InputMaybe<Scalars['u256']['input']>;
+  tokenNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  tokenNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
 };
 
 export type Erc20MetadataModel = {
@@ -792,518 +668,57 @@ export type Erc20MetadataModelWhereInput = {
   decimalsEQ?: InputMaybe<Scalars['u8']['input']>;
   decimalsGT?: InputMaybe<Scalars['u8']['input']>;
   decimalsGTE?: InputMaybe<Scalars['u8']['input']>;
+  decimalsIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  decimalsLIKE?: InputMaybe<Scalars['u8']['input']>;
   decimalsLT?: InputMaybe<Scalars['u8']['input']>;
   decimalsLTE?: InputMaybe<Scalars['u8']['input']>;
   decimalsNEQ?: InputMaybe<Scalars['u8']['input']>;
+  decimalsNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  decimalsNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
   name?: InputMaybe<Scalars['felt252']['input']>;
   nameEQ?: InputMaybe<Scalars['felt252']['input']>;
   nameGT?: InputMaybe<Scalars['felt252']['input']>;
   nameGTE?: InputMaybe<Scalars['felt252']['input']>;
+  nameIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  nameLIKE?: InputMaybe<Scalars['felt252']['input']>;
   nameLT?: InputMaybe<Scalars['felt252']['input']>;
   nameLTE?: InputMaybe<Scalars['felt252']['input']>;
   nameNEQ?: InputMaybe<Scalars['felt252']['input']>;
+  nameNOTIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  nameNOTLIKE?: InputMaybe<Scalars['felt252']['input']>;
   symbol?: InputMaybe<Scalars['felt252']['input']>;
   symbolEQ?: InputMaybe<Scalars['felt252']['input']>;
   symbolGT?: InputMaybe<Scalars['felt252']['input']>;
   symbolGTE?: InputMaybe<Scalars['felt252']['input']>;
+  symbolIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  symbolLIKE?: InputMaybe<Scalars['felt252']['input']>;
   symbolLT?: InputMaybe<Scalars['felt252']['input']>;
   symbolLTE?: InputMaybe<Scalars['felt252']['input']>;
   symbolNEQ?: InputMaybe<Scalars['felt252']['input']>;
+  symbolNOTIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  symbolNOTLIKE?: InputMaybe<Scalars['felt252']['input']>;
   token?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  tokenIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  tokenLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  tokenNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  tokenNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   total_supply?: InputMaybe<Scalars['u256']['input']>;
   total_supplyEQ?: InputMaybe<Scalars['u256']['input']>;
   total_supplyGT?: InputMaybe<Scalars['u256']['input']>;
   total_supplyGTE?: InputMaybe<Scalars['u256']['input']>;
+  total_supplyIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  total_supplyLIKE?: InputMaybe<Scalars['u256']['input']>;
   total_supplyLT?: InputMaybe<Scalars['u256']['input']>;
   total_supplyLTE?: InputMaybe<Scalars['u256']['input']>;
   total_supplyNEQ?: InputMaybe<Scalars['u256']['input']>;
-};
-
-export type Erc721Balance = {
-  __typename?: 'ERC721Balance';
-  account?: Maybe<Scalars['ContractAddress']['output']>;
-  amount?: Maybe<Scalars['u256']['output']>;
-  entity?: Maybe<World__Entity>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-};
-
-export type Erc721BalanceConnection = {
-  __typename?: 'ERC721BalanceConnection';
-  edges?: Maybe<Array<Maybe<Erc721BalanceEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc721BalanceEdge = {
-  __typename?: 'ERC721BalanceEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc721Balance>;
-};
-
-export type Erc721BalanceOrder = {
-  direction: OrderDirection;
-  field: Erc721BalanceOrderField;
-};
-
-export enum Erc721BalanceOrderField {
-  Account = 'ACCOUNT',
-  Amount = 'AMOUNT',
-  Token = 'TOKEN'
-}
-
-export type Erc721BalanceWhereInput = {
-  account?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  amount?: InputMaybe<Scalars['u256']['input']>;
-  amountEQ?: InputMaybe<Scalars['u256']['input']>;
-  amountGT?: InputMaybe<Scalars['u256']['input']>;
-  amountGTE?: InputMaybe<Scalars['u256']['input']>;
-  amountLT?: InputMaybe<Scalars['u256']['input']>;
-  amountLTE?: InputMaybe<Scalars['u256']['input']>;
-  amountNEQ?: InputMaybe<Scalars['u256']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc721Meta = {
-  __typename?: 'ERC721Meta';
-  base_uri?: Maybe<Scalars['felt252']['output']>;
-  entity?: Maybe<World__Entity>;
-  name?: Maybe<Scalars['felt252']['output']>;
-  symbol?: Maybe<Scalars['felt252']['output']>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-};
-
-export type Erc721MetaConnection = {
-  __typename?: 'ERC721MetaConnection';
-  edges?: Maybe<Array<Maybe<Erc721MetaEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc721MetaEdge = {
-  __typename?: 'ERC721MetaEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc721Meta>;
-};
-
-export type Erc721MetaOrder = {
-  direction: OrderDirection;
-  field: Erc721MetaOrderField;
-};
-
-export enum Erc721MetaOrderField {
-  BaseUri = 'BASE_URI',
-  Name = 'NAME',
-  Symbol = 'SYMBOL',
-  Token = 'TOKEN'
-}
-
-export type Erc721MetaWhereInput = {
-  base_uri?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriEQ?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriGT?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriGTE?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriLT?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriLTE?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  name?: InputMaybe<Scalars['felt252']['input']>;
-  nameEQ?: InputMaybe<Scalars['felt252']['input']>;
-  nameGT?: InputMaybe<Scalars['felt252']['input']>;
-  nameGTE?: InputMaybe<Scalars['felt252']['input']>;
-  nameLT?: InputMaybe<Scalars['felt252']['input']>;
-  nameLTE?: InputMaybe<Scalars['felt252']['input']>;
-  nameNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  symbol?: InputMaybe<Scalars['felt252']['input']>;
-  symbolEQ?: InputMaybe<Scalars['felt252']['input']>;
-  symbolGT?: InputMaybe<Scalars['felt252']['input']>;
-  symbolGTE?: InputMaybe<Scalars['felt252']['input']>;
-  symbolLT?: InputMaybe<Scalars['felt252']['input']>;
-  symbolLTE?: InputMaybe<Scalars['felt252']['input']>;
-  symbolNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc721OperatorApproval = {
-  __typename?: 'ERC721OperatorApproval';
-  approved?: Maybe<Scalars['bool']['output']>;
-  entity?: Maybe<World__Entity>;
-  operator?: Maybe<Scalars['ContractAddress']['output']>;
-  owner?: Maybe<Scalars['ContractAddress']['output']>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-};
-
-export type Erc721OperatorApprovalConnection = {
-  __typename?: 'ERC721OperatorApprovalConnection';
-  edges?: Maybe<Array<Maybe<Erc721OperatorApprovalEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc721OperatorApprovalEdge = {
-  __typename?: 'ERC721OperatorApprovalEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc721OperatorApproval>;
-};
-
-export type Erc721OperatorApprovalOrder = {
-  direction: OrderDirection;
-  field: Erc721OperatorApprovalOrderField;
-};
-
-export enum Erc721OperatorApprovalOrderField {
-  Approved = 'APPROVED',
-  Operator = 'OPERATOR',
-  Owner = 'OWNER',
-  Token = 'TOKEN'
-}
-
-export type Erc721OperatorApprovalWhereInput = {
-  approved?: InputMaybe<Scalars['bool']['input']>;
-  operator?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  owner?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc721Owner = {
-  __typename?: 'ERC721Owner';
-  address?: Maybe<Scalars['ContractAddress']['output']>;
-  entity?: Maybe<World__Entity>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-  token_id?: Maybe<Scalars['u256']['output']>;
-};
-
-export type Erc721OwnerConnection = {
-  __typename?: 'ERC721OwnerConnection';
-  edges?: Maybe<Array<Maybe<Erc721OwnerEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc721OwnerEdge = {
-  __typename?: 'ERC721OwnerEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc721Owner>;
-};
-
-export type Erc721OwnerOrder = {
-  direction: OrderDirection;
-  field: Erc721OwnerOrderField;
-};
-
-export enum Erc721OwnerOrderField {
-  Address = 'ADDRESS',
-  Token = 'TOKEN',
-  TokenId = 'TOKEN_ID'
-}
-
-export type Erc721OwnerWhereInput = {
-  address?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  token_id?: InputMaybe<Scalars['u256']['input']>;
-  token_idEQ?: InputMaybe<Scalars['u256']['input']>;
-  token_idGT?: InputMaybe<Scalars['u256']['input']>;
-  token_idGTE?: InputMaybe<Scalars['u256']['input']>;
-  token_idLT?: InputMaybe<Scalars['u256']['input']>;
-  token_idLTE?: InputMaybe<Scalars['u256']['input']>;
-  token_idNEQ?: InputMaybe<Scalars['u256']['input']>;
-};
-
-export type Erc721TokenApproval = {
-  __typename?: 'ERC721TokenApproval';
-  address?: Maybe<Scalars['ContractAddress']['output']>;
-  entity?: Maybe<World__Entity>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-  token_id?: Maybe<Scalars['u256']['output']>;
-};
-
-export type Erc721TokenApprovalConnection = {
-  __typename?: 'ERC721TokenApprovalConnection';
-  edges?: Maybe<Array<Maybe<Erc721TokenApprovalEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc721TokenApprovalEdge = {
-  __typename?: 'ERC721TokenApprovalEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc721TokenApproval>;
-};
-
-export type Erc721TokenApprovalOrder = {
-  direction: OrderDirection;
-  field: Erc721TokenApprovalOrderField;
-};
-
-export enum Erc721TokenApprovalOrderField {
-  Address = 'ADDRESS',
-  Token = 'TOKEN',
-  TokenId = 'TOKEN_ID'
-}
-
-export type Erc721TokenApprovalWhereInput = {
-  address?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  addressNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  token_id?: InputMaybe<Scalars['u256']['input']>;
-  token_idEQ?: InputMaybe<Scalars['u256']['input']>;
-  token_idGT?: InputMaybe<Scalars['u256']['input']>;
-  token_idGTE?: InputMaybe<Scalars['u256']['input']>;
-  token_idLT?: InputMaybe<Scalars['u256']['input']>;
-  token_idLTE?: InputMaybe<Scalars['u256']['input']>;
-  token_idNEQ?: InputMaybe<Scalars['u256']['input']>;
-};
-
-export type Erc1155Balance = {
-  __typename?: 'ERC1155Balance';
-  account?: Maybe<Scalars['ContractAddress']['output']>;
-  amount?: Maybe<Scalars['u256']['output']>;
-  entity?: Maybe<World__Entity>;
-  id?: Maybe<Scalars['u256']['output']>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-};
-
-export type Erc1155BalanceConnection = {
-  __typename?: 'ERC1155BalanceConnection';
-  edges?: Maybe<Array<Maybe<Erc1155BalanceEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc1155BalanceEdge = {
-  __typename?: 'ERC1155BalanceEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc1155Balance>;
-};
-
-export type Erc1155BalanceOrder = {
-  direction: OrderDirection;
-  field: Erc1155BalanceOrderField;
-};
-
-export enum Erc1155BalanceOrderField {
-  Account = 'ACCOUNT',
-  Amount = 'AMOUNT',
-  Id = 'ID',
-  Token = 'TOKEN'
-}
-
-export type Erc1155BalanceWhereInput = {
-  account?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  accountNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  amount?: InputMaybe<Scalars['u256']['input']>;
-  amountEQ?: InputMaybe<Scalars['u256']['input']>;
-  amountGT?: InputMaybe<Scalars['u256']['input']>;
-  amountGTE?: InputMaybe<Scalars['u256']['input']>;
-  amountLT?: InputMaybe<Scalars['u256']['input']>;
-  amountLTE?: InputMaybe<Scalars['u256']['input']>;
-  amountNEQ?: InputMaybe<Scalars['u256']['input']>;
-  id?: InputMaybe<Scalars['u256']['input']>;
-  idEQ?: InputMaybe<Scalars['u256']['input']>;
-  idGT?: InputMaybe<Scalars['u256']['input']>;
-  idGTE?: InputMaybe<Scalars['u256']['input']>;
-  idLT?: InputMaybe<Scalars['u256']['input']>;
-  idLTE?: InputMaybe<Scalars['u256']['input']>;
-  idNEQ?: InputMaybe<Scalars['u256']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc1155Meta = {
-  __typename?: 'ERC1155Meta';
-  base_uri?: Maybe<Scalars['felt252']['output']>;
-  entity?: Maybe<World__Entity>;
-  name?: Maybe<Scalars['felt252']['output']>;
-  symbol?: Maybe<Scalars['felt252']['output']>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-};
-
-export type Erc1155MetaConnection = {
-  __typename?: 'ERC1155MetaConnection';
-  edges?: Maybe<Array<Maybe<Erc1155MetaEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc1155MetaEdge = {
-  __typename?: 'ERC1155MetaEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc1155Meta>;
-};
-
-export type Erc1155MetaOrder = {
-  direction: OrderDirection;
-  field: Erc1155MetaOrderField;
-};
-
-export enum Erc1155MetaOrderField {
-  BaseUri = 'BASE_URI',
-  Name = 'NAME',
-  Symbol = 'SYMBOL',
-  Token = 'TOKEN'
-}
-
-export type Erc1155MetaWhereInput = {
-  base_uri?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriEQ?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriGT?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriGTE?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriLT?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriLTE?: InputMaybe<Scalars['felt252']['input']>;
-  base_uriNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  name?: InputMaybe<Scalars['felt252']['input']>;
-  nameEQ?: InputMaybe<Scalars['felt252']['input']>;
-  nameGT?: InputMaybe<Scalars['felt252']['input']>;
-  nameGTE?: InputMaybe<Scalars['felt252']['input']>;
-  nameLT?: InputMaybe<Scalars['felt252']['input']>;
-  nameLTE?: InputMaybe<Scalars['felt252']['input']>;
-  nameNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  symbol?: InputMaybe<Scalars['felt252']['input']>;
-  symbolEQ?: InputMaybe<Scalars['felt252']['input']>;
-  symbolGT?: InputMaybe<Scalars['felt252']['input']>;
-  symbolGTE?: InputMaybe<Scalars['felt252']['input']>;
-  symbolLT?: InputMaybe<Scalars['felt252']['input']>;
-  symbolLTE?: InputMaybe<Scalars['felt252']['input']>;
-  symbolNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-};
-
-export type Erc1155OperatorApproval = {
-  __typename?: 'ERC1155OperatorApproval';
-  approved?: Maybe<Scalars['bool']['output']>;
-  entity?: Maybe<World__Entity>;
-  operator?: Maybe<Scalars['ContractAddress']['output']>;
-  owner?: Maybe<Scalars['ContractAddress']['output']>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
-};
-
-export type Erc1155OperatorApprovalConnection = {
-  __typename?: 'ERC1155OperatorApprovalConnection';
-  edges?: Maybe<Array<Maybe<Erc1155OperatorApprovalEdge>>>;
-  pageInfo: World__PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type Erc1155OperatorApprovalEdge = {
-  __typename?: 'ERC1155OperatorApprovalEdge';
-  cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Erc1155OperatorApproval>;
-};
-
-export type Erc1155OperatorApprovalOrder = {
-  direction: OrderDirection;
-  field: Erc1155OperatorApprovalOrderField;
-};
-
-export enum Erc1155OperatorApprovalOrderField {
-  Approved = 'APPROVED',
-  Operator = 'OPERATOR',
-  Owner = 'OWNER',
-  Token = 'TOKEN'
-}
-
-export type Erc1155OperatorApprovalWhereInput = {
-  approved?: InputMaybe<Scalars['bool']['input']>;
-  operator?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  operatorNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  owner?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  ownerNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  total_supplyNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  total_supplyNOTLIKE?: InputMaybe<Scalars['u256']['input']>;
 };
 
 export type InitializableModel = {
@@ -1342,12 +757,16 @@ export type InitializableModelWhereInput = {
   tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  tokenIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  tokenLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
   tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  tokenNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  tokenNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
 };
 
-export type ModelUnion = Challenge | Coin | Config | Duelist | Erc20Allowance | Erc20AllowanceModel | Erc20Balance | Erc20BalanceModel | Erc20BridgeableModel | Erc20Meta | Erc20MetadataModel | Erc721Balance | Erc721Meta | Erc721OperatorApproval | Erc721Owner | Erc721TokenApproval | Erc1155Balance | Erc1155Meta | Erc1155OperatorApproval | InitializableModel | Pact | Round | Src5Model | Wager;
+export type ModelUnion = Challenge | Chances | Config | Duelist | Erc20AllowanceModel | Erc20BalanceModel | Erc20MetadataModel | InitializableModel | Pact | Round | Scoreboard | Snapshot | TTable | Wager;
 
 export enum OrderDirection {
   Asc = 'ASC',
@@ -1389,16 +808,24 @@ export type PactWhereInput = {
   duel_idEQ?: InputMaybe<Scalars['u128']['input']>;
   duel_idGT?: InputMaybe<Scalars['u128']['input']>;
   duel_idGTE?: InputMaybe<Scalars['u128']['input']>;
+  duel_idIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idLIKE?: InputMaybe<Scalars['u128']['input']>;
   duel_idLT?: InputMaybe<Scalars['u128']['input']>;
   duel_idLTE?: InputMaybe<Scalars['u128']['input']>;
   duel_idNEQ?: InputMaybe<Scalars['u128']['input']>;
+  duel_idNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idNOTLIKE?: InputMaybe<Scalars['u128']['input']>;
   pair?: InputMaybe<Scalars['u128']['input']>;
   pairEQ?: InputMaybe<Scalars['u128']['input']>;
   pairGT?: InputMaybe<Scalars['u128']['input']>;
   pairGTE?: InputMaybe<Scalars['u128']['input']>;
+  pairIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  pairLIKE?: InputMaybe<Scalars['u128']['input']>;
   pairLT?: InputMaybe<Scalars['u128']['input']>;
   pairLTE?: InputMaybe<Scalars['u128']['input']>;
   pairNEQ?: InputMaybe<Scalars['u128']['input']>;
+  pairNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  pairNOTLIKE?: InputMaybe<Scalars['u128']['input']>;
 };
 
 export type Round = {
@@ -1442,23 +869,35 @@ export type RoundWhereInput = {
   duel_idEQ?: InputMaybe<Scalars['u128']['input']>;
   duel_idGT?: InputMaybe<Scalars['u128']['input']>;
   duel_idGTE?: InputMaybe<Scalars['u128']['input']>;
+  duel_idIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idLIKE?: InputMaybe<Scalars['u128']['input']>;
   duel_idLT?: InputMaybe<Scalars['u128']['input']>;
   duel_idLTE?: InputMaybe<Scalars['u128']['input']>;
   duel_idNEQ?: InputMaybe<Scalars['u128']['input']>;
+  duel_idNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idNOTLIKE?: InputMaybe<Scalars['u128']['input']>;
   round_number?: InputMaybe<Scalars['u8']['input']>;
   round_numberEQ?: InputMaybe<Scalars['u8']['input']>;
   round_numberGT?: InputMaybe<Scalars['u8']['input']>;
   round_numberGTE?: InputMaybe<Scalars['u8']['input']>;
+  round_numberIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  round_numberLIKE?: InputMaybe<Scalars['u8']['input']>;
   round_numberLT?: InputMaybe<Scalars['u8']['input']>;
   round_numberLTE?: InputMaybe<Scalars['u8']['input']>;
   round_numberNEQ?: InputMaybe<Scalars['u8']['input']>;
+  round_numberNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  round_numberNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
   state?: InputMaybe<Scalars['u8']['input']>;
   stateEQ?: InputMaybe<Scalars['u8']['input']>;
   stateGT?: InputMaybe<Scalars['u8']['input']>;
   stateGTE?: InputMaybe<Scalars['u8']['input']>;
+  stateIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  stateLIKE?: InputMaybe<Scalars['u8']['input']>;
   stateLT?: InputMaybe<Scalars['u8']['input']>;
   stateLTE?: InputMaybe<Scalars['u8']['input']>;
   stateNEQ?: InputMaybe<Scalars['u8']['input']>;
+  stateNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  stateNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
 };
 
 export type Round_Shot = {
@@ -1478,59 +917,273 @@ export type Round_Shot = {
   win?: Maybe<Scalars['u8']['output']>;
 };
 
-export type Src5Model = {
-  __typename?: 'SRC5Model';
+export type Scoreboard = {
+  __typename?: 'Scoreboard';
+  address?: Maybe<Scalars['ContractAddress']['output']>;
   entity?: Maybe<World__Entity>;
-  interface_id?: Maybe<Scalars['felt252']['output']>;
-  supports?: Maybe<Scalars['bool']['output']>;
-  token?: Maybe<Scalars['ContractAddress']['output']>;
+  score?: Maybe<Scoreboard_Score>;
+  table_id?: Maybe<Scalars['felt252']['output']>;
+  wager_lost?: Maybe<Scalars['u256']['output']>;
+  wager_won?: Maybe<Scalars['u256']['output']>;
 };
 
-export type Src5ModelConnection = {
-  __typename?: 'SRC5ModelConnection';
-  edges?: Maybe<Array<Maybe<Src5ModelEdge>>>;
+export type ScoreboardConnection = {
+  __typename?: 'ScoreboardConnection';
+  edges?: Maybe<Array<Maybe<ScoreboardEdge>>>;
   pageInfo: World__PageInfo;
   totalCount: Scalars['Int']['output'];
 };
 
-export type Src5ModelEdge = {
-  __typename?: 'SRC5ModelEdge';
+export type ScoreboardEdge = {
+  __typename?: 'ScoreboardEdge';
   cursor?: Maybe<Scalars['Cursor']['output']>;
-  node?: Maybe<Src5Model>;
+  node?: Maybe<Scoreboard>;
 };
 
-export type Src5ModelOrder = {
+export type ScoreboardOrder = {
   direction: OrderDirection;
-  field: Src5ModelOrderField;
+  field: ScoreboardOrderField;
 };
 
-export enum Src5ModelOrderField {
-  InterfaceId = 'INTERFACE_ID',
-  Supports = 'SUPPORTS',
-  Token = 'TOKEN'
+export enum ScoreboardOrderField {
+  Address = 'ADDRESS',
+  Score = 'SCORE',
+  TableId = 'TABLE_ID',
+  WagerLost = 'WAGER_LOST',
+  WagerWon = 'WAGER_WON'
 }
 
-export type Src5ModelWhereInput = {
-  interface_id?: InputMaybe<Scalars['felt252']['input']>;
-  interface_idEQ?: InputMaybe<Scalars['felt252']['input']>;
-  interface_idGT?: InputMaybe<Scalars['felt252']['input']>;
-  interface_idGTE?: InputMaybe<Scalars['felt252']['input']>;
-  interface_idLT?: InputMaybe<Scalars['felt252']['input']>;
-  interface_idLTE?: InputMaybe<Scalars['felt252']['input']>;
-  interface_idNEQ?: InputMaybe<Scalars['felt252']['input']>;
-  supports?: InputMaybe<Scalars['bool']['input']>;
-  token?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLT?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
-  tokenNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+export type ScoreboardWhereInput = {
+  address?: InputMaybe<Scalars['ContractAddress']['input']>;
+  addressEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  addressGT?: InputMaybe<Scalars['ContractAddress']['input']>;
+  addressGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  addressIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  addressLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  addressLT?: InputMaybe<Scalars['ContractAddress']['input']>;
+  addressLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  addressNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  addressNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  addressNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  table_id?: InputMaybe<Scalars['felt252']['input']>;
+  table_idEQ?: InputMaybe<Scalars['felt252']['input']>;
+  table_idGT?: InputMaybe<Scalars['felt252']['input']>;
+  table_idGTE?: InputMaybe<Scalars['felt252']['input']>;
+  table_idIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  table_idLIKE?: InputMaybe<Scalars['felt252']['input']>;
+  table_idLT?: InputMaybe<Scalars['felt252']['input']>;
+  table_idLTE?: InputMaybe<Scalars['felt252']['input']>;
+  table_idNEQ?: InputMaybe<Scalars['felt252']['input']>;
+  table_idNOTIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  table_idNOTLIKE?: InputMaybe<Scalars['felt252']['input']>;
+  wager_lost?: InputMaybe<Scalars['u256']['input']>;
+  wager_lostEQ?: InputMaybe<Scalars['u256']['input']>;
+  wager_lostGT?: InputMaybe<Scalars['u256']['input']>;
+  wager_lostGTE?: InputMaybe<Scalars['u256']['input']>;
+  wager_lostIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  wager_lostLIKE?: InputMaybe<Scalars['u256']['input']>;
+  wager_lostLT?: InputMaybe<Scalars['u256']['input']>;
+  wager_lostLTE?: InputMaybe<Scalars['u256']['input']>;
+  wager_lostNEQ?: InputMaybe<Scalars['u256']['input']>;
+  wager_lostNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  wager_lostNOTLIKE?: InputMaybe<Scalars['u256']['input']>;
+  wager_won?: InputMaybe<Scalars['u256']['input']>;
+  wager_wonEQ?: InputMaybe<Scalars['u256']['input']>;
+  wager_wonGT?: InputMaybe<Scalars['u256']['input']>;
+  wager_wonGTE?: InputMaybe<Scalars['u256']['input']>;
+  wager_wonIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  wager_wonLIKE?: InputMaybe<Scalars['u256']['input']>;
+  wager_wonLT?: InputMaybe<Scalars['u256']['input']>;
+  wager_wonLTE?: InputMaybe<Scalars['u256']['input']>;
+  wager_wonNEQ?: InputMaybe<Scalars['u256']['input']>;
+  wager_wonNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  wager_wonNOTLIKE?: InputMaybe<Scalars['u256']['input']>;
+};
+
+export type Scoreboard_Score = {
+  __typename?: 'Scoreboard_Score';
+  honour?: Maybe<Scalars['u8']['output']>;
+  level_lord?: Maybe<Scalars['u8']['output']>;
+  level_trickster?: Maybe<Scalars['u8']['output']>;
+  level_villain?: Maybe<Scalars['u8']['output']>;
+  total_draws?: Maybe<Scalars['u16']['output']>;
+  total_duels?: Maybe<Scalars['u16']['output']>;
+  total_honour?: Maybe<Scalars['u32']['output']>;
+  total_losses?: Maybe<Scalars['u16']['output']>;
+  total_wins?: Maybe<Scalars['u16']['output']>;
+};
+
+export type Snapshot = {
+  __typename?: 'Snapshot';
+  duel_id?: Maybe<Scalars['u128']['output']>;
+  entity?: Maybe<World__Entity>;
+  score_a?: Maybe<Snapshot_Score>;
+  score_b?: Maybe<Snapshot_Score>;
+};
+
+export type SnapshotConnection = {
+  __typename?: 'SnapshotConnection';
+  edges?: Maybe<Array<Maybe<SnapshotEdge>>>;
+  pageInfo: World__PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type SnapshotEdge = {
+  __typename?: 'SnapshotEdge';
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  node?: Maybe<Snapshot>;
+};
+
+export type SnapshotOrder = {
+  direction: OrderDirection;
+  field: SnapshotOrderField;
+};
+
+export enum SnapshotOrderField {
+  DuelId = 'DUEL_ID',
+  ScoreA = 'SCORE_A',
+  ScoreB = 'SCORE_B'
+}
+
+export type SnapshotWhereInput = {
+  duel_id?: InputMaybe<Scalars['u128']['input']>;
+  duel_idEQ?: InputMaybe<Scalars['u128']['input']>;
+  duel_idGT?: InputMaybe<Scalars['u128']['input']>;
+  duel_idGTE?: InputMaybe<Scalars['u128']['input']>;
+  duel_idIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idLIKE?: InputMaybe<Scalars['u128']['input']>;
+  duel_idLT?: InputMaybe<Scalars['u128']['input']>;
+  duel_idLTE?: InputMaybe<Scalars['u128']['input']>;
+  duel_idNEQ?: InputMaybe<Scalars['u128']['input']>;
+  duel_idNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idNOTLIKE?: InputMaybe<Scalars['u128']['input']>;
+};
+
+export type Snapshot_Score = {
+  __typename?: 'Snapshot_Score';
+  honour?: Maybe<Scalars['u8']['output']>;
+  level_lord?: Maybe<Scalars['u8']['output']>;
+  level_trickster?: Maybe<Scalars['u8']['output']>;
+  level_villain?: Maybe<Scalars['u8']['output']>;
+  total_draws?: Maybe<Scalars['u16']['output']>;
+  total_duels?: Maybe<Scalars['u16']['output']>;
+  total_honour?: Maybe<Scalars['u32']['output']>;
+  total_losses?: Maybe<Scalars['u16']['output']>;
+  total_wins?: Maybe<Scalars['u16']['output']>;
+};
+
+export type TTable = {
+  __typename?: 'TTable';
+  contract_address?: Maybe<Scalars['ContractAddress']['output']>;
+  description?: Maybe<Scalars['felt252']['output']>;
+  entity?: Maybe<World__Entity>;
+  fee_min?: Maybe<Scalars['u256']['output']>;
+  fee_pct?: Maybe<Scalars['u8']['output']>;
+  is_open?: Maybe<Scalars['bool']['output']>;
+  table_id?: Maybe<Scalars['felt252']['output']>;
+  wager_min?: Maybe<Scalars['u256']['output']>;
+};
+
+export type TTableConnection = {
+  __typename?: 'TTableConnection';
+  edges?: Maybe<Array<Maybe<TTableEdge>>>;
+  pageInfo: World__PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type TTableEdge = {
+  __typename?: 'TTableEdge';
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  node?: Maybe<TTable>;
+};
+
+export type TTableOrder = {
+  direction: OrderDirection;
+  field: TTableOrderField;
+};
+
+export enum TTableOrderField {
+  ContractAddress = 'CONTRACT_ADDRESS',
+  Description = 'DESCRIPTION',
+  FeeMin = 'FEE_MIN',
+  FeePct = 'FEE_PCT',
+  IsOpen = 'IS_OPEN',
+  TableId = 'TABLE_ID',
+  WagerMin = 'WAGER_MIN'
+}
+
+export type TTableWhereInput = {
+  contract_address?: InputMaybe<Scalars['ContractAddress']['input']>;
+  contract_addressEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  contract_addressGT?: InputMaybe<Scalars['ContractAddress']['input']>;
+  contract_addressGTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  contract_addressIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  contract_addressLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  contract_addressLT?: InputMaybe<Scalars['ContractAddress']['input']>;
+  contract_addressLTE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  contract_addressNEQ?: InputMaybe<Scalars['ContractAddress']['input']>;
+  contract_addressNOTIN?: InputMaybe<Array<InputMaybe<Scalars['ContractAddress']['input']>>>;
+  contract_addressNOTLIKE?: InputMaybe<Scalars['ContractAddress']['input']>;
+  description?: InputMaybe<Scalars['felt252']['input']>;
+  descriptionEQ?: InputMaybe<Scalars['felt252']['input']>;
+  descriptionGT?: InputMaybe<Scalars['felt252']['input']>;
+  descriptionGTE?: InputMaybe<Scalars['felt252']['input']>;
+  descriptionIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  descriptionLIKE?: InputMaybe<Scalars['felt252']['input']>;
+  descriptionLT?: InputMaybe<Scalars['felt252']['input']>;
+  descriptionLTE?: InputMaybe<Scalars['felt252']['input']>;
+  descriptionNEQ?: InputMaybe<Scalars['felt252']['input']>;
+  descriptionNOTIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  descriptionNOTLIKE?: InputMaybe<Scalars['felt252']['input']>;
+  fee_min?: InputMaybe<Scalars['u256']['input']>;
+  fee_minEQ?: InputMaybe<Scalars['u256']['input']>;
+  fee_minGT?: InputMaybe<Scalars['u256']['input']>;
+  fee_minGTE?: InputMaybe<Scalars['u256']['input']>;
+  fee_minIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  fee_minLIKE?: InputMaybe<Scalars['u256']['input']>;
+  fee_minLT?: InputMaybe<Scalars['u256']['input']>;
+  fee_minLTE?: InputMaybe<Scalars['u256']['input']>;
+  fee_minNEQ?: InputMaybe<Scalars['u256']['input']>;
+  fee_minNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  fee_minNOTLIKE?: InputMaybe<Scalars['u256']['input']>;
+  fee_pct?: InputMaybe<Scalars['u8']['input']>;
+  fee_pctEQ?: InputMaybe<Scalars['u8']['input']>;
+  fee_pctGT?: InputMaybe<Scalars['u8']['input']>;
+  fee_pctGTE?: InputMaybe<Scalars['u8']['input']>;
+  fee_pctIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  fee_pctLIKE?: InputMaybe<Scalars['u8']['input']>;
+  fee_pctLT?: InputMaybe<Scalars['u8']['input']>;
+  fee_pctLTE?: InputMaybe<Scalars['u8']['input']>;
+  fee_pctNEQ?: InputMaybe<Scalars['u8']['input']>;
+  fee_pctNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u8']['input']>>>;
+  fee_pctNOTLIKE?: InputMaybe<Scalars['u8']['input']>;
+  is_open?: InputMaybe<Scalars['bool']['input']>;
+  table_id?: InputMaybe<Scalars['felt252']['input']>;
+  table_idEQ?: InputMaybe<Scalars['felt252']['input']>;
+  table_idGT?: InputMaybe<Scalars['felt252']['input']>;
+  table_idGTE?: InputMaybe<Scalars['felt252']['input']>;
+  table_idIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  table_idLIKE?: InputMaybe<Scalars['felt252']['input']>;
+  table_idLT?: InputMaybe<Scalars['felt252']['input']>;
+  table_idLTE?: InputMaybe<Scalars['felt252']['input']>;
+  table_idNEQ?: InputMaybe<Scalars['felt252']['input']>;
+  table_idNOTIN?: InputMaybe<Array<InputMaybe<Scalars['felt252']['input']>>>;
+  table_idNOTLIKE?: InputMaybe<Scalars['felt252']['input']>;
+  wager_min?: InputMaybe<Scalars['u256']['input']>;
+  wager_minEQ?: InputMaybe<Scalars['u256']['input']>;
+  wager_minGT?: InputMaybe<Scalars['u256']['input']>;
+  wager_minGTE?: InputMaybe<Scalars['u256']['input']>;
+  wager_minIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  wager_minLIKE?: InputMaybe<Scalars['u256']['input']>;
+  wager_minLT?: InputMaybe<Scalars['u256']['input']>;
+  wager_minLTE?: InputMaybe<Scalars['u256']['input']>;
+  wager_minNEQ?: InputMaybe<Scalars['u256']['input']>;
+  wager_minNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  wager_minNOTLIKE?: InputMaybe<Scalars['u256']['input']>;
 };
 
 export type Wager = {
   __typename?: 'Wager';
-  coin?: Maybe<Scalars['u8']['output']>;
   duel_id?: Maybe<Scalars['u128']['output']>;
   entity?: Maybe<World__Entity>;
   fee?: Maybe<Scalars['u256']['output']>;
@@ -1556,41 +1209,45 @@ export type WagerOrder = {
 };
 
 export enum WagerOrderField {
-  Coin = 'COIN',
   DuelId = 'DUEL_ID',
   Fee = 'FEE',
   Value = 'VALUE'
 }
 
 export type WagerWhereInput = {
-  coin?: InputMaybe<Scalars['u8']['input']>;
-  coinEQ?: InputMaybe<Scalars['u8']['input']>;
-  coinGT?: InputMaybe<Scalars['u8']['input']>;
-  coinGTE?: InputMaybe<Scalars['u8']['input']>;
-  coinLT?: InputMaybe<Scalars['u8']['input']>;
-  coinLTE?: InputMaybe<Scalars['u8']['input']>;
-  coinNEQ?: InputMaybe<Scalars['u8']['input']>;
   duel_id?: InputMaybe<Scalars['u128']['input']>;
   duel_idEQ?: InputMaybe<Scalars['u128']['input']>;
   duel_idGT?: InputMaybe<Scalars['u128']['input']>;
   duel_idGTE?: InputMaybe<Scalars['u128']['input']>;
+  duel_idIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idLIKE?: InputMaybe<Scalars['u128']['input']>;
   duel_idLT?: InputMaybe<Scalars['u128']['input']>;
   duel_idLTE?: InputMaybe<Scalars['u128']['input']>;
   duel_idNEQ?: InputMaybe<Scalars['u128']['input']>;
+  duel_idNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u128']['input']>>>;
+  duel_idNOTLIKE?: InputMaybe<Scalars['u128']['input']>;
   fee?: InputMaybe<Scalars['u256']['input']>;
   feeEQ?: InputMaybe<Scalars['u256']['input']>;
   feeGT?: InputMaybe<Scalars['u256']['input']>;
   feeGTE?: InputMaybe<Scalars['u256']['input']>;
+  feeIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  feeLIKE?: InputMaybe<Scalars['u256']['input']>;
   feeLT?: InputMaybe<Scalars['u256']['input']>;
   feeLTE?: InputMaybe<Scalars['u256']['input']>;
   feeNEQ?: InputMaybe<Scalars['u256']['input']>;
+  feeNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  feeNOTLIKE?: InputMaybe<Scalars['u256']['input']>;
   value?: InputMaybe<Scalars['u256']['input']>;
   valueEQ?: InputMaybe<Scalars['u256']['input']>;
   valueGT?: InputMaybe<Scalars['u256']['input']>;
   valueGTE?: InputMaybe<Scalars['u256']['input']>;
+  valueIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  valueLIKE?: InputMaybe<Scalars['u256']['input']>;
   valueLT?: InputMaybe<Scalars['u256']['input']>;
   valueLTE?: InputMaybe<Scalars['u256']['input']>;
   valueNEQ?: InputMaybe<Scalars['u256']['input']>;
+  valueNOTIN?: InputMaybe<Array<InputMaybe<Scalars['u256']['input']>>>;
+  valueNOTLIKE?: InputMaybe<Scalars['u256']['input']>;
 };
 
 export type World__Content = {
@@ -1607,6 +1264,7 @@ export type World__Entity = {
   __typename?: 'World__Entity';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   eventId?: Maybe<Scalars['String']['output']>;
+  executedAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   keys?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   models?: Maybe<Array<Maybe<ModelUnion>>>;
@@ -1630,6 +1288,7 @@ export type World__Event = {
   __typename?: 'World__Event';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   data?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  executedAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   keys?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   transactionHash?: Maybe<Scalars['String']['output']>;
@@ -1648,11 +1307,36 @@ export type World__EventEdge = {
   node?: Maybe<World__Event>;
 };
 
+export type World__EventMessage = {
+  __typename?: 'World__EventMessage';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  eventId?: Maybe<Scalars['String']['output']>;
+  executedAt?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  keys?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  models?: Maybe<Array<Maybe<ModelUnion>>>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type World__EventMessageConnection = {
+  __typename?: 'World__EventMessageConnection';
+  edges?: Maybe<Array<Maybe<World__EventMessageEdge>>>;
+  pageInfo: World__PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type World__EventMessageEdge = {
+  __typename?: 'World__EventMessageEdge';
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  node?: Maybe<World__EventMessage>;
+};
+
 export type World__Metadata = {
   __typename?: 'World__Metadata';
   content?: Maybe<World__Content>;
   coverImg?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  executedAt?: Maybe<Scalars['DateTime']['output']>;
   iconImg?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1676,7 +1360,9 @@ export type World__MetadataEdge = {
 export type World__Model = {
   __typename?: 'World__Model';
   classHash?: Maybe<Scalars['felt252']['output']>;
+  contractAddress?: Maybe<Scalars['felt252']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  executedAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   transactionHash?: Maybe<Scalars['felt252']['output']>;
@@ -1716,26 +1402,16 @@ export type World__PageInfo = {
 export type World__Query = {
   __typename?: 'World__Query';
   challengeModels?: Maybe<ChallengeConnection>;
-  coinModels?: Maybe<CoinConnection>;
+  chancesModels?: Maybe<ChancesConnection>;
   configModels?: Maybe<ConfigConnection>;
   duelistModels?: Maybe<DuelistConnection>;
   entities?: Maybe<World__EntityConnection>;
   entity: World__Entity;
   erc20AllowanceModelModels?: Maybe<Erc20AllowanceModelConnection>;
-  erc20AllowanceModels?: Maybe<Erc20AllowanceConnection>;
   erc20BalanceModelModels?: Maybe<Erc20BalanceModelConnection>;
-  erc20BalanceModels?: Maybe<Erc20BalanceConnection>;
-  erc20BridgeableModelModels?: Maybe<Erc20BridgeableModelConnection>;
-  erc20MetaModels?: Maybe<Erc20MetaConnection>;
   erc20MetadataModelModels?: Maybe<Erc20MetadataModelConnection>;
-  erc721BalanceModels?: Maybe<Erc721BalanceConnection>;
-  erc721MetaModels?: Maybe<Erc721MetaConnection>;
-  erc721OperatorApprovalModels?: Maybe<Erc721OperatorApprovalConnection>;
-  erc721OwnerModels?: Maybe<Erc721OwnerConnection>;
-  erc721TokenApprovalModels?: Maybe<Erc721TokenApprovalConnection>;
-  erc1155BalanceModels?: Maybe<Erc1155BalanceConnection>;
-  erc1155MetaModels?: Maybe<Erc1155MetaConnection>;
-  erc1155OperatorApprovalModels?: Maybe<Erc1155OperatorApprovalConnection>;
+  eventMessage: World__EventMessage;
+  eventMessages?: Maybe<World__EventMessageConnection>;
   events?: Maybe<World__EventConnection>;
   initializableModelModels?: Maybe<InitializableModelConnection>;
   metadatas?: Maybe<World__MetadataConnection>;
@@ -1743,7 +1419,9 @@ export type World__Query = {
   models?: Maybe<World__ModelConnection>;
   pactModels?: Maybe<PactConnection>;
   roundModels?: Maybe<RoundConnection>;
-  src5ModelModels?: Maybe<Src5ModelConnection>;
+  scoreboardModels?: Maybe<ScoreboardConnection>;
+  snapshotModels?: Maybe<SnapshotConnection>;
+  tTableModels?: Maybe<TTableConnection>;
   transaction: World__Transaction;
   transactions?: Maybe<World__TransactionConnection>;
   wagerModels?: Maybe<WagerConnection>;
@@ -1762,15 +1440,15 @@ export type World__QueryChallengeModelsArgs = {
 };
 
 
-export type World__QueryCoinModelsArgs = {
+export type World__QueryChancesModelsArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<CoinOrder>;
-  where?: InputMaybe<CoinWhereInput>;
+  order?: InputMaybe<ChancesOrder>;
+  where?: InputMaybe<ChancesWhereInput>;
 };
 
 
@@ -1826,18 +1504,6 @@ export type World__QueryErc20AllowanceModelModelsArgs = {
 };
 
 
-export type World__QueryErc20AllowanceModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc20AllowanceOrder>;
-  where?: InputMaybe<Erc20AllowanceWhereInput>;
-};
-
-
 export type World__QueryErc20BalanceModelModelsArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -1847,42 +1513,6 @@ export type World__QueryErc20BalanceModelModelsArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order?: InputMaybe<Erc20BalanceModelOrder>;
   where?: InputMaybe<Erc20BalanceModelWhereInput>;
-};
-
-
-export type World__QueryErc20BalanceModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc20BalanceOrder>;
-  where?: InputMaybe<Erc20BalanceWhereInput>;
-};
-
-
-export type World__QueryErc20BridgeableModelModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc20BridgeableModelOrder>;
-  where?: InputMaybe<Erc20BridgeableModelWhereInput>;
-};
-
-
-export type World__QueryErc20MetaModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc20MetaOrder>;
-  where?: InputMaybe<Erc20MetaWhereInput>;
 };
 
 
@@ -1898,99 +1528,19 @@ export type World__QueryErc20MetadataModelModelsArgs = {
 };
 
 
-export type World__QueryErc721BalanceModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc721BalanceOrder>;
-  where?: InputMaybe<Erc721BalanceWhereInput>;
+export type World__QueryEventMessageArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
-export type World__QueryErc721MetaModelsArgs = {
+export type World__QueryEventMessagesArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
+  keys?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   last?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc721MetaOrder>;
-  where?: InputMaybe<Erc721MetaWhereInput>;
-};
-
-
-export type World__QueryErc721OperatorApprovalModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc721OperatorApprovalOrder>;
-  where?: InputMaybe<Erc721OperatorApprovalWhereInput>;
-};
-
-
-export type World__QueryErc721OwnerModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc721OwnerOrder>;
-  where?: InputMaybe<Erc721OwnerWhereInput>;
-};
-
-
-export type World__QueryErc721TokenApprovalModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc721TokenApprovalOrder>;
-  where?: InputMaybe<Erc721TokenApprovalWhereInput>;
-};
-
-
-export type World__QueryErc1155BalanceModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc1155BalanceOrder>;
-  where?: InputMaybe<Erc1155BalanceWhereInput>;
-};
-
-
-export type World__QueryErc1155MetaModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc1155MetaOrder>;
-  where?: InputMaybe<Erc1155MetaWhereInput>;
-};
-
-
-export type World__QueryErc1155OperatorApprovalModelsArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Erc1155OperatorApprovalOrder>;
-  where?: InputMaybe<Erc1155OperatorApprovalWhereInput>;
 };
 
 
@@ -2067,15 +1617,39 @@ export type World__QueryRoundModelsArgs = {
 };
 
 
-export type World__QuerySrc5ModelModelsArgs = {
+export type World__QueryScoreboardModelsArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order?: InputMaybe<Src5ModelOrder>;
-  where?: InputMaybe<Src5ModelWhereInput>;
+  order?: InputMaybe<ScoreboardOrder>;
+  where?: InputMaybe<ScoreboardWhereInput>;
+};
+
+
+export type World__QuerySnapshotModelsArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SnapshotOrder>;
+  where?: InputMaybe<SnapshotWhereInput>;
+};
+
+
+export type World__QueryTTableModelsArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<TTableOrder>;
+  where?: InputMaybe<TTableWhereInput>;
 };
 
 
@@ -2115,6 +1689,7 @@ export type World__Subscription = {
   __typename?: 'World__Subscription';
   entityUpdated: World__Entity;
   eventEmitted: World__Event;
+  eventMessageUpdated: World__EventMessage;
   modelRegistered: World__Model;
 };
 
@@ -2129,6 +1704,11 @@ export type World__SubscriptionEventEmittedArgs = {
 };
 
 
+export type World__SubscriptionEventMessageUpdatedArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
 export type World__SubscriptionModelRegisteredArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
@@ -2137,6 +1717,7 @@ export type World__Transaction = {
   __typename?: 'World__Transaction';
   calldata?: Maybe<Array<Maybe<Scalars['felt252']['output']>>>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  executedAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
   maxFee?: Maybe<Scalars['felt252']['output']>;
   nonce?: Maybe<Scalars['felt252']['output']>;
@@ -2165,21 +1746,21 @@ export type CustomEventSubSubscriptionVariables = Exact<{
 
 export type CustomEventSubSubscription = { __typename?: 'World__Subscription', eventEmitted: { __typename?: 'World__Event', id?: string | null, keys?: Array<string | null> | null, data?: Array<string | null> | null, createdAt?: any | null } };
 
-export type ChallengeFieldsFragment = { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null };
+export type ChallengeFieldsFragment = { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null };
 
 export type GetChallengesByIdQueryVariables = Exact<{
   duel_id: Scalars['u128']['input'];
 }>;
 
 
-export type GetChallengesByIdQuery = { __typename?: 'World__Query', challenges?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+export type GetChallengesByIdQuery = { __typename?: 'World__Query', challenges?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
 
 export type GetChallengesByStateQueryVariables = Exact<{
   state: Scalars['u8']['input'];
 }>;
 
 
-export type GetChallengesByStateQuery = { __typename?: 'World__Query', challenges?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+export type GetChallengesByStateQuery = { __typename?: 'World__Query', challenges?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
 
 export type GetChallengesByStatesQueryVariables = Exact<{
   state1: Scalars['u8']['input'];
@@ -2187,7 +1768,7 @@ export type GetChallengesByStatesQueryVariables = Exact<{
 }>;
 
 
-export type GetChallengesByStatesQuery = { __typename?: 'World__Query', challenges_1?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_2?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+export type GetChallengesByStatesQuery = { __typename?: 'World__Query', challenges_1?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_2?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
 
 export type GetChallengesByDuelistAndStateQueryVariables = Exact<{
   address: Scalars['ContractAddress']['input'];
@@ -2195,7 +1776,7 @@ export type GetChallengesByDuelistAndStateQueryVariables = Exact<{
 }>;
 
 
-export type GetChallengesByDuelistAndStateQuery = { __typename?: 'World__Query', challenges_a?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_b?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+export type GetChallengesByDuelistAndStateQuery = { __typename?: 'World__Query', challenges_a?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_b?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
 
 export type GetChallengesByDuelistAndStatesQueryVariables = Exact<{
   address: Scalars['ContractAddress']['input'];
@@ -2204,29 +1785,31 @@ export type GetChallengesByDuelistAndStatesQueryVariables = Exact<{
 }>;
 
 
-export type GetChallengesByDuelistAndStatesQuery = { __typename?: 'World__Query', challenges_a1?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_a2?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_b1?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_b2?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
+export type GetChallengesByDuelistAndStatesQuery = { __typename?: 'World__Query', challenges_a1?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_a2?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_b1?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null, challenges_b2?: { __typename?: 'ChallengeConnection', edges?: Array<{ __typename?: 'ChallengeEdge', node?: { __typename?: 'Challenge', duel_id?: any | null, table_id?: any | null, duelist_a?: any | null, duelist_b?: any | null, message?: any | null, round_number?: any | null, state?: any | null, timestamp_end?: any | null, timestamp_start?: any | null, winner?: any | null } | null } | null> | null } | null };
 
 export type GetChallengeDependenciesQueryVariables = Exact<{
   duel_id?: InputMaybe<Scalars['u128']['input']>;
+  table_id?: InputMaybe<Scalars['felt252']['input']>;
   duelist_a?: InputMaybe<Scalars['ContractAddress']['input']>;
   duelist_b?: InputMaybe<Scalars['ContractAddress']['input']>;
 }>;
 
 
-export type GetChallengeDependenciesQuery = { __typename?: 'World__Query', wager?: { __typename?: 'WagerConnection', edges?: Array<{ __typename?: 'WagerEdge', node?: { __typename?: 'Wager', coin?: any | null, fee?: any | null, value?: any | null } | null } | null> | null } | null, duelist_a?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null } | null } | null> | null } | null, duelist_b?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null } | null } | null> | null } | null };
+export type GetChallengeDependenciesQuery = { __typename?: 'World__Query', table?: { __typename?: 'TTableConnection', edges?: Array<{ __typename?: 'TTableEdge', node?: { __typename?: 'TTable', description?: any | null, contract_address?: any | null, wager_min?: any | null, fee_min?: any | null, fee_pct?: any | null, is_open?: any | null } | null } | null> | null } | null, wager?: { __typename?: 'WagerConnection', edges?: Array<{ __typename?: 'WagerEdge', node?: { __typename?: 'Wager', value?: any | null, fee?: any | null } | null } | null> | null } | null, duelist_a?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, timestamp?: any | null, score?: { __typename?: 'Duelist_Score', honour?: any | null, level_villain?: any | null, level_trickster?: any | null, level_lord?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null } | null } | null } | null> | null } | null, duelist_b?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, timestamp?: any | null, score?: { __typename?: 'Duelist_Score', honour?: any | null, level_villain?: any | null, level_trickster?: any | null, level_lord?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null } | null } | null } | null> | null } | null };
 
-export type DuelistFieldsFragment = { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null };
+export type DuelistFieldsFragment = { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, timestamp?: any | null, score?: { __typename?: 'Duelist_Score', honour?: any | null, level_villain?: any | null, level_trickster?: any | null, level_lord?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null } | null };
 
 export type GetDuelistsByAddressQueryVariables = Exact<{
   address?: InputMaybe<Scalars['ContractAddress']['input']>;
 }>;
 
 
-export type GetDuelistsByAddressQuery = { __typename?: 'World__Query', duelistModels?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null, honour?: any | null, timestamp?: any | null } | null } | null> | null } | null };
+export type GetDuelistsByAddressQuery = { __typename?: 'World__Query', duelistModels?: { __typename?: 'DuelistConnection', edges?: Array<{ __typename?: 'DuelistEdge', node?: { __typename?: 'Duelist', address?: any | null, name?: any | null, profile_pic?: any | null, timestamp?: any | null, score?: { __typename?: 'Duelist_Score', honour?: any | null, level_villain?: any | null, level_trickster?: any | null, level_lord?: any | null, total_duels?: any | null, total_wins?: any | null, total_losses?: any | null, total_draws?: any | null, total_honour?: any | null } | null } | null } | null> | null } | null };
 
 export const ChallengeFieldsFragmentDoc = gql`
     fragment challengeFields on Challenge {
   duel_id
+  table_id
   duelist_a
   duelist_b
   message
@@ -2242,13 +1825,18 @@ export const DuelistFieldsFragmentDoc = gql`
   address
   name
   profile_pic
-  total_duels
-  total_wins
-  total_losses
-  total_draws
-  total_honour
-  honour
   timestamp
+  score {
+    honour
+    level_villain
+    level_trickster
+    level_lord
+    total_duels
+    total_wins
+    total_losses
+    total_draws
+    total_honour
+  }
 }
     `;
 export const CustomEventSubDocument = gql`
@@ -2370,13 +1958,24 @@ export const GetChallengesByDuelistAndStatesDocument = gql`
 }
     ${ChallengeFieldsFragmentDoc}`;
 export const GetChallengeDependenciesDocument = gql`
-    query getChallengeDependencies($duel_id: u128, $duelist_a: ContractAddress, $duelist_b: ContractAddress) {
+    query getChallengeDependencies($duel_id: u128, $table_id: felt252, $duelist_a: ContractAddress, $duelist_b: ContractAddress) {
+  table: tTableModels(where: {table_id: $table_id}) {
+    edges {
+      node {
+        description
+        contract_address
+        wager_min
+        fee_min
+        fee_pct
+        is_open
+      }
+    }
+  }
   wager: wagerModels(where: {duel_id: $duel_id}) {
     edges {
       node {
-        coin
-        fee
         value
+        fee
       }
     }
   }

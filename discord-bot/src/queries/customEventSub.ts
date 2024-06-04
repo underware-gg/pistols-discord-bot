@@ -41,7 +41,7 @@ export const customEventSub = async (eventName: EventName, settingsFlag: string)
       } else if (eventName == EventName.NewChallengeEvent || eventName == EventName.ChallengeAcceptedEvent || eventName == EventName.ChallengeResolvedEvent) {
         const _titles = {
           [EventName.NewChallengeEvent]: 'New Challenge issued!',
-          [EventName.ChallengeAcceptedEvent]: 'Challenge accepted!',
+          [EventName.ChallengeAcceptedEvent]: eventData.accepted ? 'Challenge accepted!' : 'Challenge refused!',
           [EventName.ChallengeResolvedEvent]: 'Challenge resolved!',
         }
         const duel_id: BigNumberish = eventData.duel_id;

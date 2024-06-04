@@ -78,12 +78,14 @@ const parseChallengesResponse = async (connections: ql.ChallengeConnection[], co
 
     const { data } = await sdk.getChallengeDependencies({
       duel_id: challenge.duel_id,
+      table_id: challenge.table_id,
       duelist_a: challenge.duelist_a,
       duelist_b: challenge.duelist_b,
     });
 
     const duelist_a = parseDuelistResponse(data.duelist_a as ql.DuelistConnection);
     const duelist_b = parseDuelistResponse(data.duelist_b as ql.DuelistConnection);
+    const table = parseTableResponse(data.table as ql.TTableConnection);
     const wager = parseWagerResponse(data.wager as ql.WagerConnection);
 
     return {
@@ -92,10 +94,31 @@ const parseChallengesResponse = async (connections: ql.ChallengeConnection[], co
       message: feltToString(challenge.message), // strings in Cairo are encoded in a felt252, need to be convert
       duelist_a,
       duelist_b,
+      table,
       wager,
     }
   }));
   return result
+}
+
+
+//--------------------------------------
+// Table
+//
+
+export type TableResponse = ql.TTable & {
+  wager_min_eth: number
+  fee_min_eth: number
+}
+
+const parseTableResponse = (connection: ql.TTableConnection): TableResponse | null => {
+  const table = connection?.edges?.[0]?.node;
+  if (!table) return null;
+  return {
+    ...table,
+    wager_min_eth: Number(weiToEth(table.wager_min)),
+    fee_min_eth: Number(weiToEth(table.fee_min)),
+  }
 }
 
 
