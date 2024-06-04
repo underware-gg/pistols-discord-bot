@@ -28,7 +28,7 @@ export const customEventSub = async (eventName: EventName, settingsFlag: string)
       //
       // build event messages
       //
-      if (eventName == EventName.DuelistRegistered) {
+      if (eventName == EventName.DuelistRegisteredEvent) {
         const duelist: DuelistResponse | null = await getDuelistByAddress(eventData.address);
         // console.log(`+++++++ Duelist:`, duelist);
         if (duelist) {

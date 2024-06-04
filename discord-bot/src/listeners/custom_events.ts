@@ -7,7 +7,7 @@ import { BaseMessageOptions } from 'discord.js';
 customEventSub(EventName.NewChallengeEvent, 'challenges_notifications');
 customEventSub(EventName.ChallengeAcceptedEvent, 'challenges_notifications');
 customEventSub(EventName.ChallengeResolvedEvent, 'challenges_notifications');
-customEventSub(EventName.DuelistRegistered, 'new_duelist_notifications');
+customEventSub(EventName.DuelistRegisteredEvent, 'new_duelist_notifications');
 customEventSub(EventName.DuelistTurnEvent, 'duelists_turn_notifications');
 
 export class CustomEventsListener extends Listener {

@@ -47,7 +47,7 @@ export enum Colors {
 }
 
 export enum EventName {
-  DuelistRegistered = 'DuelistRegistered',
+  DuelistRegisteredEvent = 'DuelistRegisteredEvent',
   NewChallengeEvent = 'NewChallengeEvent',
   ChallengeAcceptedEvent = 'ChallengeAcceptedEvent',
   ChallengeResolvedEvent = 'ChallengeResolvedEvent',
@@ -55,7 +55,7 @@ export enum EventName {
 }
 
 export const EventKeys = {
-  [EventName.DuelistRegistered]: '0x1afe932323a4032d23a471be00bb333912509b20609983ac2159aa2394f9e5f',
+  [EventName.DuelistRegisteredEvent]: '0x148c3db21a55576bc012023dc4d3b5bd570c519de855849eac52b1c5d6c9e85',
   [EventName.NewChallengeEvent]: '0x14a0df74df51e02ef8dedabfd1ea9684ea2087bed6370e881b156d7e2e56975',
   [EventName.ChallengeAcceptedEvent]: '0x31cdbf7ac39747303190a727df1a270ae5e4f05191f6f58e452ce4eb1e98abe',
   [EventName.ChallengeResolvedEvent]: '0x23dfe05a8414fd8464370e120099be69327b2a52ae6655ff23733651e8281b1',
