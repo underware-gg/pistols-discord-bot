@@ -1,30 +1,34 @@
 {
   "compilerOptions": {
-    "lib": [
-      "ESNext"
-    ],
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "bundler",
-    "moduleDetection": "force",
-    "noEmit": false,
-    "composite": true,
-    "strict": true,
-    "downlevelIteration": true,
+    // "composite": true,
+    // "target": "esnext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "declaration": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
     "skipLibCheck": true,
-    "jsx": "preserve",
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "rootDir": "./",
-    "allowJs": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    // "allowImportingTsExtensions": true,
+    "noEmit": true,
     "outDir": "dist",
-    "types": []
+    "rootDir": "src",
+    // allow absolute paths: import {} from 'src/*'
+    "baseUrl": "./",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ],
+    }
   },
   "include": [
-    "./src/**/*",
-    "./src/config/manifest.json"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.json"
   ],
-  "exclude": [
-    "manifest.json"
-  ]
+  "references": []
 }

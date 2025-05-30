@@ -1,8 +1,0 @@
-subscription customEventSub($eventId: String!) {
-  eventEmitted(keys: [$eventId, "*"]) {
-    id
-    keys
-    data
-    createdAt
-  }
-}
