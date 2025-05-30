@@ -1,30 +1,15 @@
 {
+  "extends": [
+    "@sapphire/ts-config",
+    "@sapphire/ts-config/extra-strict",
+    "@sapphire/ts-config/decorators"
+  ],
   "compilerOptions": {
-    "lib": [
-      "ESNext"
-    ],
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "bundler",
-    "moduleDetection": "force",
-    "noEmit": false,
-    "composite": true,
-    "strict": true,
-    "downlevelIteration": true,
-    "skipLibCheck": true,
-    "jsx": "preserve",
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "rootDir": "./",
-    "allowJs": true,
+    "rootDir": "src",
     "outDir": "dist",
-    "types": []
+    "tsBuildInfoFile": "dist/.tsbuildinfo"
   },
   "include": [
-    "./src/**/*",
-    "./src/config/manifest.json"
-  ],
-  "exclude": [
-    "manifest.json"
+    "src"
   ]
 }

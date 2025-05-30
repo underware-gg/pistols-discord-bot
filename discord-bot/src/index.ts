@@ -1,26 +1,27 @@
-import { SapphireClient } from "@sapphire/framework";
-import { GatewayIntentBits } from "discord.js";
-// import { resolve }  from "node:path";
-import * as dotenv from "dotenv";
-dotenv.config();
+import './lib/setup';
 
-process.on("unhandledRejection", (error) => {
-  console.error("Unhandled promise rejection:", error);
+import { LogLevel, SapphireClient } from '@sapphire/framework';
+import { GatewayIntentBits } from 'discord.js';
+
+const client = new SapphireClient({
+  defaultPrefix: '!',
+  caseInsensitiveCommands: true,
+  logger: {
+    level: LogLevel.Debug
+  },
+  intents: [GatewayIntentBits.DirectMessages, GatewayIntentBits.GuildMessages, GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent],
+  loadMessageCommandListeners: true
 });
 
-export const client = new SapphireClient({
-  intents: [
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-  ],
-  loadMessageCommandListeners: true,
-  // baseUserDirectory: resolve('./src/sapphire'),
-});
+const main = async () => {
+  try {
+    await client.login(process.env.DISCORD_TOKEN);
+    client.logger.info('logged in');
+  } catch (error) {
+    client.logger.fatal(error);
+    await client.destroy();
+    process.exit(1);
+  }
+};
 
-console.log(`--- TORII_URL  :`, process.env.TORII_URL)
-console.log(`--- CLIENT_URL :`, process.env.CLIENT_URL)
-console.log(`--- DISCORD_TOKEN :`, process.env.DISCORD_TOKEN ? 'Ok' : undefined)
-
-console.log("--- Logging in.....");
-await client.login(process.env.DISCORD_TOKEN);
+void main();
