@@ -5,6 +5,19 @@
     "@sapphire/ts-config/decorators"
   ],
   "compilerOptions": {
+    // "module": "nodenext",
+    // "moduleResolution": "nodenext",
+    // "declaration": true,
+    // "sourceMap": true,
+    // "noImplicitAny": true,
+    // "noUnusedLocals": false,
+    // "noUnusedParameters": true,
+    // "skipLibCheck": true,
+    // "strict": true,
+    // "strictNullChecks": true,
+    // "esModuleInterop": true,
+    // "allowImportingTsExtensions": true,
+    // "noEmit": true,
     "rootDir": "src",
     "outDir": "dist",
     "tsBuildInfoFile": "dist/.tsbuildinfo"
