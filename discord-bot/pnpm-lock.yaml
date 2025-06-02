@@ -69,6 +69,9 @@ importers:
       '@types/node':
         specifier: ^22.10.7
         version: 22.15.29
+      '@types/websocket':
+        specifier: ^1.0.10
+        version: 1.0.10
       '@types/ws':
         specifier: ^8.5.13
         version: 8.18.1
@@ -348,6 +351,9 @@ packages:
 
   '@types/react@18.3.23':
     resolution: {integrity: sha512-/LDXMQh55EzZQ0uVAZmKKhfENivEvWz6E+EYzh+/MCjMhNsotd+ZHhBGIjFDTi6+fz0OhQQQLbTgdQIxxCsC0w==}
+
+  '@types/websocket@1.0.10':
+    resolution: {integrity: sha512-svjGZvPB7EzuYS94cI7a+qhwgGU1y89wUgjT6E2wVUfmAGIvRfT7obBvRtnhXCSsoMdlG4gBFGE7MfkIXZLoww==}
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
@@ -1358,6 +1364,10 @@ snapshots:
     dependencies:
       '@types/prop-types': 15.7.14
       csstype: 3.1.3
+
+  '@types/websocket@1.0.10':
+    dependencies:
+      '@types/node': 22.15.29
 
   '@types/ws@8.18.1':
     dependencies:

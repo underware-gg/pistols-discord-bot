@@ -65,8 +65,10 @@ export class UserCommand extends Command {
 
     if (!pingMessage) return;
 
-    const content = `Pong! Bot Latency ${Math.round(this.container.client.ws.ping)}ms. API Latency ${pingMessage.createdTimestamp - interactionOrMessage.createdTimestamp
-      }ms.`;
+    // const botLatency = this.container.client.ws.ping;
+    // const apiLatency = pingMessage.createdTimestamp - interactionOrMessage.createdTimestamp;
+    // const content = `Pong! Bot Latency ${botLatency}ms. API Latency ${apiLatency}ms.`;
+    const content = `Pew pew!`;
 
     if (interactionOrMessage instanceof Message) {
       return pingMessage.edit({ content });
