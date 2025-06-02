@@ -3,7 +3,7 @@ import { Command } from '@sapphire/framework';
 import { ApplicationCommandType, ApplicationIntegrationType, InteractionContextType, Message } from 'discord.js';
 
 @ApplyOptions<Command.Options>({
-  description: 'ping pong'
+  description: 'pew pew'
 })
 export class UserCommand extends Command {
   // Register Chat Input and Context Menu command
@@ -44,34 +44,34 @@ export class UserCommand extends Command {
 
   // Message command
   public override async messageRun(message: Message) {
-    return this.sendPing(message);
+    return this.sendPew(message);
   }
 
   // Chat Input (slash) command
   public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
-    return this.sendPing(interaction);
+    return this.sendPew(interaction);
   }
 
   // Context Menu command
   public override async contextMenuRun(interaction: Command.ContextMenuCommandInteraction) {
-    return this.sendPing(interaction);
+    return this.sendPew(interaction);
   }
 
-  private async sendPing(interactionOrMessage: Message | Command.ChatInputCommandInteraction | Command.ContextMenuCommandInteraction) {
-    const pingMessage =
+  private async sendPew(interactionOrMessage: Message | Command.ChatInputCommandInteraction | Command.ContextMenuCommandInteraction) {
+    const pewMessage =
       interactionOrMessage instanceof Message
-        ? interactionOrMessage.channel?.isSendable() && (await interactionOrMessage.channel.send({ content: 'Ping?' }))
-        : await interactionOrMessage.reply({ content: 'Ping?', fetchReply: true });
+        ? interactionOrMessage.channel?.isSendable() && (await interactionOrMessage.channel.send({ content: 'Pew?' }))
+        : await interactionOrMessage.reply({ content: 'Pew?', fetchReply: true });
 
-    if (!pingMessage) return;
+    if (!pewMessage) return;
 
-    // const botLatency = this.container.client.ws.ping;
-    // const apiLatency = pingMessage.createdTimestamp - interactionOrMessage.createdTimestamp;
-    // const content = `Pong! Bot Latency ${botLatency}ms. API Latency ${apiLatency}ms.`;
+    // const botLatency = this.container.client.ws.pew;
+    // const apiLatency = pewMessage.createdTimestamp - interactionOrMessage.createdTimestamp;
+    // const content = `Pew pew! Bot Latency ${botLatency}ms. API Latency ${apiLatency}ms.`;
     const content = `Pew pew!`;
 
     if (interactionOrMessage instanceof Message) {
-      return pingMessage.edit({ content });
+      return pewMessage.edit({ content });
     }
 
     return interactionOrMessage.editReply({
