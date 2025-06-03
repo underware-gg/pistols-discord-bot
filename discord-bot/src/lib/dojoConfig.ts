@@ -6,6 +6,7 @@ import { PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
 import websocket from 'websocket';
 
 // required for torii client websockets
+// globalThis.global = globalThis;
 // @ts-ignore
 global.Websocket = websocket.w3cwebsocket;
 // @ts-ignore

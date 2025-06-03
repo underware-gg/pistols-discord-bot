@@ -10,7 +10,7 @@
     // "declaration": true,
     // "sourceMap": true,
     // "noImplicitAny": true,
-    // "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "noUnusedLocals": false,
     "skipLibCheck": true,
     // "strict": true,
