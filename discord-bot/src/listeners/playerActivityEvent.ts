@@ -1,4 +1,4 @@
-import { Listener, container } from '@sapphire/framework';
+import { Listener } from '@sapphire/framework';
 import { DojoSapphireClient } from '../lib/client.js';
 import { historicalEventsSub } from '../pistols/historicalEventsSub.js';
 import { models } from '@underware/pistols-sdk/pistols/gen';
@@ -15,9 +15,9 @@ export class PlayerActivityEventListener extends Listener {
       emitter: _emitter,
       event: 'activity'
     });
-    console.error(`[start] PlayerActivityEventListener...`);
+    this.container.logger.info(`[start] PlayerActivityEventListener...`);
     //@ts-ignore
-    historicalEventsSub(container.sdk, _emitter, 'activity').then((sub) => {
+    historicalEventsSub(this.container.sdk, _emitter, 'activity').then((sub) => {
       this.sub = sub;
     });
   }

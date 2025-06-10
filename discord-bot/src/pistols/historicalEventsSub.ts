@@ -1,6 +1,7 @@
 import { SDK } from '@dojoengine/sdk/node';
-import { PistolsSchemaType, PistolsEntity, PistolsHistoricalQueryBuilder, PistolsToriiResponse } from '@underware/pistols-sdk/pistols/node';
-import { feltToString, parseEnumVariant } from '@underware/pistols-sdk/starknet';
+import { container } from '@sapphire/framework';
+import { PistolsSchemaType, PistolsEntity, PistolsHistoricalQueryBuilder } from '@underware/pistols-sdk/pistols/node';
+import { parseEnumVariant } from '@underware/pistols-sdk/starknet';
 import { models, constants } from '@underware/pistols-sdk/pistols/gen';
 import EventEmitter from 'node:events';
 import type * as torii from "@dojoengine/torii-wasm/types";
@@ -28,13 +29,13 @@ export const historicalEventsSub = async (
     query,
     callback: (response: SdkSubscriptionCallbackResponse) => {
       if (response.error) {
-        console.error(`[pistols/historicalEventsListener] error:`, response.error);
+        container.logger.error(`[pistols/historicalEventsListener] error:`, response.error);
         return;
       }
 
       const entity = response.data?.pop();
       if (entity && entity.entityId !== '0x0') {
-        console.log(`--- HISTORICAL got:`, Object.keys(entity.models.pistols ?? {}));
+        container.logger.info(`--- HISTORICAL got:`, Object.keys(entity.models.pistols ?? {}));
 
         // activity events
         // {
@@ -47,7 +48,7 @@ export const historicalEventsSub = async (
         const activity = entity.models?.pistols?.PlayerActivityEvent as models.PlayerActivityEvent;
         if (activity) {
           const action_id = parseEnumVariant<constants.Activity>(activity.activity);
-          console.log(`--- HISTORICAL PlayerActivityEvent: [${action_id}]`, activity);
+          container.logger.info(`--- HISTORICAL PlayerActivityEvent: [${action_id}]`, activity);
           // if (action_id === constants.Activity.TutorialFinished) {
           // }
           emitter.emit(eventType, activity);

@@ -1,4 +1,4 @@
-import { Listener, container } from '@sapphire/framework';
+import { Listener } from '@sapphire/framework';
 import { DojoSapphireClient } from '../lib/client.js';
 import { eventsSub } from '../pistols/eventsSub.js';
 import { models } from '@underware/pistols-sdk/pistols/gen';
@@ -15,9 +15,9 @@ export class CallToActionEventListener extends Listener {
       emitter: _emitter,
       event: 'event'
     });
-    console.error(`[start] CallToActionEventListener...`);
+    this.container.logger.info(`[start] CallToActionEventListener...`);
     //@ts-ignore
-    eventsSub(container.sdk, _emitter, 'event').then((sub) => {
+    eventsSub(this.container.sdk, _emitter, 'event').then((sub) => {
       this.sub = sub;
     });
   }

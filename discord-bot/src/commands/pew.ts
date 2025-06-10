@@ -70,6 +70,8 @@ export class UserCommand extends Command {
     // const content = `Pew pew! Bot Latency ${botLatency}ms. API Latency ${apiLatency}ms.`;
     const content = `Pew pew!`;
 
+    this.container.logger.info(`[${interactionOrMessage.member?.user.username}@${interactionOrMessage.guild?.name}]:`, content);
+
     if (interactionOrMessage instanceof Message) {
       return pewMessage.edit({ content });
     }
