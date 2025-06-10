@@ -1,6 +1,7 @@
 import { SDK } from '@dojoengine/sdk/node';
 import { container } from '@sapphire/framework';
-import { PistolsSchemaType, PistolsEntity, PistolsQueryBuilder } from '@underware/pistols-sdk/pistols/node';
+import type { PistolsSchemaType, PistolsEntity } from '@underware/pistols-sdk/pistols/node';
+import { PistolsQueryBuilder } from '@underware/pistols-sdk/pistols/node';
 import { bigintToAddress } from '@underware/pistols-sdk/utils';
 import { models } from '@underware/pistols-sdk/pistols/gen';
 import EventEmitter from 'node:events';

@@ -1,8 +1,8 @@
 import { GatewayIntentBits } from 'discord.js';
 import { container, LogLevel, SapphireClient } from '@sapphire/framework';
-import { PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
+import type { PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
+import type { SDK } from '@dojoengine/sdk/node';
 import { init_sdk, dojoConfig } from './dojoConfig.js';
-import { SDK } from '@dojoengine/sdk/node';
 
 //
 // Custom Sapphire client with Dojo SDK

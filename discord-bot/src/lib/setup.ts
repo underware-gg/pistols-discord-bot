@@ -11,5 +11,3 @@ ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior
 
 // Enable colorette
 colorette.createColors({ useColor: true });
-
-// import './dojoConfig';
