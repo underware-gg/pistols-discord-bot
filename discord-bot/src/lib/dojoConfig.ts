@@ -1,6 +1,6 @@
 import { StarknetDomain } from 'starknet';
 import { createDojoConfig } from '@dojoengine/core';
-import { SDK, init } from '@dojoengine/sdk';
+import { SDK, init } from '@dojoengine/sdk/node';
 import { NetworkId, NETWORKS, getManifest, makeStarknetDomain, DojoNetworkConfig } from '@underware/pistols-sdk/pistols/config';
 import { PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
 import websocket from 'websocket';

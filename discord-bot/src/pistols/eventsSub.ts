@@ -4,7 +4,7 @@ import { PistolsSchemaType, PistolsEntity, PistolsQueryBuilder } from '@underwar
 import { bigintToAddress } from '@underware/pistols-sdk/utils';
 import { models } from '@underware/pistols-sdk/pistols/gen';
 import EventEmitter from 'node:events';
-import type * as torii from "@dojoengine/torii-wasm/types";
+import type * as torii from '@dojoengine/torii-wasm/node';
 
 type SdkSubscriptionCallbackResponse = {
   data?: PistolsEntity[]

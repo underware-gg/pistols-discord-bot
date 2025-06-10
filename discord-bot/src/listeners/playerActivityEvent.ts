@@ -2,7 +2,7 @@ import { Listener } from '@sapphire/framework';
 import { DojoSapphireClient } from '../lib/client.js';
 import { historicalEventsSub } from '../pistols/historicalEventsSub.js';
 import { models } from '@underware/pistols-sdk/pistols/gen';
-import type * as torii from "@dojoengine/torii-wasm/types";
+import type * as torii from '@dojoengine/torii-wasm/node';
 
 import EventEmitter from 'node:events';
 const _emitter = new EventEmitter();

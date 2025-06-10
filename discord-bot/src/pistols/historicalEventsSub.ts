@@ -4,7 +4,7 @@ import { PistolsSchemaType, PistolsEntity, PistolsHistoricalQueryBuilder } from 
 import { parseEnumVariant } from '@underware/pistols-sdk/starknet';
 import { models, constants } from '@underware/pistols-sdk/pistols/gen';
 import EventEmitter from 'node:events';
-import type * as torii from "@dojoengine/torii-wasm/types";
+import type * as torii from '@dojoengine/torii-wasm/node';
 
 type SdkSubscriptionCallbackResponse = {
   data?: PistolsEntity[]
