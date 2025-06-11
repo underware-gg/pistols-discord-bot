@@ -1,14 +1,14 @@
 import EventEmitter from 'node:events';
 import { SDK } from '@dojoengine/sdk/node';
 import { container } from '@sapphire/framework';
-import type { PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
+import type { PistolsEntity, PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
 import { PistolsClauseBuilder, PistolsQueryBuilder } from '@underware/pistols-sdk/pistols/node';
 import { bigintToAddress } from '@underware/pistols-sdk/utils';
 import { models } from '@underware/pistols-sdk/pistols/gen';
 import { getEntityModel, type SdkSubscriptionCallbackResponse } from '../lib/types.js';
 import type * as torii from '@dojoengine/torii-wasm/node';
 
-export const callToActionSub = async (
+export const socialLinkSub = async (
   sdk: SDK<PistolsSchemaType>,
   emitter: EventEmitter,
   eventType: string
@@ -16,15 +16,18 @@ export const callToActionSub = async (
 
   const query: PistolsQueryBuilder = new PistolsQueryBuilder()
     .withClause(
-      new PistolsClauseBuilder().keys(
-        ['pistols-CallToActionEvent'],
-        [], 'VariableLen'
+      new PistolsClauseBuilder().where(
+        'pistols-PlayerSocialLinkEvent',
+        'social_platform',
+        'Eq',
+        'Discord'
       ).build()
     )
     .withEntityModels([
-      'pistols-CallToActionEvent',
+      'pistols-PlayerSocialLinkEvent',
     ])
-    .withLimit(1)
+    .includeHashedKeys()
+    .withLimit(1000)
 
   const [entities, sub] = await sdk.subscribeEventQuery({
     query,
@@ -36,23 +39,20 @@ export const callToActionSub = async (
 
       const entity = response.data?.pop();
       if (entity && entity.entityId !== '0x0') {
-        container.logger.info(`--- CALL TO ACTION got:`, Object.keys(entity.models.pistols ?? {}));
-
-        // activity events
-        // {
-        //   is_public: true,
-        //   player_address: "0x057c54434905c896cc163358a9057f91b5e3e6a4f60b5a4bef3fdd77c2dc91aa",
-        //   activity: "MovesRevealed",
-        //   timestamp: 1746824284,
-        //   identifier: "0x00000000000000000000000000000000000000000000000000000000000000e4",
-        // }
-        const callToAction = getEntityModel<models.CallToActionEvent>(entity, 'CallToActionEvent');
-        if (callToAction?.call_to_action === true) {
-          // container.logger.info(`--- CallToActionEvent: [${bigintToAddress(callToAction.player_address)}]`, callToAction);
-          emitter.emit(eventType, callToAction);
+        container.logger.info(`--- SOCIAL LINK sub:`, Object.keys(entity.models.pistols ?? {}));
+        const socialLink = getEntityModel<models.PlayerSocialLinkEvent>(entity, 'PlayerSocialLinkEvent');
+        if (socialLink) {
+          emitter.emit(eventType, socialLink);
         }
       }
     },
+  });
+
+  entities.getItems().forEach((entity: PistolsEntity) => {
+    const socialLink = getEntityModel<models.PlayerSocialLinkEvent>(entity, 'PlayerSocialLinkEvent');
+    if (socialLink) {
+      emitter.emit(eventType, socialLink);
+    }
   });
 
   return sub;

@@ -5,9 +5,10 @@ import { ApplicationCommandType, ApplicationIntegrationType, InteractionContextT
 @ApplyOptions<Command.Options>({
   description: 'pew pew'
 })
-export class UserCommand extends Command {
+export class PewCommand extends Command {
   // Register Chat Input and Context Menu command
   public override registerApplicationCommands(registry: Command.Registry) {
+    this.container.logger.info(`[start] PewCommand...`);
     // Create shared integration types and contexts
     // These allow the command to be used in guilds and DMs
     const integrationTypes: ApplicationIntegrationType[] = [ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall];
