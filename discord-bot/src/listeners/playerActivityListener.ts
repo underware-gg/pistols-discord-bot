@@ -15,10 +15,11 @@ export class PlayerActivityEventListener extends Listener {
       emitter: _emitter,
       event: 'activity'
     });
-    this.container.logger.info(`[start] PlayerActivityEventListener...`);
-    historicalEventsSub(this.container.sdk, _emitter, 'activity').then((sub) => {
-      this.sub = sub;
-    });
+    // DISABLED
+    // this.container.logger.info(`[start] PlayerActivityEventListener...`);
+    // historicalEventsSub(this.container.sdk, _emitter, 'activity').then((sub) => {
+    //   this.sub = sub;
+    // });
   }
 
   // public override async destroy() {
