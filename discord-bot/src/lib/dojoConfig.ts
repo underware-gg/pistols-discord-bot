@@ -1,6 +1,6 @@
 import type { StarknetDomain } from 'starknet';
 import { createDojoConfig } from '@dojoengine/core';
-import { NetworkId, NETWORKS, getManifest, makeStarknetDomain } from '@underware/pistols-sdk/pistols/config';
+import { NetworkId, getNetworkConfig, getManifest, makeStarknetDomain } from '@underware/pistols-sdk/pistols/config';
 import type { DojoNetworkConfig } from '@underware/pistols-sdk/pistols/config';
 import type { PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
 import { type SDK, init } from '@dojoengine/sdk/node';
@@ -15,7 +15,7 @@ global.WorkerGlobalScope = global;
 
 
 const networkId = process.env.NETWORK_ID as NetworkId ?? NetworkId.MAINNET;
-const networkConfig: DojoNetworkConfig = NETWORKS[networkId];
+const networkConfig: DojoNetworkConfig = getNetworkConfig(networkId);
 const starknetDomain: StarknetDomain = makeStarknetDomain({ networkId });
 
 // const game_contract = getContractByName(dojoAppConfig.manifest, dojoAppConfig.namespace, 'game');
@@ -48,4 +48,5 @@ const init_sdk = async (): Promise<SDK<PistolsSchemaType>> => {
 export {
   init_sdk,
   dojoConfig,
+  networkId,
 }
