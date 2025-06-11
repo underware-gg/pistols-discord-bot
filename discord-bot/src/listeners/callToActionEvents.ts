@@ -1,6 +1,6 @@
 import { Listener } from '@sapphire/framework';
 import { DojoSapphireClient } from '../lib/client.js';
-import { eventsSub } from '../pistols/eventsSub.js';
+import { callToActionSub } from '../pistols/callToActionSub.js';
 import { models } from '@underware/pistols-sdk/pistols/gen';
 import type * as torii from '@dojoengine/torii-wasm/node';
 
@@ -16,8 +16,7 @@ export class CallToActionEventListener extends Listener {
       event: 'event'
     });
     this.container.logger.info(`[start] CallToActionEventListener...`);
-    //@ts-ignore
-    eventsSub(this.container.sdk, _emitter, 'event').then((sub) => {
+    callToActionSub(this.container.sdk, _emitter, 'event').then((sub) => {
       this.sub = sub;
     });
   }
@@ -26,7 +25,7 @@ export class CallToActionEventListener extends Listener {
   //   this.sub?.cancel();
   // }
 
-  public override async run(client: DojoSapphireClient, callToAction: models.CallToActionEvent) {
+  public override async run(callToAction: models.CallToActionEvent) {
     // const { username, id } = client.user!;
     this.container.logger.info(`>>>> GOT CALL TO ACTION:`, callToAction);
   }

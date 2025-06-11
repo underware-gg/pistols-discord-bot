@@ -46,14 +46,16 @@ export const historicalEventsSub = async (
         //   timestamp: 1746824284,
         //   identifier: "0x00000000000000000000000000000000000000000000000000000000000000e4",
         // }
-        const activity = entity.models?.pistols?.PlayerActivityEvent as models.PlayerActivityEvent;
-        if (activity) {
-          const action_id = parseEnumVariant<constants.Activity>(activity.activity);
-          container.logger.info(`--- HISTORICAL PlayerActivityEvent: [${action_id}]`, activity);
-          // if (action_id === constants.Activity.TutorialFinished) {
-          // }
-          emitter.emit(eventType, activity);
-        }
+
+        // WORKS!! > enable when needed
+        // const activity = entity.models?.pistols?.PlayerActivityEvent as models.PlayerActivityEvent;
+        // if (activity) {
+        //   const action_id = parseEnumVariant<constants.Activity>(activity.activity);
+        //   container.logger.info(`--- HISTORICAL PlayerActivityEvent: [${action_id}]`, activity);
+        //   // if (action_id === constants.Activity.TutorialFinished) {
+        //   // }
+        //   emitter.emit(eventType, activity);
+        // }
       }
     },
   });

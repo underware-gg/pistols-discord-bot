@@ -1,7 +1,7 @@
 import { SDK } from '@dojoengine/sdk/node';
 import { container } from '@sapphire/framework';
 import type { PistolsSchemaType, PistolsEntity } from '@underware/pistols-sdk/pistols/node';
-import { PistolsQueryBuilder } from '@underware/pistols-sdk/pistols/node';
+import { PistolsClauseBuilder, PistolsQueryBuilder } from '@underware/pistols-sdk/pistols/node';
 import { bigintToAddress } from '@underware/pistols-sdk/utils';
 import { models } from '@underware/pistols-sdk/pistols/gen';
 import EventEmitter from 'node:events';
@@ -12,13 +12,19 @@ type SdkSubscriptionCallbackResponse = {
   error?: Error
 };
 
-export const eventsSub = async (
+export const callToActionSub = async (
   sdk: SDK<PistolsSchemaType>,
   emitter: EventEmitter,
   eventType: string
 ): Promise<torii.Subscription> => {
 
   const query: PistolsQueryBuilder = new PistolsQueryBuilder()
+    .withClause(
+      new PistolsClauseBuilder().keys(
+        ["pistols-CallToActionEvent"],
+        [undefined, undefined]
+      ).build()
+    )
     .withEntityModels([
       'pistols-CallToActionEvent',
     ])
@@ -34,7 +40,7 @@ export const eventsSub = async (
 
       const entity = response.data?.pop();
       if (entity && entity.entityId !== '0x0') {
-        container.logger.info(`--- HISTORICAL got:`, Object.keys(entity.models.pistols ?? {}));
+        container.logger.info(`--- CALL TO ACTION got:`, Object.keys(entity.models.pistols ?? {}));
 
         // activity events
         // {
@@ -47,7 +53,7 @@ export const eventsSub = async (
         const callToAction = entity.models?.pistols?.CallToActionEvent as models.CallToActionEvent;
         if (callToAction) {
           // const action_id = parseEnumVariant<constants.Activity>(call.action);
-          container.logger.info(`--- HISTORICAL CallToActionEvent: [${bigintToAddress(callToAction.player_address)}]`, callToAction);
+          container.logger.info(`--- CallToActionEvent: [${bigintToAddress(callToAction.player_address)}]`, callToAction);
           // if (action_id === constants.Activity.TutorialFinished) {
           // }
           emitter.emit(eventType, callToAction);

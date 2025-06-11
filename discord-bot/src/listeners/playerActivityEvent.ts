@@ -16,7 +16,6 @@ export class PlayerActivityEventListener extends Listener {
       event: 'activity'
     });
     this.container.logger.info(`[start] PlayerActivityEventListener...`);
-    //@ts-ignore
     historicalEventsSub(this.container.sdk, _emitter, 'activity').then((sub) => {
       this.sub = sub;
     });
@@ -26,7 +25,7 @@ export class PlayerActivityEventListener extends Listener {
   //   this.sub?.cancel();
   // }
 
-  public override async run(client: DojoSapphireClient, activity: models.PlayerActivityEvent) {
+  public override async run(activity: models.PlayerActivityEvent) {
     // const { username, id } = client.user!;
     this.container.logger.info(`>>>> GOT ACTIVITY:`, activity);
   }
