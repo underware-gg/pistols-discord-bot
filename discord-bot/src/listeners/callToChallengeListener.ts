@@ -1,9 +1,9 @@
 import { Listener, container } from '@sapphire/framework';
-import { DojoSapphireClient } from '../lib/client.js';
-import { callToChallengeSub } from '../pistols/callToChallengeSub.js';
-import { models } from '@underware/pistols-sdk/pistols/gen';
-import type * as torii from '@dojoengine/torii-wasm/node';
 import { bigintToAddress, bigintToDecimal } from '@underware/pistols-sdk/utils';
+import { models, constants } from '@underware/pistols-sdk/pistols/gen';
+import type * as torii from '@dojoengine/torii-wasm/node';
+import { callToChallengeSub } from '../pistols/callToChallengeSub.js';
+import { PlayerSettings } from '../lib/client.js';
 
 const _eventName = 'CallToChallengeEvent';
 
@@ -27,14 +27,26 @@ export class CallToChallengeEventListener extends Listener {
 
   public override async run(callToChallenge: models.CallToChallengeEvent) {
     const playerAddress = bigintToAddress(callToChallenge.player_address);
+    const action = callToChallenge.action;
+    const duelId = bigintToDecimal(callToChallenge.duel_id);
+    //
+    // find player social link
     const socialLink: models.PlayerSocialLinkEvent | undefined = this.container.pistols_players[playerAddress];
-    // this.container.logger.info(`>>>> GOT CALL TO CHALLENGE:`, callToChallenge, socialLink);
-    this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}]:`, socialLink?.user_name, socialLink ? callToChallenge : 'ignored');
-    if (socialLink) {
-      this.container.logger.info(`--- message to:`, socialLink.user_name);
-      const url = `https://play.pistols.gg/tavern?duel=${bigintToDecimal(callToChallenge.duel_id)}`;
-      const message = `You have a new duel waiting for you!\n${url}`;
-      this.container.client.users.send(socialLink.user_id, message);
+    if (!socialLink) {
+      this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: unlinked player`);
+      return;
     }
+    // check opt-out
+    const settings: PlayerSettings = this.container.pistols_settings[playerAddress] ?? {};
+    if (settings[constants.PlayerSetting.OptOutNotifications] === true) {
+      this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: opted out`);
+      return;
+    }
+    this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: message to [${socialLink.user_name}]`);
+    //
+    // build message
+    const url = `https://play.pistols.gg/tavern?duel=${bigintToDecimal(callToChallenge.duel_id)}`;
+    const message = `You have a new duel waiting for you!\n${url}`;
+    this.container.client.users.send(socialLink.user_id, message);
   }
 }
