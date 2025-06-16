@@ -1,9 +1,12 @@
 import { Listener, container } from '@sapphire/framework';
+import { EmbedBuilder, PermissionFlagsBits, type Message } from 'discord.js';
 import { bigintToAddress, bigintToDecimal } from '@underware/pistols-sdk/utils';
 import { models, constants } from '@underware/pistols-sdk/pistols/gen';
 import type * as torii from '@dojoengine/torii-wasm/node';
 import { callToChallengeSub } from '../pistols/callToChallengeSub.js';
 import { PlayerSettings } from '../lib/client.js';
+import { parseEnumVariant } from '@underware/pistols-sdk/starknet';
+import { get_opponent, Opponent } from '../pistols/get_opponent.js';
 
 const _eventName = 'CallToChallengeEvent';
 
@@ -27,8 +30,12 @@ export class CallToChallengeEventListener extends Listener {
 
   public override async run(callToChallenge: models.CallToChallengeEvent) {
     const playerAddress = bigintToAddress(callToChallenge.player_address);
-    const action = callToChallenge.action;
+    const action = parseEnumVariant<constants.ChallengeAction>(callToChallenge.action);
     const duelId = bigintToDecimal(callToChallenge.duel_id);
+    if (action === constants.ChallengeAction.Waiting) {
+      this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: ...`);
+      return;
+    }
     //
     // find player social link
     const socialLink: models.PlayerSocialLinkEvent | undefined = this.container.pistols_players[playerAddress];
@@ -45,8 +52,43 @@ export class CallToChallengeEventListener extends Listener {
     this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: message to [${socialLink.user_name}]`);
     //
     // build message
-    const url = `https://play.pistols.gg/tavern?duel=${bigintToDecimal(callToChallenge.duel_id)}`;
-    const message = `You have a new duel waiting for you!\n${url}`;
-    this.container.client.users.send(socialLink.user_id, message);
+    const opponent: Opponent = await get_opponent(playerAddress, duelId);
+    let url: string;
+    let message: string;
+    if (action === constants.ChallengeAction.Reply) {
+      url = `${this.container.networkConfig.clientUrl}/tavern?duel=${duelId}`;
+      message = `You have been challenged to a duel by ${opponent.formattedName}!`;
+    } else {
+      url = `${this.container.networkConfig.clientUrl}/duel/${duelId}`;
+      if (ResolvedChallengeStates.includes(opponent.challenge_state as constants.ChallengeState)) {
+        message = `A duel against ${opponent.formattedName} has been resolved!`;
+      } else if (CanceledChallengeStates.includes(opponent.challenge_state as constants.ChallengeState)) {
+        message = `A duel against ${opponent.formattedName} has been canceled!`;
+      } else {
+        message = `You are required to **${action}** this duel against ${opponent.formattedName}!`;
+      }
+    }
+
+    // https://discordjs.guide/popular-topics/embeds.html
+    // https://discord.js.org/docs/packages/discord.js/14.20.0/EmbedBuilder:Class
+    const embed = new EmbedBuilder()
+      .setColor('#EF9758')
+      .setTitle(`Duel #${duelId}`)
+      .setURL(url)
+      .setDescription(`${message}\n${url}`)
+      .setThumbnail(opponent.avatar ?? this.container.pistols_assets.logo)
+      .setFooter({ text: `Opt-out DMs in settings at ${this.container.networkConfig.clientUrl}`, iconURL: this.container.pistols_assets.logo })
+      .setTimestamp();
+    this.container.client.users.send(socialLink.user_id, { embeds: [embed] });
   }
 }
+
+const ResolvedChallengeStates: constants.ChallengeState[] = [
+  constants.ChallengeState.Resolved,
+  constants.ChallengeState.Draw,
+];
+const CanceledChallengeStates: constants.ChallengeState[] = [
+  constants.ChallengeState.Refused,
+  constants.ChallengeState.Withdrawn,
+  constants.ChallengeState.Expired,
+];

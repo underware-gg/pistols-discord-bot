@@ -46,5 +46,6 @@ const init_sdk = async (): Promise<SDK<PistolsSchemaType>> => {
 export {
   init_sdk,
   dojoConfig,
+  networkConfig,
   networkId,
 }
