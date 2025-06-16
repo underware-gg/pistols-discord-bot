@@ -25,14 +25,12 @@ const starknetDomain: StarknetDomain = makeStarknetDomain({ networkId });
 const dojoConfig = createDojoConfig({
   manifest: getManifest({ networkId }),
   toriiUrl: networkConfig.toriiUrl,
-  relayUrl: networkConfig.relayUrl,
 });
 
 const init_sdk = async (): Promise<SDK<PistolsSchemaType>> => {
   const sdk: SDK<PistolsSchemaType> = await init({
     client: {
       toriiUrl: dojoConfig.toriiUrl,
-      relayUrl: dojoConfig.relayUrl,
       worldAddress: dojoConfig.manifest.world.address,
     },
     domain: {
