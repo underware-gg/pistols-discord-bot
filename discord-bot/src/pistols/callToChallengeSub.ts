@@ -8,7 +8,7 @@ import { models } from '@underware/pistols-sdk/pistols/gen';
 import { getEntityModel, type SdkSubscriptionCallbackResponse } from '../lib/types.js';
 import type * as torii from '@dojoengine/torii-wasm/node';
 
-export const callToActionSub = async (
+export const callToChallengeSub = async (
   sdk: SDK<PistolsSchemaType>,
   emitter: EventEmitter,
   eventType: string
@@ -17,12 +17,12 @@ export const callToActionSub = async (
   const query: PistolsQueryBuilder = new PistolsQueryBuilder()
     .withClause(
       new PistolsClauseBuilder().keys(
-        ['pistols-CallToActionEvent'],
+        ['pistols-CallToChallengeEvent'],
         [], 'VariableLen'
       ).build()
     )
     .withEntityModels([
-      'pistols-CallToActionEvent',
+      'pistols-CallToChallengeEvent',
     ])
     .withLimit(1)
 
@@ -36,7 +36,7 @@ export const callToActionSub = async (
 
       const entity = response.data?.pop();
       if (entity && entity.entityId !== '0x0') {
-        container.logger.info(`--- CALL TO ACTION got:`, Object.keys(entity.models.pistols ?? {}));
+        container.logger.info(`--- CALL TO CHALLENGE got:`, Object.keys(entity.models.pistols ?? {}));
 
         // activity events
         // {
@@ -46,11 +46,9 @@ export const callToActionSub = async (
         //   timestamp: 1746824284,
         //   identifier: "0x00000000000000000000000000000000000000000000000000000000000000e4",
         // }
-        const callToAction = getEntityModel<models.CallToActionEvent>(entity, 'CallToActionEvent');
-        if (callToAction?.call_to_action === true) {
-          // container.logger.info(`--- CallToActionEvent: [${bigintToAddress(callToAction.player_address)}]`, callToAction);
-          emitter.emit(eventType, callToAction);
-        }
+        const callToChallenge = getEntityModel<models.CallToChallengeEvent>(entity, 'CallToChallengeEvent');
+        // container.logger.info(`--- CallToChallengeEvent: [${bigintToAddress(callToChallenge.player_address)}]`, callToChallenge);
+        emitter.emit(eventType, callToChallenge);
       }
     },
   });
