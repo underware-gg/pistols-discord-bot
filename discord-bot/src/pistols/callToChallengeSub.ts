@@ -1,11 +1,9 @@
 import EventEmitter from 'node:events';
-import { SDK } from '@dojoengine/sdk/node';
 import { container } from '@sapphire/framework';
-import type { PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
-import { PistolsClauseBuilder, PistolsQueryBuilder } from '@underware/pistols-sdk/pistols/node';
-import { bigintToAddress } from '@underware/pistols-sdk/utils';
+import { SDK } from '@dojoengine/sdk/node';
+import { PistolsClauseBuilder, PistolsQueryBuilder, getEntityModel } from '@underware/pistols-sdk/pistols/node';
+import type { PistolsSchemaType, SdkSubscriptionCallbackResponse } from '@underware/pistols-sdk/pistols/node';
 import { models } from '@underware/pistols-sdk/pistols/gen';
-import { getEntityModel, type SdkSubscriptionCallbackResponse } from '../lib/types.js';
 import type * as torii from '@dojoengine/torii-wasm/node';
 
 export const callToChallengeSub = async (

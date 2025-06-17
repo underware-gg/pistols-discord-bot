@@ -1,9 +1,8 @@
 import type { BigNumberish, StarknetDomain } from 'starknet';
 import { container, LogLevel, SapphireClient } from '@sapphire/framework';
-import { bigintEquals, bigintToAddress } from '@underware/pistols-sdk/utils';
+import { bigintEquals, bigintToAddress, queryToriiSql } from '@underware/pistols-sdk/utils';
 import { models } from '@underware/pistols-sdk/pistols/gen';
 import { constants } from '@underware/pistols-sdk/pistols/gen';
-import { queryTorii } from '../lib/sql.js';
 import { parseEnumVariant } from '@underware/pistols-sdk/starknet';
 
 
@@ -57,7 +56,7 @@ from "pistols-Challenge"
 where duel_id = "${bigintToAddress(duelId)}"
 `;
   // console.log(`getChallengeOpponent(${duelId}):`, query);
-  const response = await queryTorii(container.networkConfig.sqlUrl, query, formatFn);
+  const response = await queryToriiSql(container.networkConfig.sqlUrl, query, formatFn);
   // console.log(`getChallengeOpponent(${duelId}):`, response);
   return response;
 };

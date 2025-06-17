@@ -1,11 +1,10 @@
 import EventEmitter from 'node:events';
-import { SDK } from '@dojoengine/sdk/node';
 import { container } from '@sapphire/framework';
-import type { PistolsEntity, PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
-import { PistolsClauseBuilder, PistolsQueryBuilder } from '@underware/pistols-sdk/pistols/node';
-import { bigintToAddress, bigintToHex } from '@underware/pistols-sdk/utils';
+import { SDK } from '@dojoengine/sdk/node';
+import type { PistolsEntity, PistolsSchemaType, SdkSubscriptionCallbackResponse } from '@underware/pistols-sdk/pistols/node';
+import { PistolsClauseBuilder, PistolsQueryBuilder, getEntityModel } from '@underware/pistols-sdk/pistols/node';
+import { bigintToHex } from '@underware/pistols-sdk/utils';
 import { models, constants } from '@underware/pistols-sdk/pistols/gen';
-import { getEntityModel, type SdkSubscriptionCallbackResponse } from '../lib/types.js';
 import type * as torii from '@dojoengine/torii-wasm/node';
 
 export const socialLinkSub = async (

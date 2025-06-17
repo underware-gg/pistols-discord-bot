@@ -1,10 +1,9 @@
 import EventEmitter from 'node:events';
-import { SDK } from '@dojoengine/sdk/node';
-import { container } from '@sapphire/framework';
 import { CairoCustomEnum } from 'starknet';
-import type { PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
-import { PistolsClauseBuilder, PistolsHistoricalQueryBuilder } from '@underware/pistols-sdk/pistols/node';
-import { getEntityModel, type SdkSubscriptionCallbackResponse } from '../lib/types.js';
+import { container } from '@sapphire/framework';
+import { SDK } from '@dojoengine/sdk/node';
+import { PistolsClauseBuilder, PistolsHistoricalQueryBuilder, getEntityModel } from '@underware/pistols-sdk/pistols/node';
+import type { PistolsSchemaType, SdkSubscriptionCallbackResponse } from '@underware/pistols-sdk/pistols/node';
 import { models, constants } from '@underware/pistols-sdk/pistols/gen';
 import type * as torii from '@dojoengine/torii-wasm/node';
 
