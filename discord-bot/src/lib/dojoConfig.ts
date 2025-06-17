@@ -1,21 +1,22 @@
+import ws from 'websocket';
 import type { StarknetDomain } from 'starknet';
 import { createDojoConfig } from '@dojoengine/core';
 import { NetworkId, getNetworkConfig, getManifest, makeStarknetDomain } from '@underware/pistols-sdk/pistols/config';
 import type { DojoNetworkConfig } from '@underware/pistols-sdk/pistols/config';
 import type { PistolsSchemaType } from '@underware/pistols-sdk/pistols/node';
 import { type SDK, init } from '@dojoengine/sdk/node';
-import websocket from 'websocket';
+import * as ENV from './env.js';
 
 // required for torii client websockets
 // globalThis.global = globalThis;
 // @ts-ignore
-global.Websocket = websocket.w3cwebsocket;
+global.Websocket = ws.w3cwebsocket;
 // @ts-ignore
 global.WorkerGlobalScope = global;
 
-
-const networkId = process.env.NETWORK_ID as NetworkId ?? NetworkId.MAINNET;
-const networkConfig: DojoNetworkConfig = getNetworkConfig(networkId);
+// console.log('ENV:', ENV);
+const networkId = ENV.NETWORK_ID as NetworkId ?? NetworkId.MAINNET;
+const networkConfig: DojoNetworkConfig = getNetworkConfig(networkId, ENV);
 const starknetDomain: StarknetDomain = makeStarknetDomain({ networkId });
 
 // const game_contract = getContractByName(dojoAppConfig.manifest, dojoAppConfig.namespace, 'game');
@@ -25,6 +26,7 @@ const starknetDomain: StarknetDomain = makeStarknetDomain({ networkId });
 const dojoConfig = createDojoConfig({
   manifest: getManifest({ networkId }),
   toriiUrl: networkConfig.toriiUrl,
+  rpcUrl: networkConfig.rpcUrl,
 });
 
 const init_sdk = async (): Promise<SDK<PistolsSchemaType>> => {

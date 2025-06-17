@@ -38,7 +38,7 @@ export class DojoSapphireClient extends SapphireClient {
     container.pistols_assets = {
       logo: 'https://assets.underware.gg/pistols/logo.png',
     };
-    this.logger.info(`Dojo SDK initialized on network [${networkId}] with config:`, dojoConfig);
+    this.logger.info(`Dojo SDK initialized on network [${networkId}] with config:`, dojoConfig, networkConfig);
     return super.login(token);
   }
 
