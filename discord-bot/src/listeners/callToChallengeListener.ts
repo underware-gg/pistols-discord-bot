@@ -50,7 +50,11 @@ export class CallToChallengeEventListener extends Listener {
       this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: opted out`);
       return;
     }
-    this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: message to [${socialLink.user_name}]`);
+    if (!socialLink.user_name || !socialLink.user_id) {
+      this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: invlaid user[${socialLink.user_name}]/[${socialLink.user_id}]`);
+      return;
+    }
+    this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: message to [${socialLink.user_name}/[${socialLink.user_id}]`);
     //
     // build message
     const opponent: Opponent = await get_opponent(playerAddress, duelId);
