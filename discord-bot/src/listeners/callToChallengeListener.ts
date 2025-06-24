@@ -88,7 +88,11 @@ export class CallToChallengeEventListener extends Listener {
       .setThumbnail(opponent.avatar ?? this.container.pistols_assets.logo)
       .setFooter({ text: `Opt-out DMs in settings at ${this.container.networkConfig.clientUrl}`, iconURL: this.container.pistols_assets.logo })
       .setTimestamp();
-    this.container.client.users.send(socialLink.user_id, { embeds: [embed] });
+    try {
+      this.container.client.users.send(socialLink.user_id, { embeds: [embed] });
+    } catch (error) {
+      this.container.logger.info(`!!! SEND ERROR to [${socialLink.user_id}]`, error, embed);
+    }
   }
 }
 
