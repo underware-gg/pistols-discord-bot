@@ -33,8 +33,8 @@ export class CallToChallengeEventListener extends Listener {
     const playerAddress = bigintToAddress(callToChallenge.player_address);
     const action = parseEnumVariant<constants.ChallengeAction>(callToChallenge.action);
     const duelId = bigintToDecimal(callToChallenge.duel_id);
-    if (action === constants.ChallengeAction.Waiting) {
-      this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: ...`);
+    if (action === constants.ChallengeAction.Waiting || action === constants.ChallengeAction.Reveal) {
+      this.container.logger.info(`>>>> GOT CALL TO CHALLENGE [${playerAddress}][${duelId}][${action}]: discard...`);
       return;
     }
     //
@@ -58,6 +58,7 @@ export class CallToChallengeEventListener extends Listener {
     //
     // build message
     const opponent: Opponent = await get_opponent(playerAddress, duelId);
+    const challengeState = opponent.challenge_state as constants.ChallengeState;
     let color: ColorResolvable = COLORS.MEDIUM as ColorResolvable;
     let url: string;
     let message: string;
@@ -67,10 +68,10 @@ export class CallToChallengeEventListener extends Listener {
       color = COLORS.WARNING as ColorResolvable; // yellow
     } else {
       url = `${this.container.networkConfig.clientUrl}/duel/${duelId}`;
-      if (ResolvedChallengeStates.includes(opponent.challenge_state as constants.ChallengeState)) {
+      if (ResolvedChallengeStates.includes(challengeState)) {
         message = `A duel against ${opponent.formattedName} has been resolved!`;
         color = COLORS.POSITIVE as ColorResolvable; // green
-      } else if (CanceledChallengeStates.includes(opponent.challenge_state as constants.ChallengeState)) {
+      } else if (CanceledChallengeStates.includes(challengeState)) {
         message = `A duel against ${opponent.formattedName} has been canceled!`;
         color = COLORS.NEGATIVE as ColorResolvable; // red
       } else {
@@ -91,7 +92,7 @@ export class CallToChallengeEventListener extends Listener {
     try {
       this.container.client.users.send(socialLink.user_id, { embeds: [embed] });
     } catch (error) {
-      this.container.logger.info(`!!! SEND ERROR to [${socialLink.user_id}]`, error, embed);
+      this.container.logger.error(`!!! SEND ERROR to [${socialLink.user_id}]`, error, embed);
     }
   }
 }
