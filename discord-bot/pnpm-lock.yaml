@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@dojoengine/core':
-        specifier: 1.5.12
-        version: 1.5.12(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)
+        specifier: 1.6.3
+        version: 1.6.3(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)
       '@dojoengine/sdk':
-        specifier: 1.5.12
-        version: 1.5.12(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.24.1)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)
+        specifier: 1.6.5
+        version: 1.6.5(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@7.6.4)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)
       '@dojoengine/torii-wasm':
-        specifier: 1.5.12
-        version: 1.5.12
+        specifier: 1.6.3
+        version: 1.6.3
       '@sapphire/decorators':
         specifier: ^6.1.1
         version: 6.1.1
@@ -36,11 +36,11 @@ importers:
         specifier: ^3.18.1
         version: 3.18.2
       '@starknet-react/chains':
-        specifier: ^3.1.3
-        version: 3.1.3
+        specifier: ^4.0.1-beta.3
+        version: 4.0.4
       '@underware/pistols-sdk':
-        specifier: ^1.0.24
-        version: 1.0.24(@dojoengine/core@1.5.12(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10))(@dojoengine/sdk@1.5.12(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.24.1)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57))(@starknet-react/chains@3.1.3)(immer@10.1.1)(react@18.3.1)(starknet@6.24.1)
+        specifier: ^1.1.8
+        version: 1.1.8(@dojoengine/core@1.6.3(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10))(@dojoengine/sdk@1.6.5(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@7.6.4)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57))(@starknet-react/chains@4.0.4)(immer@10.1.1)(react@18.3.1)(starknet@7.6.4)
       colorette:
         specifier: ^2.0.20
         version: 2.0.20
@@ -51,8 +51,8 @@ importers:
         specifier: ^16.5.0
         version: 16.5.0
       starknet:
-        specifier: ^6.24.1
-        version: 6.24.1
+        specifier: ^7.6.2
+        version: 7.6.4
       websocket:
         specifier: ^1.0.35
         version: 1.0.35
@@ -125,14 +125,18 @@ packages:
     resolution: {integrity: sha512-dyfq7yn0wO0IYeYOs3z79I6/HumhmKISzFL0Z+007zQJMtAFGtt3AEoq1nuLXtcunUE5YYYQqgKvybXukAK8/w==}
     engines: {node: '>=16.11.0'}
 
-  '@dojoengine/core@1.5.12':
-    resolution: {integrity: sha512-8zLwg2oUQ/yCVPSpYKWc4u7/0G1YjmQW/zsSnBboLwmfmcfYNaIgChnINeiGUYGSxR1ZgxmZZpE5gP4d52iwQg==}
+  '@dojoengine/core@1.6.3':
+    resolution: {integrity: sha512-LfVxnmro6ubkFyhxVqsHslP55gc2Lj+RysC3drAhG/h+gUNJs8AyydRBNkzvtMxl8iCzsGO5txRx2ZM2CWJUNA==}
+    hasBin: true
+
+  '@dojoengine/grpc@1.6.3':
+    resolution: {integrity: sha512-Qtz8T5sjG1TiBfZ1YP5cPVLnhhcs1jtDLiZmrneJ/Rhy46F825Wd7UAtHkkgE4pXziqqNzYCQWWMM1c5oEkbIg==}
 
   '@dojoengine/recs@2.0.13':
     resolution: {integrity: sha512-Cgz4Unlnk2FSDoFTYKrJexX/KiSYPMFMxftxQkC+9LUKS5yNGkgFQM7xu4/L1HvpDAenL7NjUmH6ynRAS7Iifw==}
 
-  '@dojoengine/sdk@1.5.12':
-    resolution: {integrity: sha512-o83MNKibjrBY+drxadMi+RDVX2vaAKJktVhGpxhv8MJUjX5d1phl4+sN2rzN6yQ1w+2h4JGdnjhK3q7wOUcYrg==}
+  '@dojoengine/sdk@1.6.5':
+    resolution: {integrity: sha512-UnLsDGDXgzi33JFh71xSu+xGoW0CGUVuZO8j5wkKW3JiQIYqjTOljKNgemHpfc204rx/huZZrI3VJKgJArSmDQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@tanstack/react-query': ^5.62.16
@@ -140,22 +144,34 @@ packages:
       '@types/react-dom': ^18.3.1
       react: ^18.3.1
       react-dom: ^18.3.1
-      starknet: 6.23.1
+      starknet: ^7.6.2
 
-  '@dojoengine/torii-client@1.5.12':
-    resolution: {integrity: sha512-uqqsXQBol2ZvYwZ0IJ01bLaFWaYHdtGgFJVKzlOx0oMP6jy26mcEbbw1eX1jwsdh1PQm/QDED+Y+cUD6Pk04zw==}
+  '@dojoengine/torii-client@1.6.3':
+    resolution: {integrity: sha512-2hX1dAGgV0kIYo6zP1mYyaG6Dhcqf2EEK07algl2tIz4hvJykTaI2ZR43wl3aNWGQBECH5FuZY8/g89UlPh0UA==}
 
-  '@dojoengine/torii-wasm@1.5.12':
-    resolution: {integrity: sha512-QQJ67wtgoeVGMpKIuWDdRtz4BHbeR7tzMoNzVJu7OTP3FOaGfoNnIZpOMSSHC+vym8w9K1QPJS5fCTNAxz+65A==}
+  '@dojoengine/torii-wasm@1.6.3':
+    resolution: {integrity: sha512-OTnuApMrkaH5Si1pMCpDkDOMmlm7jK6/AdCIlQlTt1v8QD91r7rKE7LvTqrSGHaskdLL4T20/ns4g+AwrQcJkw==}
 
-  '@dojoengine/utils@1.5.12':
-    resolution: {integrity: sha512-uLEUKO33fsX1toVxLgS0U2xS9FVYrEK70Fp1nznOFRbVoP0/aDHP1FJXE+NcBGNRmVvA8JZg2V4oQrgY5vapmg==}
+  '@dojoengine/utils@1.6.3':
+    resolution: {integrity: sha512-hyK+YiQjzvIOCknPxHooZLW8h6e1mmGQqEVlK33FWQynUxTNVdkvL7BtSUauE8tNGD+MJVVWbUDmCGqjsD9WSA==}
     peerDependencies:
-      starknet: 6.23.1
+      starknet: ^7.6.2
 
   '@favware/colorette-spinner@1.0.1':
     resolution: {integrity: sha512-PPYtcLzhSafdylp8NBOxMCYIcLqTUMNiQc7ciBoAIvxNG2egM+P7e2nNPui5+Svyk89Q+Tnbrp139ZRIIBw3IA==}
     engines: {node: '>=v16'}
+
+  '@grpc/grpc-js@1.13.4':
+    resolution: {integrity: sha512-GsFaMXCkMqkKIvwCQjCrwH+GHbPKBjhwo/8ZuUkWHqbI73Kky9I+pQltrlT0+MWpedCoosda53lgjYfyEPgxBg==}
+    engines: {node: '>=12.10.0'}
+
+  '@grpc/proto-loader@0.7.15':
+    resolution: {integrity: sha512-tMXdRCfYVixjuFK+Hk0Q1s38gV9zDiDJfWL3h1rv4Qc39oILCu1TRTDt7+fGUI8K4G1Fj125Hx/ru3azECWTyQ==}
+    engines: {node: '>=6'}
+    hasBin: true
+
+  '@js-sdsl/ordered-map@4.4.2':
+    resolution: {integrity: sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw==}
 
   '@latticexyz/schema-type@2.0.12':
     resolution: {integrity: sha512-QDnHU3iCQmY8e24CGR3hKUEprHrrNUfFTiUaSuj3J0d/x9iaIafYT2+dWydxgcpCmK4Xl7PgurvJiAVCmcLokg==}
@@ -202,6 +218,45 @@ packages:
   '@noble/hashes@1.8.0':
     resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
     engines: {node: ^14.21.3 || >=16}
+
+  '@protobuf-ts/grpcweb-transport@2.11.1':
+    resolution: {integrity: sha512-1W4utDdvOB+RHMFQ0soL4JdnxjXV+ddeGIUg08DvZrA8Ms6k5NN6GBFU2oHZdTOcJVpPrDJ02RJlqtaoCMNBtw==}
+
+  '@protobuf-ts/runtime-rpc@2.11.1':
+    resolution: {integrity: sha512-4CqqUmNA+/uMz00+d3CYKgElXO9VrEbucjnBFEjqI4GuDrEQ32MaI3q+9qPBvIGOlL4PmHXrzM32vBPWRhQKWQ==}
+
+  '@protobuf-ts/runtime@2.11.1':
+    resolution: {integrity: sha512-KuDaT1IfHkugM2pyz+FwiY80ejWrkH1pAtOBOZFuR6SXEFTsnb/jiQWQ1rCIrcKx2BtyxnxW6BWwsVSA/Ie+WQ==}
+
+  '@protobufjs/aspromise@1.1.2':
+    resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
+
+  '@protobufjs/base64@1.1.2':
+    resolution: {integrity: sha512-AZkcAA5vnN/v4PDqKyMR5lx7hZttPDgClv83E//FMNhR2TMcLUhfRUBHCmSl0oi9zMgDDqRUJkSxO3wm85+XLg==}
+
+  '@protobufjs/codegen@2.0.4':
+    resolution: {integrity: sha512-YyFaikqM5sH0ziFZCN3xDC7zeGaB/d0IUb9CATugHWbd1FRFwWwt4ld4OYMPWu5a3Xe01mGAULCdqhMlPl29Jg==}
+
+  '@protobufjs/eventemitter@1.1.0':
+    resolution: {integrity: sha512-j9ednRT81vYJ9OfVuXG6ERSTdEL1xVsNgqpkxMsbIabzSo3goCjDIveeGv5d03om39ML71RdmrGNjG5SReBP/Q==}
+
+  '@protobufjs/fetch@1.1.0':
+    resolution: {integrity: sha512-lljVXpqXebpsijW71PZaCYeIcE5on1w5DlQy5WH6GLbFryLUrBD4932W/E2BSpfRJWseIL4v/KPgBFxDOIdKpQ==}
+
+  '@protobufjs/float@1.0.2':
+    resolution: {integrity: sha512-Ddb+kVXlXst9d+R9PfTIxh1EdNkgoRe5tOX6t01f1lYWOvJnSPDBlG241QLzcyPdoNTsblLUdujGSE4RzrTZGQ==}
+
+  '@protobufjs/inquire@1.1.0':
+    resolution: {integrity: sha512-kdSefcPdruJiFMVSbn801t4vFK7KB/5gd2fYvrxhuJYg8ILrmn9SKSX2tZdV6V+ksulWqS7aXjBcRXl3wHoD9Q==}
+
+  '@protobufjs/path@1.1.2':
+    resolution: {integrity: sha512-6JOcJ5Tm08dOHAbdR3GrvP+yUUfkjG5ePsHYczMFLq3ZmMkAD98cDgcT2iA1lJ9NVwFd4tH/iSSoe44YWkltEA==}
+
+  '@protobufjs/pool@1.1.0':
+    resolution: {integrity: sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw==}
+
+  '@protobufjs/utf8@1.1.0':
+    resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
   '@rollup/rollup-linux-x64-gnu@4.42.0':
     resolution: {integrity: sha512-Gfm6cV6mj3hCUY8TqWa63DB8Mx3NADoFwiJrMpoZ1uESbK8FQV3LXkhfry+8bOniq9pqY1OdsjFWNsSbfjPugw==}
@@ -317,18 +372,24 @@ packages:
   '@scure/starknet@1.1.0':
     resolution: {integrity: sha512-83g3M6Ix2qRsPN4wqLDqiRZ2GBNbjVWfboJE/9UjfG+MHr6oDSu/CWgy8hsBSJejr09DkkL+l0Ze4KVrlCIdtQ==}
 
+  '@standard-schema/spec@1.0.0':
+    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
+
   '@starknet-io/types-js@0.7.10':
     resolution: {integrity: sha512-1VtCqX4AHWJlRRSYGSn+4X1mqolI1Tdq62IwzoU2vUuEE72S1OlEeGhpvd6XsdqXcfHmVzYfj8k1XtKBQqwo9w==}
 
-  '@starknet-react/chains@3.1.3':
-    resolution: {integrity: sha512-b16VQyxqZXfiVmlKEkjfg+Oj8fdSnGWh1KU87O/unn6NpmaD9h511az1Cs6aW/j3qCIF1o5CrqfEnU1NWV7MVA==}
+  '@starknet-io/types-js@0.8.4':
+    resolution: {integrity: sha512-0RZ3TZHcLsUTQaq1JhDSCM8chnzO4/XNsSCozwDET64JK5bjFDIf2ZUkta+tl5Nlbf4usoU7uZiDI/Q57kt2SQ==}
 
-  '@starknet-react/core@3.7.4':
-    resolution: {integrity: sha512-fHzme/TLyhSJRIo3BarehiM23IZuLeT0gM0jvTpz8w1/Y05tK+UywpyzBCkueU+iHEwhopsICDpOFhFtqaJJZA==}
+  '@starknet-react/chains@4.0.4':
+    resolution: {integrity: sha512-b99OxNJjEK3JcIzJfCdyYejIfzZniWJHe/nV3jU7LDybjPE07stt89ynek4a5rfhBJQ8RTmVm55BEutAGyMMRg==}
+
+  '@starknet-react/core@4.0.4':
+    resolution: {integrity: sha512-Wmd7J47G9hHIMG0gSk2Vug7YkFNdRmYv/kxO2+QhxBA+46Z3dcD3rQESCdm0vipyxH+OP5uNSvMX9tBbsOVAiw==}
     peerDependencies:
       get-starknet-core: ^4.0.0
       react: ^18.0
-      starknet: ^6.11.0
+      starknet: ^7.6.4
 
   '@tanstack/query-core@5.80.6':
     resolution: {integrity: sha512-nl7YxT/TAU+VTf+e2zTkObGTyY8YZBMnbgeA1ee66lIVqzKlYursAII6z5t0e6rXgwUMJSV4dshBTNacNpZHbQ==}
@@ -358,8 +419,8 @@ packages:
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
 
-  '@underware/pistols-sdk@1.0.24':
-    resolution: {integrity: sha512-nLAqRgO3jIX1ibXLUxVfjlLnCbuKozq/N91WyBIBC20FCWjawD2tFGF8s4qTaBnf8A/M7O1BUZ7MW6k/VsGoKw==}
+  '@underware/pistols-sdk@1.1.8':
+    resolution: {integrity: sha512-kjd+aTNZB8sNhRz5zj0m0mtfvyiDPOW5/gLy/DzLNOmlLtJmPwVvkiWX7M0dnSKq9e9Vl2fZR90/2ulCbqysWA==}
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -371,10 +432,10 @@ packages:
       '@dojoengine/sdk': 'catalog:'
       '@dojoengine/torii-client': 'catalog:'
       '@dojoengine/utils': 'catalog:'
+      '@starknet-io/get-starknet-core': 'catalog:'
       '@starknet-react/chains': 'catalog:'
       '@starknet-react/core': 'catalog:'
       '@tanstack/react-query': 'catalog:'
-      get-starknet-core: 'catalog:'
       immer: 'catalog:'
       react: 'catalog:'
       starknet: 'catalog:'
@@ -501,6 +562,9 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
+  effect@3.17.11:
+    resolution: {integrity: sha512-JnRJXPP1S0dGrIWAUxqLK1d1YoxBfopOu03ybssY7GdGippPx2y7BJHeMiRqz4/kO5Uyq2GRgWw27xr+Bfq1Tw==}
+
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
@@ -547,11 +611,12 @@ packages:
   ext@1.7.0:
     resolution: {integrity: sha512-6hxeJYaL110a9b5TEJSj0gojyHQAmA2ch5Os+ySCiA1QGdS697XWY1pzsrSjqA9LDEEgdB/KypIlR59RcLuHYw==}
 
+  fast-check@3.23.2:
+    resolution: {integrity: sha512-h5+1OzzfCC3Ef7VbtKdcv7zsstUQwUDlYpUTvjeUsJAssPgLn7QzbboPtL5ro04Mq0rPOsMzl7q5hIbRs2wD1A==}
+    engines: {node: '>=8.0.0'}
+
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
-
-  fetch-cookie@3.0.1:
-    resolution: {integrity: sha512-ZGXe8Y5Z/1FWqQ9q/CrJhkUD73DyBU9VF0hBQmEO/wPHe4A9PKTjplFDLeFX8aOsYypZUcX5Ji/eByn3VCVO3Q==}
 
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
@@ -571,12 +636,22 @@ packages:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
     engines: {node: 6.* || 8.* || >= 10.*}
 
+  get-starknet-core@4.0.0:
+    resolution: {integrity: sha512-6pLmidQZkC3wZsrHY99grQHoGpuuXqkbSP65F8ov1/JsEI8DDLkhsAuLCKFzNOK56cJp+f1bWWfTJ57e9r5eqQ==}
+    deprecated: Package no longer supported. Please use @starknet-io/get-starknet-core
+
   get-stream@8.0.1:
     resolution: {integrity: sha512-VaUJspBffn/LMCJVoMvSAdmscJyS1auj5Zulnn5UoYcY531UWmdwhRWkcGKnGU93m5HSXP9LP2usOryrBtQowA==}
     engines: {node: '>=16'}
 
+  google-protobuf@3.21.4:
+    resolution: {integrity: sha512-MnG7N936zcKTco4Jd2PX2U96Kf9PxygAPKBug+74LHzmHXmceN16MmRcdgZv+DGef/S9YvQAfRsNCn4cjf9yyQ==}
+
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+
+  grpc-web@1.5.0:
+    resolution: {integrity: sha512-y1tS3BBIoiVSzKTDF3Hm7E8hV2n7YY7pO0Uo7depfWJqKzWE+SKr0jvHNIJsJJYILQlpYShpi/DRJJMbosgDMQ==}
 
   human-signals@5.0.0:
     resolution: {integrity: sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ==}
@@ -601,9 +676,6 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-
-  isomorphic-fetch@3.0.0:
-    resolution: {integrity: sha512-qvUtwJ3j6qwsF3jLxkZ72qCgjMysPzDfeV240JHiGZsANBYd+EEuu35v7dfrJ9Up0Ak07D7GGSkGhCHTqg/5wA==}
 
   isows@1.0.3:
     resolution: {integrity: sha512-2cKei4vlmg2cxEjm3wVSqn8pcoRF/LX/wpifuuNquFO4SQmPwarClT+SUCA2lt+l581tTeZIPIZuIDo2jWN1fg==}
@@ -636,11 +708,17 @@ packages:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
 
+  lodash.camelcase@4.3.0:
+    resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
+
   lodash.snakecase@4.1.1:
     resolution: {integrity: sha512-QZ1d4xoBHYUeuouhEq3lk3Uq7ldgyFXGBhg04+oRLnIz8o9T65Eh+8YdroUwn846zchkA9yDsDl5CVVaV2nqYw==}
 
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
+  long@5.3.2:
+    resolution: {integrity: sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA==}
 
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -685,15 +763,6 @@ packages:
 
   node-cleanup@2.1.2:
     resolution: {integrity: sha512-qN8v/s2PAJwGUtr1/hYTpNKlD6Y9rc4p8KSmJXyGdYGZsDGKXrGThikLFP9OCHFeLeEpQzPwiAtdIvBLqm//Hw==}
-
-  node-fetch@2.7.0:
-    resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
-    engines: {node: 4.x || >=6.0.0}
-    peerDependencies:
-      encoding: ^0.1.0
-    peerDependenciesMeta:
-      encoding:
-        optional: true
 
   node-gyp-build@4.8.4:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
@@ -750,6 +819,10 @@ packages:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==}
     engines: {node: '>= 6'}
 
+  protobufjs@7.5.4:
+    resolution: {integrity: sha512-CvexbZtbov6jW2eXAvLukXjXUW1TzFaivC46BpWc/3BpcCysb5Vffu+B3XHMm8lVEuy2Mm4XGex8hBSg1yapPg==}
+    engines: {node: '>=12.0.0'}
+
   proxy-deep@3.1.1:
     resolution: {integrity: sha512-kppbvLUNJ4IOMZds9/4gz/rtT5OFiesy3XosLsgMKlF3vb6GA5Y3ptyDlzKLcOcUBW+zaY+RiMINTsgE+O6e+Q==}
 
@@ -758,15 +831,8 @@ packages:
     engines: {node: '>= 0.10'}
     hasBin: true
 
-  psl@1.15.0:
-    resolution: {integrity: sha512-JZd3gMVBAVQkSs6HdNZo9Sdo0LNcQeMNP3CozBJb3JYC/QUYZTnKxP+f8oWRX4rHP5EurWxqAHTSwUCjlNKa1w==}
-
-  punycode@2.3.1:
-    resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
-    engines: {node: '>=6'}
-
-  querystringify@2.2.0:
-    resolution: {integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==}
+  pure-rand@6.1.0:
+    resolution: {integrity: sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==}
 
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
@@ -784,9 +850,6 @@ packages:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
 
-  requires-port@1.0.0:
-    resolution: {integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==}
-
   rxjs@7.5.5:
     resolution: {integrity: sha512-sy+H0pQofO95VDmFLzyaw9xNJU4KTRSwQIGM6+iG3SypAtCiLDzpeG8sJrNCWn2Up9km+KhkvTdbkrdy+yzZdw==}
 
@@ -795,9 +858,6 @@ packages:
 
   seedrandom@3.0.5:
     resolution: {integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==}
-
-  set-cookie-parser@2.7.1:
-    resolution: {integrity: sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ==}
 
   shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
@@ -817,11 +877,9 @@ packages:
   split@0.3.3:
     resolution: {integrity: sha512-wD2AeVmxXRBoX44wAycgjVpMhvbwdI2aZjCkvfNcH1YqHQvJVa1duWc73OyVGJUc05fhFaTZeQ/PYsrmyH0JVA==}
 
-  starknet@6.23.1:
-    resolution: {integrity: sha512-vQV9luXpmwZZs9RVZaRwm2iD8T0PYx1AzgZeQsCvD89tR0HwUF0paty27ZzuJrdPe0CmAs/ipAYFCE55jbj0RQ==}
-
-  starknet@6.24.1:
-    resolution: {integrity: sha512-g7tiCt73berhcNi41otlN3T3kxZnIvZhMi8WdC21Y6GC6zoQgbI2z1t7JAZF9c4xZiomlanwVnurcpyfEdyMpg==}
+  starknet@7.6.4:
+    resolution: {integrity: sha512-FB20IaLCDbh/XomkB+19f5jmNxG+RzNdRO7QUhm7nfH81UPIt2C/MyWAlHCYkbv2wznSEb73wpxbp9tytokTgQ==}
+    engines: {node: '>=22'}
 
   stream-combiner@0.0.4:
     resolution: {integrity: sha512-rT00SPnTVyRsaSz5zgSPma/aHSOic5U1prhYdRy5HS2kTZviFpmDgzilbtsJsxiroqACmayynDN/9VzIbX5DOw==}
@@ -852,13 +910,6 @@ packages:
 
   tiny-emitter@2.1.0:
     resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
-
-  tough-cookie@4.1.4:
-    resolution: {integrity: sha512-Loo5UUvLD9ScZ6jh8beX1T6sO1w2/MpCRpEP7V280GKMVUQ0Jzar2U3UJPsrdbziLEMMhu3Ujnq//rhiFuIeag==}
-    engines: {node: '>=6'}
-
-  tr46@0.0.3:
-    resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
 
   ts-mixer@6.0.4:
     resolution: {integrity: sha512-ufKpbmrugz5Aou4wcr5Wc1UUFWOLhq+Fm6qa6P0w0K5Qw2yhaUoiWszhCVuNQyNwrlGiscHOmqYoAox1PtvgjA==}
@@ -895,16 +946,9 @@ packages:
     resolution: {integrity: sha512-q/1rj5D0/zayJB2FraXdaWxbhWiNKDvu8naDT2dl1yTlvJp4BLtOcp2a5BvgGNQpYYJzau7tf1WgKv3b+7mqpQ==}
     engines: {node: '>=18.17'}
 
-  universalify@0.2.0:
-    resolution: {integrity: sha512-CJ1QgKmNg3CwvAv/kOFmtnEN05f0D/cn9QntgNOQlQF9dgvVTHj3t+8JPdjqawCHk7V/KA+fbUqzZ9XWhcqPUg==}
-    engines: {node: '>= 4.0.0'}
-
   universalify@2.0.1:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
-
-  url-parse@1.5.10:
-    resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}
 
   use-sync-external-store@1.5.0:
     resolution: {integrity: sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==}
@@ -931,18 +975,9 @@ packages:
       typescript:
         optional: true
 
-  webidl-conversions@3.0.1:
-    resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
-
   websocket@1.0.35:
     resolution: {integrity: sha512-/REy6amwPZl44DDzvRCkaI1q1bIiQB0mEFQLUrhz3z2EK91cp3n72rAjUlrTP0zV22HJIUOVHQGPxhFRjxjt+Q==}
     engines: {node: '>=4.0.0'}
-
-  whatwg-fetch@3.6.20:
-    resolution: {integrity: sha512-EqhiFU6daOA8kpjOWTL0olhVOF3i7OrFzSYiGsEMB8GcXS+RrzauAERX65xMeNWVqxA6HXH2m69Z9LaKKdisfg==}
-
-  whatwg-url@5.0.0:
-    resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
 
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
@@ -1071,16 +1106,24 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@dojoengine/core@1.5.12(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)':
+  '@dojoengine/core@1.6.3(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)':
     dependencies:
       '@dojoengine/recs': 2.0.13(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)
-      starknet: 6.23.1
+      starknet: 7.6.4
       zod: 3.25.57
     transitivePeerDependencies:
       - bufferutil
-      - encoding
       - typescript
       - utf-8-validate
+
+  '@dojoengine/grpc@1.6.3':
+    dependencies:
+      '@grpc/grpc-js': 1.13.4
+      '@protobuf-ts/grpcweb-transport': 2.11.1
+      '@protobuf-ts/runtime': 2.11.1
+      '@protobuf-ts/runtime-rpc': 2.11.1
+      google-protobuf: 3.21.4
+      grpc-web: 1.5.0
 
   '@dojoengine/recs@2.0.13(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)':
     dependencies:
@@ -1094,43 +1137,44 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@dojoengine/sdk@1.5.12(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.24.1)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)':
+  '@dojoengine/sdk@1.6.5(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@7.6.4)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)':
     dependencies:
-      '@dojoengine/core': 1.5.12(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)
-      '@dojoengine/torii-client': 1.5.12
-      '@dojoengine/torii-wasm': 1.5.12
-      '@dojoengine/utils': 1.5.12(bufferutil@4.0.9)(starknet@6.24.1)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)
-      '@starknet-react/chains': 3.1.3
-      '@starknet-react/core': 3.7.4(bufferutil@4.0.9)(react@18.3.1)(starknet@6.24.1)(typescript@5.4.5)(utf-8-validate@5.0.10)
+      '@dojoengine/core': 1.6.3(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)
+      '@dojoengine/grpc': 1.6.3
+      '@dojoengine/torii-client': 1.6.3
+      '@dojoengine/torii-wasm': 1.6.3
+      '@dojoengine/utils': 1.6.3(bufferutil@4.0.9)(starknet@7.6.4)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)
+      '@starknet-react/chains': 4.0.4
+      '@starknet-react/core': 4.0.4(bufferutil@4.0.9)(get-starknet-core@4.0.0)(react@18.3.1)(starknet@7.6.4)(typescript@5.4.5)(utf-8-validate@5.0.10)
       '@types/react': 18.3.23
       '@types/react-dom': 18.3.7(@types/react@18.3.23)
+      effect: 3.17.11
       immer: 10.1.1
       neverthrow: 8.2.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      starknet: 6.24.1
+      starknet: 7.6.4
       zustand: 4.5.7(@types/react@18.3.23)(immer@10.1.1)(react@18.3.1)
     transitivePeerDependencies:
       - bufferutil
-      - encoding
       - get-starknet-core
       - typescript
       - utf-8-validate
       - zod
 
-  '@dojoengine/torii-client@1.5.12':
+  '@dojoengine/torii-client@1.6.3':
     dependencies:
-      '@dojoengine/torii-wasm': 1.5.12
+      '@dojoengine/torii-wasm': 1.6.3
 
-  '@dojoengine/torii-wasm@1.5.12': {}
+  '@dojoengine/torii-wasm@1.6.3': {}
 
-  '@dojoengine/utils@1.5.12(bufferutil@4.0.9)(starknet@6.24.1)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)':
+  '@dojoengine/utils@1.6.3(bufferutil@4.0.9)(starknet@7.6.4)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)':
     dependencies:
       '@dojoengine/recs': 2.0.13(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)
       '@latticexyz/utils': 2.2.21
       mathjs: 12.4.3
       micro-starknet: 0.2.3
-      starknet: 6.24.1
+      starknet: 7.6.4
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -1140,6 +1184,20 @@ snapshots:
   '@favware/colorette-spinner@1.0.1':
     dependencies:
       colorette: 2.0.20
+
+  '@grpc/grpc-js@1.13.4':
+    dependencies:
+      '@grpc/proto-loader': 0.7.15
+      '@js-sdsl/ordered-map': 4.4.2
+
+  '@grpc/proto-loader@0.7.15':
+    dependencies:
+      lodash.camelcase: 4.3.0
+      long: 5.3.2
+      protobufjs: 7.5.4
+      yargs: 17.7.2
+
+  '@js-sdsl/ordered-map@4.4.2': {}
 
   '@latticexyz/schema-type@2.0.12(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)':
     dependencies:
@@ -1190,6 +1248,40 @@ snapshots:
   '@noble/hashes@1.6.0': {}
 
   '@noble/hashes@1.8.0': {}
+
+  '@protobuf-ts/grpcweb-transport@2.11.1':
+    dependencies:
+      '@protobuf-ts/runtime': 2.11.1
+      '@protobuf-ts/runtime-rpc': 2.11.1
+
+  '@protobuf-ts/runtime-rpc@2.11.1':
+    dependencies:
+      '@protobuf-ts/runtime': 2.11.1
+
+  '@protobuf-ts/runtime@2.11.1': {}
+
+  '@protobufjs/aspromise@1.1.2': {}
+
+  '@protobufjs/base64@1.1.2': {}
+
+  '@protobufjs/codegen@2.0.4': {}
+
+  '@protobufjs/eventemitter@1.1.0': {}
+
+  '@protobufjs/fetch@1.1.0':
+    dependencies:
+      '@protobufjs/aspromise': 1.1.2
+      '@protobufjs/inquire': 1.1.0
+
+  '@protobufjs/float@1.0.2': {}
+
+  '@protobufjs/inquire@1.1.0': {}
+
+  '@protobufjs/path@1.1.2': {}
+
+  '@protobufjs/pool@1.1.0': {}
+
+  '@protobufjs/utf8@1.1.0': {}
 
   '@rollup/rollup-linux-x64-gnu@4.42.0':
     optional: true
@@ -1323,19 +1415,24 @@ snapshots:
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.0
 
+  '@standard-schema/spec@1.0.0': {}
+
   '@starknet-io/types-js@0.7.10': {}
 
-  '@starknet-react/chains@3.1.3': {}
+  '@starknet-io/types-js@0.8.4': {}
 
-  '@starknet-react/core@3.7.4(bufferutil@4.0.9)(react@18.3.1)(starknet@6.24.1)(typescript@5.4.5)(utf-8-validate@5.0.10)':
+  '@starknet-react/chains@4.0.4': {}
+
+  '@starknet-react/core@4.0.4(bufferutil@4.0.9)(get-starknet-core@4.0.0)(react@18.3.1)(starknet@7.6.4)(typescript@5.4.5)(utf-8-validate@5.0.10)':
     dependencies:
       '@starknet-io/types-js': 0.7.10
-      '@starknet-react/chains': 3.1.3
+      '@starknet-react/chains': 4.0.4
       '@tanstack/react-query': 5.80.6(react@18.3.1)
       abi-wan-kanabi: 2.2.4
       eventemitter3: 5.0.1
+      get-starknet-core: 4.0.0
       react: 18.3.1
-      starknet: 6.24.1
+      starknet: 7.6.4
       viem: 2.31.0(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)
       zod: 3.25.57
     transitivePeerDependencies:
@@ -1373,16 +1470,17 @@ snapshots:
     dependencies:
       '@types/node': 22.15.31
 
-  '@underware/pistols-sdk@1.0.24(@dojoengine/core@1.5.12(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10))(@dojoengine/sdk@1.5.12(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.24.1)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57))(@starknet-react/chains@3.1.3)(immer@10.1.1)(react@18.3.1)(starknet@6.24.1)':
+  '@underware/pistols-sdk@1.1.8(@dojoengine/core@1.6.3(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10))(@dojoengine/sdk@1.6.5(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@7.6.4)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57))(@starknet-react/chains@4.0.4)(immer@10.1.1)(react@18.3.1)(starknet@7.6.4)':
     dependencies:
-      '@dojoengine/core': 1.5.12(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)
-      '@dojoengine/sdk': 1.5.12(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@6.24.1)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)
-      '@starknet-react/chains': 3.1.3
+      '@dojoengine/core': 1.6.3(bufferutil@4.0.9)(typescript@5.4.5)(utf-8-validate@5.0.10)
+      '@dojoengine/sdk': 1.6.5(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(bufferutil@4.0.9)(get-starknet-core@4.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(starknet@7.6.4)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.25.57)
+      '@starknet-io/types-js': 0.8.4
+      '@starknet-react/chains': 4.0.4
       buffer: 6.0.3
       event-emitter: 0.3.5
       immer: 10.1.1
       react: 18.3.1
-      starknet: 6.24.1
+      starknet: 7.6.4
       swr: 2.3.3(react@18.3.1)
 
   '@vladfrangu/async_event_emitter@2.4.6': {}
@@ -1494,6 +1592,11 @@ snapshots:
 
   duplexer@0.1.2: {}
 
+  effect@3.17.11:
+    dependencies:
+      '@standard-schema/spec': 1.0.0
+      fast-check: 3.23.2
+
   emoji-regex@8.0.0: {}
 
   es5-ext@0.10.64:
@@ -1560,12 +1663,11 @@ snapshots:
     dependencies:
       type: 2.7.3
 
-  fast-deep-equal@3.1.3: {}
-
-  fetch-cookie@3.0.1:
+  fast-check@3.23.2:
     dependencies:
-      set-cookie-parser: 2.7.1
-      tough-cookie: 4.1.4
+      pure-rand: 6.1.0
+
+  fast-deep-equal@3.1.3: {}
 
   find-up@5.0.0:
     dependencies:
@@ -1584,9 +1686,17 @@ snapshots:
 
   get-caller-file@2.0.5: {}
 
+  get-starknet-core@4.0.0:
+    dependencies:
+      '@starknet-io/types-js': 0.7.10
+
   get-stream@8.0.1: {}
 
+  google-protobuf@3.21.4: {}
+
   graceful-fs@4.2.11: {}
+
+  grpc-web@1.5.0: {}
 
   human-signals@5.0.0: {}
 
@@ -1601,13 +1711,6 @@ snapshots:
   is-typedarray@1.0.0: {}
 
   isexe@2.0.0: {}
-
-  isomorphic-fetch@3.0.0:
-    dependencies:
-      node-fetch: 2.7.0
-      whatwg-fetch: 3.6.20
-    transitivePeerDependencies:
-      - encoding
 
   isows@1.0.3(ws@8.13.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)):
     dependencies:
@@ -1637,9 +1740,13 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
+  lodash.camelcase@4.3.0: {}
+
   lodash.snakecase@4.1.1: {}
 
   lodash@4.17.21: {}
+
+  long@5.3.2: {}
 
   loose-envify@1.4.0:
     dependencies:
@@ -1683,10 +1790,6 @@ snapshots:
   next-tick@1.1.0: {}
 
   node-cleanup@2.1.2: {}
-
-  node-fetch@2.7.0:
-    dependencies:
-      whatwg-url: 5.0.0
 
   node-gyp-build@4.8.4: {}
 
@@ -1740,19 +1843,28 @@ snapshots:
       kleur: 3.0.3
       sisteransi: 1.0.5
 
+  protobufjs@7.5.4:
+    dependencies:
+      '@protobufjs/aspromise': 1.1.2
+      '@protobufjs/base64': 1.1.2
+      '@protobufjs/codegen': 2.0.4
+      '@protobufjs/eventemitter': 1.1.0
+      '@protobufjs/fetch': 1.1.0
+      '@protobufjs/float': 1.0.2
+      '@protobufjs/inquire': 1.1.0
+      '@protobufjs/path': 1.1.2
+      '@protobufjs/pool': 1.1.0
+      '@protobufjs/utf8': 1.1.0
+      '@types/node': 22.15.31
+      long: 5.3.2
+
   proxy-deep@3.1.1: {}
 
   ps-tree@1.2.0:
     dependencies:
       event-stream: 3.3.4
 
-  psl@1.15.0:
-    dependencies:
-      punycode: 2.3.1
-
-  punycode@2.3.1: {}
-
-  querystringify@2.2.0: {}
+  pure-rand@6.1.0: {}
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
@@ -1770,8 +1882,6 @@ snapshots:
 
   require-directory@2.1.1: {}
 
-  requires-port@1.0.0: {}
-
   rxjs@7.5.5:
     dependencies:
       tslib: 2.8.1
@@ -1781,8 +1891,6 @@ snapshots:
       loose-envify: 1.4.0
 
   seedrandom@3.0.5: {}
-
-  set-cookie-parser@2.7.1: {}
 
   shebang-command@2.0.0:
     dependencies:
@@ -1798,37 +1906,18 @@ snapshots:
     dependencies:
       through: 2.3.8
 
-  starknet@6.23.1:
+  starknet@7.6.4:
     dependencies:
       '@noble/curves': 1.7.0
       '@noble/hashes': 1.6.0
       '@scure/base': 1.2.1
       '@scure/starknet': 1.1.0
+      '@starknet-io/starknet-types-07': '@starknet-io/types-js@0.7.10'
+      '@starknet-io/starknet-types-08': '@starknet-io/types-js@0.8.4'
       abi-wan-kanabi: 2.2.4
-      fetch-cookie: 3.0.1
-      isomorphic-fetch: 3.0.0
       lossless-json: 4.1.0
       pako: 2.1.0
-      starknet-types-07: '@starknet-io/types-js@0.7.10'
       ts-mixer: 6.0.4
-    transitivePeerDependencies:
-      - encoding
-
-  starknet@6.24.1:
-    dependencies:
-      '@noble/curves': 1.7.0
-      '@noble/hashes': 1.6.0
-      '@scure/base': 1.2.1
-      '@scure/starknet': 1.1.0
-      abi-wan-kanabi: 2.2.4
-      fetch-cookie: 3.0.1
-      isomorphic-fetch: 3.0.0
-      lossless-json: 4.1.0
-      pako: 2.1.0
-      starknet-types-07: '@starknet-io/types-js@0.7.10'
-      ts-mixer: 6.0.4
-    transitivePeerDependencies:
-      - encoding
 
   stream-combiner@0.0.4:
     dependencies:
@@ -1858,15 +1947,6 @@ snapshots:
 
   tiny-emitter@2.1.0: {}
 
-  tough-cookie@4.1.4:
-    dependencies:
-      psl: 1.15.0
-      punycode: 2.3.1
-      universalify: 0.2.0
-      url-parse: 1.5.10
-
-  tr46@0.0.3: {}
-
   ts-mixer@6.0.4: {}
 
   tsc-watch@6.3.1(typescript@5.4.5):
@@ -1893,14 +1973,7 @@ snapshots:
 
   undici@6.21.1: {}
 
-  universalify@0.2.0: {}
-
   universalify@2.0.1: {}
-
-  url-parse@1.5.10:
-    dependencies:
-      querystringify: 2.2.0
-      requires-port: 1.0.0
 
   use-sync-external-store@1.5.0(react@18.3.1):
     dependencies:
@@ -1944,8 +2017,6 @@ snapshots:
       - utf-8-validate
       - zod
 
-  webidl-conversions@3.0.1: {}
-
   websocket@1.0.35:
     dependencies:
       bufferutil: 4.0.9
@@ -1956,13 +2027,6 @@ snapshots:
       yaeti: 0.0.6
     transitivePeerDependencies:
       - supports-color
-
-  whatwg-fetch@3.6.20: {}
-
-  whatwg-url@5.0.0:
-    dependencies:
-      tr46: 0.0.3
-      webidl-conversions: 3.0.1
 
   which@2.0.2:
     dependencies:
